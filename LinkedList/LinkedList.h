@@ -316,6 +316,18 @@ void LinkedList<T>::PopBack() {
 	if (isEmpty())
 		throw std::exception("the list is empty!");
 
+	
+	if(CurSize == 1){
+		
+		delete pFront;
+		
+		pFront = nullptr;
+		pBack = nullptr;
+		CurSize = 0;
+		
+	}
+	
+	
 	node * destroyer = pFront;
 
 	while (destroyer->pNext != pBack) {
