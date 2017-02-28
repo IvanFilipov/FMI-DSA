@@ -13,7 +13,7 @@ bool sieve[N] = { PRIME , };
 
 void PrintPrimes() {
 
-	for (ull_int i = 0; i < N; i++)
+	for (ull_int i = 2; i < N; i++)
 		if (sieve[i] == PRIME)
 			std::cout << i << " is a prime ! \n";
 
@@ -27,7 +27,7 @@ void eratosten(){
 	for (ull_int i = 2; i <= N; i++)
 		if (!sieve[i])
 			for (ull_int j = i * i; j <= N; j += i)
-				sieve[j] = 1;
+				sieve[j] = COMPOSITE;
 
 	PrintPrimes();
 
