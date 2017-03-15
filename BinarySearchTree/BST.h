@@ -45,7 +45,7 @@ private:
 
 	DataType* Search(Node*,const KeyType&);
 
-	void Remove(Node*&,const KeyType&);
+	void Remove(Node*&,Node*&,const KeyType&);
 
 	
 
