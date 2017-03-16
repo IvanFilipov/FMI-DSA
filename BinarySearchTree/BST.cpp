@@ -174,14 +174,14 @@ void BST::Remove(Node*& root,Node*& last,const KeyType& key) {
 	else {  //one child or none
 		
 		if (root->pLeft) {
-			if (root->pLeft->pLeft||root->pLeft->pRight)
-			{
+			
+			if (root->pLeft->pLeft||root->pLeft->pRight){
+				
 				Node* temp = root;
 				last->pLeft = root->pLeft;
 
 				delete[] temp;
 				temp = nullptr;
-
 				return;
 			}
 
@@ -192,20 +192,20 @@ void BST::Remove(Node*& root,Node*& last,const KeyType& key) {
 		}
 
 		if (root->pRight) {
-			if (root->pRight->pLeft || root->pRight->pRight)
-			{
+			
+			if (root->pRight->pLeft || root->pRight->pRight){
+				
 				Node* temp = root;
 				last->pRight = root->pRight;
 
 				delete[] temp;
 				temp = nullptr;
-
 				return;
 			}
 
 			root->Data = root->pRight->Data;
 			root->Key = root->pRight->Key;
-			root = root->pLeft;
+			root = root->pRight;
 
 		}
 
