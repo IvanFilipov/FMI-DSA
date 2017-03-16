@@ -1,4 +1,4 @@
-#include"BST.h"
+#include "BST.h"
 #include<stdexcept>
 
 
@@ -128,26 +128,26 @@ DataType* BST::Search(Node* root,const KeyType& key) {
 
 
 void BST::Remove(const KeyType& key) {
-
-	Remove(root, key);
+	Node* null = nullptr;
+	Remove(root,null, key);
 
 }
 
-void BST::Remove(Node*& root,const KeyType& key) {
+void BST::Remove(Node*& root,Node*& last,const KeyType& key) {
 
 	//search phase
-	
+
 	//there isn't elem with key "key"
 	if (root == nullptr)
 		return; //can be exception or std::err , or std::cout
 
 	if (key > root->Key) {
-		Remove(root->pRight, key);
+		Remove(root->pRight,root, key);
 		return;
 	}
 
 	if (key < root->Key) {
-		Remove(root->pLeft, key);
+		Remove(root->pLeft,root, key);
 		return;
 	}
 
@@ -167,13 +167,23 @@ void BST::Remove(Node*& root,const KeyType& key) {
 		root->Key = tmp->Key;
 
 		//removing the switched elem
-		Remove(root->pLeft, root->Key);
+		Remove(root->pLeft,root, root->Key);
 
 
 	}
 	else {  //one child or none
-
+		
 		if (root->pLeft) {
+			if (root->pLeft->pLeft||root->pLeft->pRight)
+			{
+				Node* temp = root;
+				last->pLeft = root->pLeft;
+
+				delete[] temp;
+				temp = nullptr;
+
+				return;
+			}
 
 			root->Data = root->pLeft->Data;
 			root->Key = root->pLeft->Key;
@@ -182,6 +192,16 @@ void BST::Remove(Node*& root,const KeyType& key) {
 		}
 
 		if (root->pRight) {
+			if (root->pRight->pLeft || root->pRight->pRight)
+			{
+				Node* temp = root;
+				last->pRight = root->pRight;
+
+				delete[] temp;
+				temp = nullptr;
+
+				return;
+			}
 
 			root->Data = root->pRight->Data;
 			root->Key = root->pRight->Key;
