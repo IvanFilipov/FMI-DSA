@@ -9,8 +9,9 @@
 const int N = 5;
 const int K = 2;
 
+
 //the last line form the triangle
-int line[N] ;
+int line[N + 1] ;
 
 int CalcNoverK() {
     
@@ -27,7 +28,7 @@ int CalcNoverK() {
 	}
 
 	//the result is the k-th element in the n -th line 
-	return line[K + 1];
+	return line[K];
 
 }
 
