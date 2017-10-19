@@ -8,19 +8,19 @@
 -prime numbers in [a,b]
 -combinatorics : generation of permutates
 -                calculate     (n)
-							   ( ) = ? ,using Pascal's	
-							   (k)			triangle
+			       ( ) = ? ,using Pascal's	
+       			       (k)	   triangle
 							 
 3.Introduction to data structures. Dynamic array							 
 -complexibility
 -big O notation.
 -some familiar functions' growth
--темплейтни класове контейнери
+-template container classes
 - vector's realization
 - search in unsorted/sorted
 
 4. Linked list
--all kindes - with one/two links, cyclic
+-all kinds - with one/two links, cyclic
 -realization + iterator
 -compare with dynamic array
 -stack + static realization
