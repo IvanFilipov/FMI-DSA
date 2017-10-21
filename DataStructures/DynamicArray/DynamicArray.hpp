@@ -98,7 +98,7 @@ void DynamicArray<T>::CopyFrom(const DynamicArray<T> &other){
 	data = new T[other.CurSize];
 
 	//memcpy(data, other.data, sizeof(T)*other.CurSize);
-	//will not do the trick, because it will make a shadow copy of
+	//will not do the trick, because it will make a shallow copy of
 	//our objects
 
 	for (int i = 0; i < other.CurSize; i++){
@@ -217,7 +217,7 @@ void DynamicArray<T>::SetAt(size_t pos, const T& elem){
 
 
 	if (pos >= CurSize)
-		throw std::out_of_range;
+		throw std::out_of_range("Can't set a non-existent element");
 
 	data[pos] = elem;
 
