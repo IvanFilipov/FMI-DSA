@@ -1,7 +1,7 @@
 #include<cstdio>
 
-#include "./ConsoleApplication1\SimpleSortingAlgorithms.h"
-#include "./ConsoleApplication1/SearchAlgorithms.h"
+#include "SimpleSortingAlgorithms.h"
+#include "SearchAlgorithms.h"
 
 void PrintArr(int* arr, int size) {
 
