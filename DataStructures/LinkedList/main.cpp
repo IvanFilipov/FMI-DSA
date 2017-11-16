@@ -5,24 +5,24 @@ int main(){
 
 	LinkedList<int> list;
 
-	list.PushBack(3);
-	list.PushBack(11);
-	list.PushBack(22); 
-	list.PushBack(33);
+	list.pushBack(3);
+	list.pushBack(11);
+	list.pushBack(22); 
+	list.pushBack(33);
 
-	list.PushFront(44);
-	list.PushFront(55);
+	list.pushFront(44);
+	list.pushFront(55);
 
-	list.Print();
+	list.print();
 
-	if (list.Search(11)){
+	if (list.search(11)){
 
 		std::cout << "found!\n";
 	}
 
-	list.PopBack();
-	list.PopFront();
-	list.PopBack();
+	list.popBack();
+	list.popFront();
+	list.popBack();
 
 	for (LinkedList<int>::Iterator it = list.begin(); it != list.end(); ++it) {
 
@@ -33,12 +33,12 @@ int main(){
 	LinkedList<int> second = list;
 
 	std::cout << "copy ?\n";
-	second.Print();
+	second.print();
 
-	list.PushBack(25);
-	list.PushBack(14);
-	list.PushBack(18);
-	list.PushBack(1);
+	list.pushBack(25);
+	list.pushBack(14);
+	list.pushBack(18);
+	list.pushBack(1);
 
 	std::cout << "modern C++ tests \n\n";
 
@@ -55,7 +55,7 @@ int main(){
 	for (LinkedList<int>::Iterator it = list.begin(); it != list.end(); ++it) {
 
 		if(*it == 25)
-			list.InsertAfter(it,666);
+			list.insertAfter(it,666);
 
 	}
 
@@ -67,7 +67,7 @@ int main(){
 	//filter
 	for (auto it = list.begin(); it != list.end(); ) {
 		if (*it % 2 == 0) {
-			it = list.EraseAfter(it);
+			it = list.eraseAfter(it);
 		}
 		else {
 			++it;
@@ -84,18 +84,18 @@ int main(){
 
 		(*it)++;
 	}
+
 	for (auto& i : list) {
 		std::cout << i << " ";
 	}
+
 	std::cout << '\n';
-
-
 
 	//insert back
 	for (LinkedList<int>::Iterator it = list.begin(); it != list.end(); ++it) {
 
 		if (*it == 19)
-			list.InsertAfter(it, 666);
+			list.insertAfter(it, 666);
 
 	}
 

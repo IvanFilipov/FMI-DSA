@@ -13,7 +13,7 @@ const int K = 2;
 //the last line form the triangle
 int line[N + 1] ;
 
-int CalcNoverK() {
+int calcNoverK() {
     
 	//first element of the line is  always 1 ... 
 	line[0] = 1;
@@ -37,7 +37,7 @@ int CalcNoverK() {
 int main() {
 
 	printf("( %d )\n", N);
-	printf("(   ) = %d\n", CalcNoverK());
+	printf("(   ) = %d\n", calcNoverK());
 	printf("( %d )\n", K);
 
 	return 0;

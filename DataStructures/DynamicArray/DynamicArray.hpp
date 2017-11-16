@@ -5,9 +5,9 @@ class DynamicArray{
 
 private :
 
-	T *data;
-	size_t CurSize;
-	size_t Capacity;
+	T* pData;
+	size_t curSize;
+	size_t capacity;
 
 	bool isSorted;
 
@@ -21,53 +21,53 @@ public:
 
 	//helpers
 private:
-	void CopyFrom(const DynamicArray<T>&);
-    void Free();
-	void Resize(size_t NewSize);
 
-	int BinarySearch(const T&, size_t, size_t )const;
-	int LinearSearch(const T&)const;
+	void copyFrom(const DynamicArray<T>&);
+    void free();
+	void resize(size_t);
+
+	int binarySearch(const T&, size_t, size_t )const;
+	int linearSearch(const T&)const;
 
 
 public:
 
 	//add a new elem in the end
-	void PushBack(const T&);
+	void pushBack(const T&);
 	//removes the last elem
-	void PopBack(); //both with amortized O(1) complexity,
+	void popBack(); //both with amortized O(1) complexity,
 					//because memory reallocations
 
 
 	//new elem on random position
-	void InsertAt(size_t,const T&);
+	void insertAt(size_t,const T&);
 
 	//removes an elem on random position
-	void RemoveAt(size_t);
+	void removeAt(size_t);
 
-	const T& GetAt(size_t)const;
-	void SetAt(size_t,const T&);
+	const T& getAt(size_t)const;
+	void setAt(size_t,const T&);
 	const T& operator[](size_t)const;
 	T& operator[](size_t);
 
-	size_t GetSize()const;
-	size_t GetCapacity()const;
+	size_t getSize()const;
+	size_t getCapacity()const;
 
 	//searches for an element and returns it's index if founded  , -1 else
-	int Search(const T&)const;
+	int search(const T&)const;
 
 	//sorts the vector using the simple insertion sort algorithm
-	void Sort();
-
+	void sort();
 
 	//simple print functions
-	void PrintInfo()const;
+	void printInfo()const;
 
-	void PrintElems()const;
+	void printElems()const;
 
 };
 
 template<class T>
-DynamicArray<T>::DynamicArray():data(nullptr), CurSize(0), Capacity(0){
+DynamicArray<T>::DynamicArray():pData(nullptr), curSize(0), capacity(0){
 
 	/*...*/
 }
@@ -76,44 +76,44 @@ DynamicArray<T>::DynamicArray():data(nullptr), CurSize(0), Capacity(0){
 
 template<class T>
 DynamicArray<T>::~DynamicArray(){
-	Free();
+
+	free();
 }
 
 template<class T>
-void DynamicArray<T>::Free(){
+void DynamicArray<T>::free(){
 	
-	delete[] data;
+	delete[] pData;
 
-	data = nullptr;
-	CurSize = 0;
-	Capacity = 0;
+	pData = nullptr;
+	curSize = 0;
+	capacity = 0;
 
 }
 
 template<class T>
-void DynamicArray<T>::CopyFrom(const DynamicArray<T> &other){
+void DynamicArray<T>::copyFrom(const DynamicArray<T> &other){
 
-	Free();
+	free();
 
-	data = new T[other.CurSize];
+	pData = new T[other.curSize];
 
 	//memcpy(data, other.data, sizeof(T)*other.CurSize);
 	//will not do the trick, because it will make a shallow copy of
 	//our objects
 
-	for (int i = 0; i < other.CurSize; i++){
+	for (int i = 0; i < other.curSize; i++)
+		pData[i] = other.pData[i];
+	
 
-		data[i] = other.data[i];
-	}
-
-	CurSize = other.CurSize;
-	Capacity = other.Capacity;
+	curSize = other.curSize;
+	capacity = other.capacity;
 	isSorted = other.isSorted;
 }
 template<class T>
-DynamicArray<T>::DynamicArray(const DynamicArray<T> &other):data(nullptr),CurSize(0),Capacity(0){
+DynamicArray<T>::DynamicArray(const DynamicArray<T> &other):pData(nullptr),curSize(0),capacity(0){
 
-	CopyFrom(other);
+	copyFrom(other);
 
 }
 
@@ -122,7 +122,8 @@ DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray<T> &other){
 
 	if (this != &other){
 
-		CopyFrom(other);
+		free();
+		copyFrom(other);
 
 	}
 
@@ -131,81 +132,80 @@ DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray<T> &other){
 }
 
 template<class T>
-void DynamicArray<T>::Resize(size_t NewCap){
+void DynamicArray<T>::resize(size_t newCap){
 
 
-	T *temp = data;
+	T *temp = pData;
 
-	data = new T[NewCap];
+	pData = new T[newCap];
 
-	for (int i = 0; i < CurSize; i++){
+	for (int i = 0; i < curSize; i++)
+		pData[i] = temp[i];
+	
 
-		data[i] = temp[i];
-	}
-
-	Capacity = NewCap;
+	capacity = newCap;
 
 	delete[] temp;
 }
 
 template<class T>
-void DynamicArray<T>::PushBack(const T& elem){
+void DynamicArray<T>::pushBack(const T& elem){
 
-	if (CurSize >= Capacity){
+	if (curSize >= capacity){
 
-		size_t NewCap = (Capacity == 0 ? 2 : Capacity * 2);
-		Resize(NewCap);
+		size_t newCap = (capacity == 0 ? 2 : capacity * 2);
+		resize(newCap);
 	}
 
-	data[CurSize++] = elem;
+	pData[curSize++] = elem;
 
-	if (CurSize == 1) {
+	if (curSize == 1) {
 
 		isSorted = true;
 		return;
 	}
 
-	if(data[CurSize - 2] > data[CurSize - 1])
+	if(pData[curSize - 2] > pData[curSize - 1])
 		isSorted = false;
 
 }
 
 template<class T>
-void DynamicArray<T>::PopBack() {
+void DynamicArray<T>::popBack() {
 
-	if (CurSize)
-		CurSize--;
+	if (curSize)
+		curSize--;
 	else
 		throw std::length_error("already empty!");
 
-	if (CurSize * 2 <= Capacity) {
+	if (curSize * 2 <= capacity) {
 
-		size_t NewCap = ((CurSize == 0) ? 0 : Capacity / 2);
-		Resize(NewCap);
+		size_t newCap = ((curSize == 0) ? 0 : capacity / 2);
+		resize(newCap);
 	}
 
 }
 
 template<class T>
-void DynamicArray<T>::InsertAt(size_t pos, const T& newElem){
+void DynamicArray<T>::insertAt(size_t pos, const T& newElem){
 	
-	bool SortedBefore = isSorted;
+	bool sortedBefore = isSorted;
 
-	PushBack(newElem); //will take care of the memory 
+	pushBack(newElem); //will take care of the memory 
 
-	if (pos >= CurSize) //the element should be the last one
+	if (pos >= curSize) //the element should be the last one
 		return;
 
-	if (SortedBefore)
+	if (sortedBefore)
 		isSorted = true; //maybe our elem will go to its sorted position
 
 	//now we should 'roll' our element back to the wanted position 
-	for (size_t i = CurSize - 1; i > pos; i--) {
+	for (size_t i = curSize - 1; i > pos; i--) {
 
-		if (data[i] > data[i - 1])
+		if (pData[i] > pData[i - 1])
 			isSorted = false;
 
-		std::swap(data[i], data[i - 1]);
+		std::swap(pData[i], pData[i - 1]);
 	}
 
 }
@@ -213,135 +213,132 @@ void DynamicArray<T>::InsertAt(size_t pos, const T& newElem){
 
 
 template<class T>
-void DynamicArray<T>::SetAt(size_t pos, const T& elem){
+void DynamicArray<T>::setAt(size_t pos, const T& elem){
 
 
-	if (pos >= CurSize)
+	if (pos >= curSize)
 		throw std::out_of_range("Can't set a non-existent element");
 
-	data[pos] = elem;
+	pData[pos] = elem;
 
 }
 
 template<class T>
-void DynamicArray<T>::RemoveAt(size_t pos) {
+void DynamicArray<T>::removeAt(size_t pos) {
 
-	if (pos >= CurSize || CurSize == 1) { //just removes the last elem
-		PopBack();
+	if (pos >= curSize || curSize == 1) { //just removes the last elem
+		popBack();
 		return;
 	}
 
 	if (!isSorted) { //faster version O(1), but can be unexpected
-		std::swap(data[CurSize - 1], data[pos]);	 //from the class' client
-		PopBack();
+		
+		std::swap(pData[curSize - 1], pData[pos]);	 //from the class' client
+		popBack();
 		return;
 	}
 
 	//else ..
-	for(size_t i = pos; i < CurSize-1 ;i++)
-		std::swap(data[i], data[i+1]);
+	for(size_t i = pos; i < curSize-1 ;i++)
+		std::swap(pData[i], pData[i+1]);
 
-	PopBack();
+	popBack();
 
 }
 template<class T>
-const T& DynamicArray<T>::GetAt(size_t pos)const{
+const T& DynamicArray<T>::getAt(size_t pos)const{
 
-	if (pos  >= CurSize){
-
+	if (pos  >= curSize)
 		throw std::out_of_range("out of range!!!");
 
-	}
-
-	return data[pos];
+	return pData[pos];
 }
 
 template<class T>
 const T& DynamicArray<T>::operator[](size_t pos)const{
 
-	GetAt(pos);
+	getAt(pos);
 }
 
 template<class T>
 T& DynamicArray<T>::operator[](size_t pos){
 
-	if (pos >= CurSize){
+	if (pos >= curSize)
 		throw std::out_of_range("out of range!!!");
-	}
 
-	return data[pos];
+	return pData[pos];
 }
 
 template<class T>
-size_t DynamicArray<T>::GetSize()const{
+size_t DynamicArray<T>::getSize()const{
 
-	return CurSize;
+	return curSize;
 }
 
 template<class T>
-size_t DynamicArray<T>::GetCapacity()const{
+size_t DynamicArray<T>::getCapacity()const{
 
-	return Capacity;
+	return capacity;
 }
 
 
 template<class T>
-void DynamicArray<T>::Sort() {
+void DynamicArray<T>::sort() {
 
 	if (isSorted)
 		return;
 
 	//complexity O(n^2)
-	for (int i = 1; i < CurSize; i++)
+	for (int i = 1; i < curSize; i++)
 		for (int j = i; j >= 1; j--)
-			if (data[j] < data[j - 1])
-				std::swap(data[j], data[j - 1]);
+			if (pData[j] < pData[j - 1])
+				std::swap(pData[j], pData[j - 1]);
 
 	isSorted = true;
 
 }
 
 template<class T>
-int DynamicArray<T>::Search(const T& e) const{
+int DynamicArray<T>::search(const T& e) const{
 
 	if (isSorted) {
 
 		std::cout << "using binary search ";
-		return BinarySearch(e, 0, CurSize); // O(logn)
+		return binarySearch(e, 0, curSize); // O(logn)
 	}
 	else {
 
 		std::cout << "using linear search ";
-		return LinearSearch(e);            //O(n)
+		return linearSearch(e);            //O(n)
 	}
 }
 
 template<class T>
-int DynamicArray<T>::BinarySearch(const T& e, size_t L, size_t R)const {
+int DynamicArray<T>::binarySearch(const T& e, size_t L, size_t R)const {
 
 	//there is no such element
-	if (L >= R)
+	if (L > R)
 		return -1;
 
 	size_t med = (L + R) / 2;
 
-	if (data[med] == e)
+	if (pData[med] == e)
 		return med;
 
-	if (data[med] > e)
-		return BinarySearch(e, L, med - 1);
+	if (pData[med] > e)
+		return binarySearch(e, L, med - 1);
 
-	if(data[med] < e)
-		return BinarySearch(e, med + 1, R);
+	if(pData[med] < e)
+		return binarySearch(e, med + 1, R);
 
 
 }
 
 template<class T>
-int DynamicArray<T>::LinearSearch(const T& e) const{
+int DynamicArray<T>::linearSearch(const T& e) const{
 
-	for (int i = 0; i < CurSize; i++)
-		if (data[i] == e)
+	for (int i = 0; i < curSize; i++)
+		if (pData[i] == e)
 			return i;
 
 	return -1;
@@ -349,22 +346,22 @@ int DynamicArray<T>::LinearSearch(const T& e) const{
 }
 
 template<class T>
-void DynamicArray<T>::PrintInfo()const{
+void DynamicArray<T>::printInfo()const{
 
 	std::cout << "obj at: Ox" << this
-		<< " buffer starts at: Ox" << data
-		<< " length:" << CurSize
-		<< " capacity:" << Capacity << std::endl;
+		<< " buffer starts at: Ox" << pData
+		<< " length:" << curSize
+		<< " capacity:" << capacity << std::endl;
 
 }
 
 
 //T should have operator<< redefined
 template<class T>
-void DynamicArray<T>::PrintElems()const {
+void DynamicArray<T>::printElems()const {
 
-	for (int i = 0; i < CurSize; i++)
-		std::cout << data[i] << "/";
+	for (int i = 0; i < curSize; i++)
+		std::cout << pData[i] << "/";
 
 	std::cout << std::endl;
 

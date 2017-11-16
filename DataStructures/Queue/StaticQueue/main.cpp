@@ -13,46 +13,46 @@ int main() {
 
 	for (int i = 0; i < MAXN; i++) {
 
-		q.Enqueue(i + 1);
+		q.enqueue(i + 1);
 		std::cout << "elem " << i + 1
 			<< " successfully added!\n";
 
 	}
 
-	std::cout << "\ncurrent size : " << q.GetNumElems()
+	std::cout << "\ncurrent size : " << q.getNumElems()
 		<< std::endl;
 
 	for (int i = 0; i < MAXN; i++) {
 
-		std::cout << "elem " << q.Dequeue()
+		std::cout << "elem " << q.dequeue()
 			<< " successfully removed!\n";
 
 	}
 
-	std::cout << "\ncurrent size : " << q.GetNumElems()
+	std::cout << "\ncurrent size : " << q.getNumElems()
 		<< std::endl;
 
 
 	for (int i = 0; i < MAXN - 3; i++) {
 
-		q.Enqueue(i + 1);
+		q.enqueue(i + 1);
 		std::cout << "elem " << i + 1
 			<< " successfully added!\n";
 
 	}
 
-	std::cout << "\ncurrent size : " << q.GetNumElems()
+	std::cout << "\ncurrent size : " << q.getNumElems()
 		<< std::endl;
 
 	for (int i = 0; i < MAXN - 5; i++) {
 
-		std::cout << "elem " << q.Dequeue()
+		std::cout << "elem " << q.dequeue()
 			<< " successfully removed!\n";
 
 	}
 
 
-	std::cout << "\ncurrent size : " << q.GetNumElems()
+	std::cout << "\ncurrent size : " << q.getNumElems()
 		<< std::endl;
 
 	return 0;

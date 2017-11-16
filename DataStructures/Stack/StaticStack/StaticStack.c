@@ -12,7 +12,7 @@ typedef int data;
 data stack[MAXN];
 int top;
 
-void Init() {
+void init() {
 
 	top = 0;
 }
@@ -48,7 +48,7 @@ int main() {
 
 	int cnt = INPUTN;
 	data p;
-	Init();
+	init();
 
 	do {
 		scanf("%d", &p);
@@ -57,7 +57,7 @@ int main() {
 	} while (--cnt);
 
 	while (!isEmpty())
-		printf("%d", pop());
+		printf("%d ", pop());
 
 	printf("\n");
 	return 0;

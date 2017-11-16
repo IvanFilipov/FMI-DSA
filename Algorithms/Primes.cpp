@@ -18,7 +18,7 @@ bool isPrime(int n) {
 
 
 //slower version ...
-void PrimesInIntervalSlow(int a, int b) {
+void primesInIntervalSlow(int a, int b) {
 
 	for (int i = a; i < b; i++)
 		if (isPrime(i))
@@ -39,10 +39,10 @@ const int intervalSize = 3000;
 const int nSteps = 8;
 int steps[nSteps] = { 1,7,11,13,17,19,23,29 };
 
-void PrimesInInterval(int a, int b) {
+void primesInInterval(int a, int b) {
 	
 	if ( b - a < intervalSize) {
-		PrimesInIntervalSlow(a, b);
+		primesInIntervalSlow(a, b);
 		return;
 	}
 
@@ -73,11 +73,11 @@ void PrimesInInterval(int a, int b) {
 
 int main() {
 
-	PrimesInIntervalSlow(50, 1000);
+	primesInIntervalSlow(50, 1000);
 
 	printf("\n------------------------------------\n");
 
-	PrimesInInterval(50, 10000);
+	primesInInterval(50, 10000);
 
 	return 0;
 }

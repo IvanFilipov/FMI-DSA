@@ -3,7 +3,7 @@
 //simple Queue implementation ON array
 
 template <typename T>
-class Queue {
+class Queue{
 
 private:
 
@@ -27,16 +27,16 @@ public:
 private:
 
 	//help functions
-	void CopyFrom(const Queue&);
-	void Clean();
+	void copyFrom(const Queue&);
+	void clean();
 
 public:
 	//interface
 
-	void Enqueue(const T&);
-	T Dequeue(); //a copy should be passed
+	void enqueue(const T&);
+	T dequeue(); //a copy should be passed
 
-	size_t GetNumElems()const;
+	size_t getNumElems()const;
 };
 
 template<typename T>
@@ -51,13 +51,13 @@ Queue<T>::Queue(size_t s) : data(nullptr),size(s),front(0),rear(0),isEmpty(true)
 template<typename T>
 Queue<T>::~Queue(){
 
-	Clean();
+	clean();
 }
 
 template<typename T>
 Queue<T>::Queue(const Queue<T>& other){
 
-	CopyFrom(other);
+	copyFrom(other);
 }
 
 template<typename T>
@@ -65,8 +65,8 @@ Queue<T>& Queue<T>::operator=(const Queue<T>& other){
 
 	if (this != &other){
 
-		Clean();
-		CopyFrom(other);
+		clean();
+		copyFrom(other);
 	}
 
 	return *this;
@@ -74,7 +74,7 @@ Queue<T>& Queue<T>::operator=(const Queue<T>& other){
 
 
 template<typename T>
-void Queue<T>::Enqueue(const T& elem){
+void Queue<T>::enqueue(const T& elem){
 
 	//there is no space
 	if ((rear == front) && !isEmpty)
@@ -91,7 +91,8 @@ void Queue<T>::Enqueue(const T& elem){
 }
 
 template<typename T>
-T Queue<T>::Dequeue(){
+T Queue<T>::dequeue(){
+
 	if (isEmpty)
 		throw std::logic_error("empty queue!");
 
@@ -111,7 +112,7 @@ T Queue<T>::Dequeue(){
 }
 
 template<typename T>
-size_t Queue<T>::GetNumElems() const{
+size_t Queue<T>::getNumElems() const{
 
 	if (isEmpty)
 		return 0;
@@ -119,22 +120,22 @@ size_t Queue<T>::GetNumElems() const{
 	if (front == rear && !isEmpty)
 		return size;
 
-	size_t NumElems = 0;
+	size_t numElems = 0;
 
 	if (front > rear) { // we should make a new cycle
 		
-		NumElems += (size - front);
-		NumElems += rear;
+		numElems += (size - front);
+		numElems += rear;
 	}
 	else
-		NumElems += (rear - front);
+		numElems += (rear - front);
 
-	return NumElems;
+	return numElems;
 }
 
 
 template<typename T>
-void Queue<T>::CopyFrom(const Queue<T>& other){
+void Queue<T>::copyFrom(const Queue<T>& other){
 
 	size = other.size;
 
@@ -150,7 +151,7 @@ void Queue<T>::CopyFrom(const Queue<T>& other){
 }
 
 template<class T>
-void Queue<T>::Clean(){
+void Queue<T>::clean(){
 
 	delete[] data;
 	front = 0;

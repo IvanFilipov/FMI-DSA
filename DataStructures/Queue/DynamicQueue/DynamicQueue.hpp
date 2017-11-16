@@ -18,7 +18,7 @@ private:
 
 	};
 
-	size_t CurSize;
+	size_t curSize;
 	node* pFront;
 	node* pRear;
 
@@ -34,39 +34,39 @@ public:
 private:
 
 	//HELP FUNCTIONS
-	void CopyFrom(const Queue&);
-	void Clean();
+	void copyFrom(const Queue&);
+	void clean();
 
 public:
 
 	//INTERFACE
 
 	//getters / setters
-	T& Front();
-	const T& Front()const;
+	T& front();
+	const T& front()const;
 
-	T& Back();
-	const T& Back() const;
+	T& back();
+	const T& back() const;
 
 	//add / remove
-	void Enqueue(const T&);
-	void Dequeue();
+	void enqueue(const T&);
+	void dequeue();
 
 	bool isEmpty()const;
-	size_t GetSize()const;
+	size_t getSize()const;
 
 };
 
 template<class T>
-Queue<T>::Queue() :pFront(nullptr), pRear(nullptr), CurSize(0){
+Queue<T>::Queue() :pFront(nullptr), pRear(nullptr), curSize(0){
 
 	/*...*/
 }
 
 template<class T>
-Queue<T>::Queue(const Queue<T>& other):pFront(nullptr),pRear(nullptr),CurSize(0){
+Queue<T>::Queue(const Queue<T>& other):pFront(nullptr),pRear(nullptr),curSize(0){
 
-	CopyFrom(other);
+	copyFrom(other);
 
 }
 
@@ -75,8 +75,8 @@ Queue<T>& Queue<T>::operator=(const Queue<T>& other){
 
 	if (this != &other){
           
-		Clean();
-		CopyFrom(other);
+		clean();
+		copyFrom(other);
 
 	}
 
@@ -86,11 +86,11 @@ Queue<T>& Queue<T>::operator=(const Queue<T>& other){
 template<class T>
 Queue<T>::~Queue(){
 
-	Clean();
+	clean();
 }
 
 template<class T>
-void Queue<T>::Clean(){
+void Queue<T>::clean(){
 
 	//iterating trough all elements
 	node * destroyer ;
@@ -110,12 +110,12 @@ void Queue<T>::Clean(){
 
 	pRear = nullptr;
 	pFront = nullptr;
-	CurSize = 0;
+	curSize = 0;
 
 }
 
 template<class T>
-void Queue<T>::CopyFrom(const Queue<T>& other){
+void Queue<T>::copyFrom(const Queue<T>& other){
 
 	if (other.isEmpty())
 		return;
@@ -136,11 +136,11 @@ void Queue<T>::CopyFrom(const Queue<T>& other){
 		}
 
 		pRear = copier;
-		CurSize = other.CurSize;
+		curSize = other.curSize;
 	}
 	catch (std::bad_alloc &){
 
-		Clean();
+		clean();
 		throw;
 	}
 
@@ -148,13 +148,13 @@ void Queue<T>::CopyFrom(const Queue<T>& other){
 }
 
 template<class T>
-void Queue<T>::Enqueue(const T& _data){
+void Queue<T>::enqueue(const T& _data){
 
 	if (isEmpty()){
 
 		pFront = new node(_data);
 		pRear = pFront;
-		CurSize++;
+		curSize++;
 		return;
 	}
 
@@ -162,12 +162,12 @@ void Queue<T>::Enqueue(const T& _data){
 
 	pRear->pNext = nElem;
 	pRear = pRear->pNext;
-	CurSize++;
+	curSize++;
 
 }
 
 template<class T>
-void Queue<T>::Dequeue(){
+void Queue<T>::dequeue(){
 
 	if (isEmpty())
 		throw std::logic_error("empty queue!");
@@ -178,21 +178,21 @@ void Queue<T>::Dequeue(){
 	pFront = pFront->pNext;
 
 	delete destroyer;
-	CurSize--;
+	curSize--;
 }
 
 
 template<class T>
-T& Queue<T>::Front(){
+T& Queue<T>::front(){
 
      if(isEmpty())
 		 throw std::logic_error("empty queue!");
 
-	return pFront ->data;
+	return pFront->data;
 }
 
 template<class T>
-const T& Queue<T>::Front() const{
+const T& Queue<T>::front() const{
 
 	if(isEmpty())
 		throw std::logic_error("empty queue!");
@@ -201,7 +201,7 @@ const T& Queue<T>::Front() const{
 }
 
 template<class T>
-T& Queue<T>::Back(){
+T& Queue<T>::back(){
 
 	if(isEmpty())
 		throw std::logic_error("empty queue!");
@@ -210,7 +210,7 @@ T& Queue<T>::Back(){
 }
 
 template<class T>
-const T& Queue<T>::Back()const{
+const T& Queue<T>::back()const{
 
 	if(isEmpty())
 		throw std::logic_error("empty!");
@@ -221,11 +221,11 @@ const T& Queue<T>::Back()const{
 template<class T>
 bool Queue<T>::isEmpty()const{
 
-	return CurSize == 0;
+	return curSize == 0;
 }
 
 template<class T>
-size_t Queue<T>::GetSize()const{
+size_t Queue<T>::getSize()const{
 
-	return CurSize;
+	return curSize;
 }

@@ -15,7 +15,7 @@ int main() {
 
 	}
 
-	std::cout << "\ncurrent size : " << s.GetSize()
+	std::cout << "\ncurrent size : " << s.getSize()
 		<< std::endl;
 
 	for (int i = 0; i < MAXN; i++) {
@@ -26,7 +26,7 @@ int main() {
 
 	}
 
-	std::cout << "\ncurrent size : " << s.GetSize()
+	std::cout << "\ncurrent size : " << s.getSize()
 		<< std::endl;
 
 
@@ -38,7 +38,7 @@ int main() {
 
 	}
 
-	std::cout << "\ncurrent size : " << s.GetSize()
+	std::cout << "\ncurrent size : " << s.getSize()
 		<< std::endl;
 
 	for (int i = 0; i < MAXN - 5; i++) {
@@ -50,7 +50,7 @@ int main() {
 	}
 
 
-	std::cout << "\ncurrent size : " << s.GetSize()
+	std::cout << "\ncurrent size : " << s.getSize()
 		<< std::endl;
 		
 	std::cout << "top elem changed from " << s.peek();

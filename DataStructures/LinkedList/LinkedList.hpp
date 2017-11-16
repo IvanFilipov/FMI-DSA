@@ -23,7 +23,7 @@ private:
 
 	node* pFront;
 	node *pBack;
-	int CurSize;
+	int curSize;
 
 
 public:
@@ -142,32 +142,32 @@ public:
 	//help functions
 private:
 
-	void CopyFrom(const LinkedList&);
-	void Clean();
+	void copyFrom(const LinkedList&);
+	void clean();
 
 	//interface
 public:
 
-	void PushBack(const T&);
-	void PushFront(const T&);
+	void pushBack(const T&);
+	void pushFront(const T&);
 
-	const T& Back()const;
-	const T& Front()const;
+	const T& back()const;
+	const T& front()const;
 
-	void PopBack();
-	void PopFront();
+	void popBack();
+	void popFront();
 
 
 	//TO DO
 
 
-	void Print()const;
-	bool Search(const T&)const;
+	void print()const;
+	bool search(const T&)const;
 
 	bool isEmpty()const;
 	int getSize()const;
 
-	Iterator InsertAfter(Iterator it, const T& elem) {
+	Iterator insertAfter(Iterator it, const T& elem) {
 
 		node* newElem = it.insertAfter(elem);
 
@@ -179,7 +179,7 @@ public:
 
 	}
 
-	Iterator EraseAfter(Iterator it) {
+	Iterator eraseAfter(Iterator it) {
 
 		node * next = it.eraseAfter();
 
@@ -208,15 +208,15 @@ public:
 
 
 template<class T>
-LinkedList<T>::LinkedList() :pFront(nullptr), pBack(nullptr), CurSize(0) {
+LinkedList<T>::LinkedList() :pFront(nullptr), pBack(nullptr), curSize(0) {
 
 	//...
 }
 
 template<class T>
-LinkedList<T>::LinkedList(const LinkedList<T>& other) :pFront(nullptr), pBack(nullptr), CurSize(0) {
+LinkedList<T>::LinkedList(const LinkedList<T>& other) :pFront(nullptr), pBack(nullptr), curSize(0) {
 
-	CopyFrom(other);
+	copyFrom(other);
 }
 
 template<class T>
@@ -224,8 +224,8 @@ LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& other) {
 
 	if (this != &other) {
 
-		Clean();
-		CopyFrom(other);
+		clean();
+		copyFrom(other);
 
 	}
 
@@ -235,12 +235,12 @@ LinkedList<T>& LinkedList<T>::operator=(const LinkedList<T>& other) {
 template<class T>
 LinkedList<T>::~LinkedList() {
 
-	Clean();
+	clean();
 }
 
 
 template<class T>
-void LinkedList<T>::CopyFrom(const LinkedList<T>& other) {
+void LinkedList<T>::copyFrom(const LinkedList<T>& other) {
 
 	if (other.isEmpty())
 		return;
@@ -267,18 +267,18 @@ void LinkedList<T>::CopyFrom(const LinkedList<T>& other) {
 	}
 	catch (std::bad_alloc&) {
 
-		Clean();
+		clean();
 		throw;
 	}
 
-	CurSize = other.CurSize;
+	curSize = other.curSize;
 
 }
 
 template<class T>
-void LinkedList<T>::Clean() {
+void LinkedList<T>::clean() {
 
-	node * destroyer;
+	node* destroyer;
 
 	while (pFront != nullptr) {
 
@@ -291,40 +291,40 @@ void LinkedList<T>::Clean() {
 
 	pFront = nullptr;
 	pBack = nullptr;
-	CurSize = 0;
+	curSize = 0;
 }
 
 
 template<class T>
-void LinkedList<T>::PushFront(const T& elem) {
+void LinkedList<T>::pushFront(const T& elem) {
 
 	if (isEmpty()) {
 
 		pFront = new node(elem);
 		pBack = pFront;
-		CurSize++;
+		curSize++;
 		return;
 
 	}
 
-	node* NewElem = new node(elem);
+	node* newElem = new node(elem);
 
-	NewElem->pNext = pFront;
-	pFront = NewElem;
+	newElem->pNext = pFront;
+	pFront = newElem;
 
-	CurSize++;
+	curSize++;
 
 
 }
 
 template<class T>
-void LinkedList<T>::PushBack(const T& elem) {
+void LinkedList<T>::pushBack(const T& elem) {
 
 	if (isEmpty()) {
 
 		pFront = new node(elem);
 		pBack = pFront;
-		CurSize++;
+		curSize++;
 		return;
 
 	}
@@ -332,13 +332,13 @@ void LinkedList<T>::PushBack(const T& elem) {
 	pBack->pNext = new node(elem);
 	pBack = pBack->pNext;
 
-	CurSize++;
+	curSize++;
 
 
 }
 
 template<class T>
-const T& LinkedList<T>::Front()const {
+const T& LinkedList<T>::front()const {
 
 	if (isEmpty())
 		throw std::exception("the list is empty!");
@@ -348,7 +348,7 @@ const T& LinkedList<T>::Front()const {
 }
 
 template<class T>
-const T& LinkedList<T>::Back()const {
+const T& LinkedList<T>::back()const {
 
 	if (isEmpty())
 		throw std::exception("the list is empty!");
@@ -358,41 +358,41 @@ const T& LinkedList<T>::Back()const {
 }
 
 template<class T>
-void LinkedList<T>::PopFront() {
+void LinkedList<T>::popFront() {
 
 	if (isEmpty())
 		throw std::exception("the list is empty!");
 
-	node * destroyer = pFront;
+	node* destroyer = pFront;
 
 	pFront = pFront->pNext;
 
 	delete destroyer;
 
-	CurSize--;
+	curSize--;
 
 }
 
 
 template<class T>
-void LinkedList<T>::PopBack() {
+void LinkedList<T>::popBack() {
 
 	if (isEmpty())
-		throw std::exception("the list is empty!");
+		throw std::logic_error("the list is empty!");
 
 	
-	if(CurSize == 1){
+	if(curSize == 1){
 		
 		delete pFront;
 		
 		pFront = nullptr;
 		pBack = nullptr;
-		CurSize = 0;
+		curSize = 0;
 		
 	}
 	
 	
-	node * destroyer = pFront;
+	node* destroyer = pFront;
 
 	while (destroyer->pNext != pBack) {
 
@@ -405,12 +405,12 @@ void LinkedList<T>::PopBack() {
 	pBack = destroyer;
 	pBack->pNext = nullptr;
 
-	CurSize--;
+	curSize--;
 }
 
 
 template<class T>
-bool LinkedList<T>::Search(const T& elem)const {
+bool LinkedList<T>::search(const T& elem)const {
 
 
 	node* it = pFront;
@@ -428,7 +428,7 @@ bool LinkedList<T>::Search(const T& elem)const {
 }
 
 template<class T>
-void LinkedList<T>::Print()const {
+void LinkedList<T>::print()const {
 
 	node* it = pFront;
 
@@ -449,7 +449,7 @@ void LinkedList<T>::Print()const {
 template<class T>
 bool LinkedList<T>::isEmpty()const {
 
-	return CurSize == 0;
+	return curSize == 0;
 
 
 }
@@ -457,5 +457,5 @@ bool LinkedList<T>::isEmpty()const {
 template<class T>
 int LinkedList<T>::getSize()const {
 
-	return CurSize;
+	return curSize;
 }

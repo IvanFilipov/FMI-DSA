@@ -18,8 +18,8 @@ private:
 		}
 	};
 
-	size_t CurSize;
-	node * pHead;
+	size_t curSize;
+	node * pTop;
 
 public:
 
@@ -32,8 +32,8 @@ public:
 	//help functions
 private:
 
-	void CopyFrom(const DynamicStack&);
-	void Clean();
+	void copyFrom(const DynamicStack&);
+	void clean();
 
 	//interface
 public:
@@ -47,14 +47,14 @@ public:
 	void pop();
 
 	bool isEmpty()const;
-	size_t GetSize()const;
+	size_t getSize()const;
 
 };
 
 //THE BIG FOUR
 
 template<class T>
-DynamicStack<T>::DynamicStack() : CurSize(0), pHead(nullptr){
+DynamicStack<T>::DynamicStack() : curSize(0), pTop(nullptr){
 
 	/*...*/
 };
@@ -62,13 +62,13 @@ DynamicStack<T>::DynamicStack() : CurSize(0), pHead(nullptr){
 template<class T>
 DynamicStack<T>::~DynamicStack(){
 
-	Clean();
+	clean();
 }
 
 template<class T>
-DynamicStack<T>::DynamicStack(const DynamicStack<T>& other) :CurSize(0), pHead(nullptr){
+DynamicStack<T>::DynamicStack(const DynamicStack<T>& other) :curSize(0), pTop(nullptr){
 
-	CopyFrom(other);
+	copyFrom(other);
 };
 
 template<class T>
@@ -76,8 +76,8 @@ DynamicStack<T>& DynamicStack<T>::operator=(const DynamicStack<T>& other){
 
 	if (this != &other){
 
-		Clean();
-		CopyFrom(other);
+		clean();
+		copyFrom(other);
 
 	}
 
@@ -85,18 +85,18 @@ DynamicStack<T>& DynamicStack<T>::operator=(const DynamicStack<T>& other){
 }
 
 template<class T>
-void DynamicStack<T>::CopyFrom(const DynamicStack<T>& other){
+void DynamicStack<T>::copyFrom(const DynamicStack<T>& other){
 
 	if (other.isEmpty())
 		return;
 
 	try{
-		pHead = new node(other.pHead->data);
+		pTop = new node(other.pTop->data);
 		
-		//pHead->pNext = nullptr;
+		//pTop->pNext = nullptr;
 
-		node * ours = pHead;
-		node* theirs = other.pHead->pNext;
+		node* ours = pTop;
+		node* theirs = other.pTop->pNext;
 
 		while (theirs != nullptr){
 
@@ -107,30 +107,31 @@ void DynamicStack<T>::CopyFrom(const DynamicStack<T>& other){
 
 		}
 
-		CurSize = other.CurSize;
+		curSize = other.curSize;
 	}
 	catch (std::bad_alloc&){
 
-		Clean();
+		clean();
 		throw;
 	}
+
 }
 
 
 template<class T>
-void DynamicStack<T>::Clean(){
+void DynamicStack<T>::clean(){
 
 	node* temp;
 
-	while (pHead != nullptr){
+	while (pTop != nullptr){
 
-		temp = pHead;
-		pHead = pHead->pNext;
+		temp = pTop;
+		pTop = pTop->pNext;
 		delete temp;
 	}
 
 
-	CurSize = 0;
+	curSize = 0;
 
 }
 
@@ -138,11 +139,11 @@ template<class T>
 void DynamicStack<T>::push(const T& elem){
 
 
-	node* newElem = new node(elem,pHead);
+	node* newElem = new node(elem,pTop);
 
-	pHead = newElem;
+	pTop = newElem;
 
-	CurSize++;
+	curSize++;
 }
 
 template<class T>
@@ -151,13 +152,13 @@ void DynamicStack<T>::pop(){
 	if (isEmpty())
 		throw std::exception("the stack is empty !");
 
-	node* temp = pHead;
+	node* temp = pTop;
 
-	pHead = pHead->pNext;
+	pTop = pTop->pNext;
 
 	delete temp;
 
-	CurSize--;
+	curSize--;
 
 }
 
@@ -165,17 +166,17 @@ void DynamicStack<T>::pop(){
 template<class T>
 bool DynamicStack<T>::isEmpty()const{
 
-	return CurSize == 0;
+	return curSize == 0;
 }
 
 template<class T>
 T& DynamicStack<T>::peek(){
 
 	if (isEmpty()){
-		throw std::exception("the stack is empty");
+		throw std::logic_error("the stack is empty");
 	}
 
-	return pHead->data;
+	return pTop->data;
 }
 
 template<class T>
@@ -185,12 +186,12 @@ const T& DynamicStack<T>::peek()const{
 		throw std::exception("the stack is empty");
 	}
 
-	return pHead->data;
+	return pTop->data;
 
 }
 
 template<class T>
-size_t DynamicStack<T>::GetSize()const{
+size_t DynamicStack<T>::getSize()const{
 
-	return CurSize;
+	return curSize;
 }

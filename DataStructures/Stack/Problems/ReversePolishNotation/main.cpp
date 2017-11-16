@@ -7,7 +7,7 @@
 //answer is : 11
 
 
-double Calc(char c, double left, double right) {
+double calc(char c, double left, double right) {
 	
 		switch (c) {
 		
@@ -41,6 +41,7 @@ int main() {
 		if (buffer[i] >= '0' && buffer[i] <= '9') {
 
 			a.push(double(buffer[i] - '0')); //ascii -> double
+			i++;
 			continue;
 			
 		}
@@ -48,7 +49,7 @@ int main() {
 		if (buffer[i] == '+' || buffer[i] == '-' || 
 			buffer[i] == '*' || buffer[i] == '/') {
 	
-			if (a.GetSize() < 2)
+			if (a.getSize() < 2)
 				return -1;
 			
 			right = a.peek();
@@ -57,7 +58,7 @@ int main() {
 			left = a.peek();
 			a.pop();
 
-			a.push(Calc(buffer[i], left, right));
+			a.push(calc(buffer[i], left, right));
 		}
 	
 		i++;

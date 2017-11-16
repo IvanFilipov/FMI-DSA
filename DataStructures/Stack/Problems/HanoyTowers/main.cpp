@@ -6,27 +6,28 @@
 typedef DynamicStack<int> tower;
 
 
-void Move(tower& src, tower& des) {
+void move(tower& src, tower& des) {
 
 	des.push(src.peek());
 	src.pop();
 
 }
 
-void HanoySolve(tower& A , tower& C,tower& B , int step ) {
+void hanoySolve(tower& A , tower& C,tower& B , int step ) {
 	
-	if (step == 1)
-		Move(A, C);
-	else {
+	if (step == 1) {
 
-		HanoySolve(A, B, C ,step -1);
-
-		Move(A, C);
-
-		HanoySolve(B, C, A,step -1);
-
+		move(A, C);
+		return;
 	}
 
+	hanoySolve(A, B, C ,step -1);
+
+	move(A, C);
+
+	hanoySolve(B, C, A,step -1);
+
+	
 }
 
 
@@ -46,7 +47,7 @@ int main() {
 	//{3}  {} {}
  	//{4}  {} {}
 
-	HanoySolve(A, C, B, A.GetSize());
+	hanoySolve(A, C, B, A.getSize());
 
 	//C.Print()
 	while (!C.isEmpty()) {

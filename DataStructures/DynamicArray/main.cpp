@@ -5,16 +5,15 @@
 
 
 //a func that fills our array with 10000 random elements
-void Init(DynamicArray<int>& arr) {
+void init(DynamicArray<int>& arr) {
 
 	srand(time(0));
 	
 	for (int i = 0; i < 10000; i++)
-		arr.PushBack(rand() % 1000);
+		arr.pushBack(rand() % 1000);
 
 
 }
-
 
 
 int main(){
@@ -22,7 +21,7 @@ int main(){
 	
 	DynamicArray<int> arr;
 
-	Init(arr);
+	init(arr);
 
 	/* TEST 1 linear  searching*/
 
@@ -34,7 +33,7 @@ int main(){
 	std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
 	std::cout << "elem 200 on index :"
-		<< arr.Search(200);
+		<< arr.search(200);
 
 	std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
 	std::cout << "  for exactly "
@@ -43,14 +42,14 @@ int main(){
 
 
 	std::cout << "Wait while sorting ...\n";
-	arr.Sort();
+	arr.sort();
 
 	/* TEST 2 binary searching*/
 
 	begin = std::chrono::steady_clock::now();
 
 	std::cout << "elem 200 on index :"
-		<< arr.Search(200);
+		<< arr.search(200);
 
 	end = std::chrono::steady_clock::now();
 	std::cout << "  for exactly "
@@ -61,22 +60,22 @@ int main(){
 
 	DynamicArray<int> arr1;
 
-	arr1.PushBack(7);
-	arr1.PushBack(8);
-	arr1.PushBack(9);
-	arr1.PushBack(10);
-	arr1.PushBack(15);
-	arr1.PushBack(23);
+	arr1.pushBack(7);
+	arr1.pushBack(8);
+	arr1.pushBack(9);
+	arr1.pushBack(10);
+	arr1.pushBack(15);
+	arr1.pushBack(23);
 	
-	arr1.InsertAt(33, 25);
-	arr1.InsertAt(4, 14);
+	arr1.insertAt(33, 25);
+	arr1.insertAt(4, 14);
 
-	arr1.PrintElems();
+	arr1.printElems();
 
-	arr1.RemoveAt(58);
-	arr1.RemoveAt(4);
+	arr1.removeAt(58);
+	arr1.removeAt(4);
 
-	arr1.PrintElems();
+	arr1.printElems();
 
 
 	return 0;

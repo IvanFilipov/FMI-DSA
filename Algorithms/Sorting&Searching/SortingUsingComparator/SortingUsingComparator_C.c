@@ -26,7 +26,7 @@ Elem elems[] = {
 typedef int(*Cmptor) (const Elem*, const Elem*);
 
 //ordinary function
-int MyLess(const Elem* lhs, const Elem* rhs) {
+int myLess(const Elem* lhs, const Elem* rhs) {
 
 	if (lhs->key < rhs->key)
 		return 1;
@@ -40,7 +40,7 @@ int MyLess(const Elem* lhs, const Elem* rhs) {
 
 }
 
-int MyGreater(const Elem* lhs, const Elem* rhs) {
+int myGreater(const Elem* lhs, const Elem* rhs) {
 
 	if (lhs->key > rhs->key)
 		return 1;
@@ -66,7 +66,7 @@ void swap(Elem* lhs, Elem* rhs) {
 
 
 //if we don't have the typedef  Cmptor func  -> bool (*func)(const Elem*,const Elem*)
-void InsertionSort(Elem *arr, int size,Cmptor func) {
+void insertionSort(Elem *arr, int size,Cmptor func) {
 
 	for (int i = 1; i < size; i++)
 		for (int j = i; j > 0; j--)
@@ -77,7 +77,7 @@ void InsertionSort(Elem *arr, int size,Cmptor func) {
 
 
 
-void PrintElems() {
+void printElems() {
 
 	for (int i = 0; i < SIZE; i++)
 		printf("{ key : %d , data : %d } ", elems[i].key, elems[i].data);
@@ -92,18 +92,18 @@ int main() {
 
 	
 	printf("given elements :\n");
-	PrintElems();
+	printElems();
 	printf("\n\n\n");
 
 
 	printf("sorted by MyGreater :\n");
-	InsertionSort(elems, SIZE, MyGreater);
-	PrintElems();
+	insertionSort(elems, SIZE, myGreater);
+	printElems();
 	printf("\n\n\n");
 
 	printf("sorted by MyLess :\n");
-	InsertionSort(elems, SIZE, MyLess);
-	PrintElems();
+	insertionSort(elems, SIZE, myLess);
+	printElems();
 	printf("\n\n\n");
 
 	return 0;

@@ -6,7 +6,7 @@
 /// data is nearly sorted ~ O(n) , no additional memory is needed
 ///bad sides : difficulty ~ O(n^2) in worst , average case
 
-void BubbleSort(int * arr, int size) {
+void bubbleSort(int * arr, int size) {
 
 	bool changeMade = true;
 
@@ -29,7 +29,7 @@ void BubbleSort(int * arr, int size) {
 /// good sides : the easiest to implement , no additional memory is needed , less swaps than bubble and insertion sorts
 /// bad sides : NOT STABLE , difficulty O(n^2) in best , worst and average case
 
-void SelectionSort(int *arr, int size) {
+void selectionSort(int *arr, int size) {
 
 	int index;
 
@@ -50,7 +50,7 @@ void SelectionSort(int *arr, int size) {
 ///good sides : easy to implement , STABLE , fast when 
 /// data is nearly sorted ~ O(n) , no additional memory is needed
 ///bad sides : difficulty ~ O(n^2) in worst , average case
-void InsertionSort(int *arr, int size) {
+void insertionSort(int *arr, int size) {
 
 	for (int i = 1; i < size; i++)
 		for (int j = i ; j > 0 && arr[j] < arr[j-1]; j--)

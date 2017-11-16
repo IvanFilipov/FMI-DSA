@@ -3,7 +3,7 @@
 #include "SimpleSortingAlgorithms.h"
 #include "SearchAlgorithms.h"
 
-void PrintArr(int* arr, int size) {
+void printArr(int* arr, int size) {
 
 	for (int i = 0; i < size; i++)
 		printf("%d ", arr[i]);
@@ -21,36 +21,36 @@ int main() {
 	int arr2[Size] = { -124,5, 11, 2, 6, 7 , -42 , 13 , 88 , 21 ,9 , 8 };
 
 	printf("Starting array : \n");
-	PrintArr(arr, Size);
+	printArr(arr, Size);
 
 	printf("result of Insertion sort : \n");
-	InsertionSort(arr, Size);
-	PrintArr(arr,Size);
+	insertionSort(arr, Size);
+	printArr(arr,Size);
 
 	printf("result of Bubble sort : \n");
-	BubbleSort(arr1, Size);
-	PrintArr(arr1, Size);
+	bubbleSort(arr1, Size);
+	printArr(arr1, Size);
 
 	printf("result of Selection sort : \n");
-	SelectionSort(arr2, Size);
-	PrintArr(arr2, Size);
+	selectionSort(arr2, Size);
+	printArr(arr2, Size);
 
 
 	int searchElem = 11;
 
 	printf("result of LinearSearching for elem %d : %d \n",
-		searchElem,LinearSearch(arr2, Size,searchElem));
+		searchElem,linearSearch(arr2, Size,searchElem));
 	
 	printf("result of BinarySearching for elem %d : %d \n",
-		searchElem,BinarySearch(arr2,0, Size, searchElem));
+		searchElem,binarySearch(arr2,0, Size, searchElem));
 
 	int step = 3;
 	printf("result of JumpSearching for elem %d with step %d : %d \n",
-		searchElem,step,JumpSearch(arr2, Size,step, searchElem));
+		searchElem,step,jumpSearch(arr2, Size,step, searchElem));
 
 	step = sqrt(Size);
 	printf("result of JumpSearching for elem %d with step %d : %d \n",
-		searchElem, step, JumpSearch(arr2, Size, step, searchElem));
+		searchElem, step, jumpSearch(arr2, Size, step, searchElem));
 
 
 

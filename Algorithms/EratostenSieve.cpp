@@ -11,7 +11,7 @@ typedef unsigned long long ull_int;
 const ull_int N = 20000;
 bool sieve[N] = { PRIME , };
 
-void PrintPrimes() {
+void printPrimes() {
 
 	for (ull_int i = 2; i < N; i++)
 		if (sieve[i] == PRIME)
@@ -29,7 +29,7 @@ void eratosten(){
 			for (ull_int j = i * i; j <= N; j += i)
 				sieve[j] = COMPOSITE;
 
-	PrintPrimes();
+	printPrimes();
 
 }
 

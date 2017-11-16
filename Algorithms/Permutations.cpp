@@ -10,28 +10,28 @@ const int MAXN = 4;
 int given[MAXN] = { 3,11,23,7};
 
 //buffer for generating the current permutation
-int CurPerm[MAXN];
+int curPerm[MAXN];
 
 //used in current permutation -> TRUE , else -> FALSE
 bool used[MAXN] = { UNUSED, }; 
 
 
-void Print() {
+void print() {
 
 	for (int i = 0; i < MAXN; i++)
-		std::cout << CurPerm[i] << " ";
+		std::cout << curPerm[i] << " ";
 
 	std::cout << std::endl;
 
 }
 
 // permuting the i-th element
-void Perm(int i) {
+void perm(int i) {
 
 	//the bottom of the recursion
 	if (i >= MAXN) {
 
-		Print();
+		print();
 		return;
 	}
 
@@ -42,8 +42,8 @@ void Perm(int i) {
 		if (used[k] == UNUSED) {
 
 			used[k] = USED; //marking it as used 
-			CurPerm[i] = given[k];  //saving it's value
-			Perm(i + 1); //generating the next element
+			curPerm[i] = given[k];  //saving it's value
+			perm(i + 1); //generating the next element
 			used[k] = UNUSED; //unmarking after coming back form the recursion call
 
 		}
@@ -56,7 +56,7 @@ void Perm(int i) {
 
 int main() {
 
-	Perm(0);
+	perm(0);
 
 	return 0;
 }

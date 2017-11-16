@@ -18,7 +18,7 @@ private:
 		}
 	};
 
-	size_t CurSize;
+	size_t curSize;
 	node * pTop;
 
 public:
@@ -32,8 +32,8 @@ public:
 	//help functions
 private:
 
-	void CopyFrom(const DynamicStack&);
-	void Clean();
+	void copyFrom(const DynamicStack&);
+	void clean();
 
 	//interface
 public:
@@ -47,14 +47,14 @@ public:
 	void pop();
 
 	bool isEmpty()const;
-	size_t GetSize()const;
+	size_t getSize()const;
 
 };
 
 //THE BIG FOUR
 
 template<class T>
-DynamicStack<T>::DynamicStack() : CurSize(0), pTop(nullptr){
+DynamicStack<T>::DynamicStack() : curSize(0), pTop(nullptr){
 
 	/*...*/
 };
@@ -62,13 +62,13 @@ DynamicStack<T>::DynamicStack() : CurSize(0), pTop(nullptr){
 template<class T>
 DynamicStack<T>::~DynamicStack(){
 
-	Clean();
+	clean();
 }
 
 template<class T>
-DynamicStack<T>::DynamicStack(const DynamicStack<T>& other) :CurSize(0), pTop(nullptr){
+DynamicStack<T>::DynamicStack(const DynamicStack<T>& other) :curSize(0), pTop(nullptr){
 
-	CopyFrom(other);
+	copyFrom(other);
 };
 
 template<class T>
@@ -76,8 +76,8 @@ DynamicStack<T>& DynamicStack<T>::operator=(const DynamicStack<T>& other){
 
 	if (this != &other){
 
-		Clean();
-		CopyFrom(other);
+		clean();
+		copyFrom(other);
 
 	}
 
@@ -85,7 +85,7 @@ DynamicStack<T>& DynamicStack<T>::operator=(const DynamicStack<T>& other){
 }
 
 template<class T>
-void DynamicStack<T>::CopyFrom(const DynamicStack<T>& other){
+void DynamicStack<T>::copyFrom(const DynamicStack<T>& other){
 
 	if (other.isEmpty())
 		return;
@@ -95,7 +95,7 @@ void DynamicStack<T>::CopyFrom(const DynamicStack<T>& other){
 		
 		//pTop->pNext = nullptr;
 
-		node * ours = pTop;
+		node* ours = pTop;
 		node* theirs = other.pTop->pNext;
 
 		while (theirs != nullptr){
@@ -107,11 +107,11 @@ void DynamicStack<T>::CopyFrom(const DynamicStack<T>& other){
 
 		}
 
-		CurSize = other.CurSize;
+		curSize = other.curSize;
 	}
 	catch (std::bad_alloc&){
 
-		Clean();
+		clean();
 		throw;
 	}
 
@@ -119,7 +119,7 @@ void DynamicStack<T>::CopyFrom(const DynamicStack<T>& other){
 
 
 template<class T>
-void DynamicStack<T>::Clean(){
+void DynamicStack<T>::clean(){
 
 	node* temp;
 
@@ -131,7 +131,7 @@ void DynamicStack<T>::Clean(){
 	}
 
 
-	CurSize = 0;
+	curSize = 0;
 
 }
 
@@ -143,7 +143,7 @@ void DynamicStack<T>::push(const T& elem){
 
 	pTop = newElem;
 
-	CurSize++;
+	curSize++;
 }
 
 template<class T>
@@ -158,7 +158,7 @@ void DynamicStack<T>::pop(){
 
 	delete temp;
 
-	CurSize--;
+	curSize--;
 
 }
 
@@ -166,7 +166,7 @@ void DynamicStack<T>::pop(){
 template<class T>
 bool DynamicStack<T>::isEmpty()const{
 
-	return CurSize == 0;
+	return curSize == 0;
 }
 
 template<class T>
@@ -191,7 +191,7 @@ const T& DynamicStack<T>::peek()const{
 }
 
 template<class T>
-size_t DynamicStack<T>::GetSize()const{
+size_t DynamicStack<T>::getSize()const{
 
-	return CurSize;
+	return curSize;
 }

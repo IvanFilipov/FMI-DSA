@@ -13,50 +13,50 @@ int main() {
 
 	for (int i = 0; i < MAXN; i++) {
 
-		q.Enqueue(i + 1);
-		std::cout << "elem " << q.Back()
+		q.enqueue(i + 1);
+		std::cout << "elem " << q.back()
 			<< " successfully added!\n";
 
 	}
 
-	std::cout << "\ncurrent size : " << q.GetSize()
+	std::cout << "\ncurrent size : " << q.getSize()
 		<< std::endl;
 
 	for (int i = 0; i < MAXN; i++) {
 
-		std::cout << "elem " << q.Front();
-		q.Dequeue();
+		std::cout << "elem " << q.front();
+		q.dequeue();
 		std::cout<< " successfully removed!\n";
 
 	}
 
-	std::cout << "\ncurrent size : " << q.GetSize()
+	std::cout << "\ncurrent size : " << q.getSize()
 		<< std::endl;
 
 
 	for (int i = 0; i < MAXN - 3; i++) {
 
-		q.Enqueue(i + 1);
-		std::cout << "elem " << q.Back()
+		q.enqueue(i + 1);
+		std::cout << "elem " << q.back()
 			<< " successfully added!\n";
 
 	}
 
-	std::cout << "\ncurrent size : " << q.GetSize()
+	std::cout << "\ncurrent size : " << q.getSize()
 		<< std::endl;
 
 	for (int i = 0; i < MAXN - 5; i++) {
 
-		std::cout << "elem " << q.Front();
-		q.Dequeue();
+		std::cout << "elem " << q.front();
+		q.dequeue();
 		std::cout << " successfully removed!\n";
 
 	}
 
 	for (int i = 0; i < MAXN; i++) {
 
-		q.Enqueue(i + 1);
-		std::cout << "elem " << q.Back()
+		q.enqueue(i + 1);
+		std::cout << "elem " << q.back()
 			<< " successfully added!\n";
 
 	}
@@ -65,17 +65,17 @@ int main() {
 
 	while (!q1.isEmpty()) {
 
-		std::cout << "q1\'s front (" << q.Front()
-			<< ") == q\'s front (" << q.Front() << ")\n";
+		std::cout << "q1\'s front (" << q.front()
+			<< ") == q\'s front (" << q.front() << ")\n";
 
-		q1.Dequeue();
-		q.Dequeue();
+		q1.dequeue();
+		q.dequeue();
 
 	}
 
 
-	std::cout << "\ncurrent size : " << q.GetSize()
-		<< std::endl;
+	std::cout << "\ncurrent size : " << q.getSize()
+			  << std::endl;
 
 	return 0;
 
