@@ -26,7 +26,7 @@ struct Student{
  
  pHead                                  pTail
    |                                     |
-   v									 v
+   v                      		 v
    __      __       __      __           __
   |__| -> |__| ->  |__| -> |__| .... -> |__| -> NULL 
  
