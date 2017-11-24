@@ -45,7 +45,7 @@ void StudentQueue::clean() {
 		//setting the new first one to the one linked with the old first one
 		pHead = pHead->pNext;
 
-		//the one pointer by destroyer will be deleted
+		//the one pointed by destroyer will be deleted
 		delete destroyer;
 	}
 
