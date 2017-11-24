@@ -46,13 +46,19 @@ int main() {
 
 	MSD_RadixSort(vNames, 0, vNames.size(), 0);
 
-	printf("\nafter radix sorting : \n\n");
+	printf("\nafter MSD radix sorting : \n\n");
 	for (auto it : vNames) {
 
 		printf("%s\n", it.c_str());
 
 	}
 
+	vec v { 22211, 555, 444, 1223, 1000, 322, 245, 231, 3, 23 };
+	printf("\nUnordered input:\n");
+	print_vec(v);
+	lsd_radix_sort(v);
+	printf("\n\nSorted output from MSD radix sorting: \n");
+	print_vec(v);
 
 	return 0;
 }
