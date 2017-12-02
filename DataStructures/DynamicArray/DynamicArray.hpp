@@ -96,7 +96,7 @@ void DynamicArray<T>::copyFrom(const DynamicArray<T> &other){
 
 	free();
 
-	pData = new T[other.curSize];
+	pData = new T[other.capacity];
 
 	//memcpy(data, other.data, sizeof(T)*other.CurSize);
 	//will not do the trick, because it will make a shallow copy of
