@@ -21,18 +21,14 @@ struct Node{
 	//contains all sons of the current node
 	std::vector<Node> sons;
 
-	Node(){
-
-		value = 0;
-		degree = 0;
-		visited = false;
-
+	Node() :   degree(0), value(0) , visited(false){
+		
 	}
 
 };
 
 //returns true if two trees are isomorphic 
-bool areIsomorphic(Node& rootT1, Node& rootT2){
+bool areIsomorphic(Node& rootT1,Node& rootT2){
 
 	//can't be isomorphic
 	if (rootT1.degree != rootT2.degree)
@@ -51,11 +47,11 @@ bool areIsomorphic(Node& rootT1, Node& rootT2){
 	bool found = false;
 
 	//searching for a son from T2 , which is isomorphic to a son form T1 
-	for (int i = 0; i < rootT1.sons.size(); i++){
+	for (size_t i = 0; i < rootT1.sons.size(); i++){
 
 		found = false;
 
-		for (int j = 0; j < rootT2.sons.size()&&!found; j++){
+		for (size_t j = 0; j < rootT2.sons.size()&&!found; j++){
 
 			if (rootT1.sons[i].degree == rootT2.sons[j].degree 
 				&& rootT2.sons[j].visited == false){
@@ -88,7 +84,7 @@ bool areIsomorphic(Node& rootT1, Node& rootT2){
 
 //reading the input relaying on that 
 //the given expression is a valid one
-void readTree(Node& root,string& input,int& strpos){
+void readTree(Node& root,const string& input,size_t& strpos){
 
 
 	while (input[strpos] != '\0'){
@@ -134,7 +130,7 @@ void readTree(Node& root,string& input,int& strpos){
 				//adding the new son
 				root.sons.push_back(newSon);
 
-				int backIndex = root.sons.size() - 1;
+				size_t backIndex = root.sons.size() - 1;
 
 				//reading the children of the current son
 				readTree(root.sons[backIndex], input, strpos);
@@ -155,7 +151,7 @@ void readTree(Node& root,string& input,int& strpos){
 
 int main(){
 
-	int readPos = 0;
+	size_t readPos = 0;
 
 	string input;
 
@@ -173,12 +169,10 @@ int main(){
 	readPos = 0;
 	readTree(T2, input, readPos);
 
-
 	if (areIsomorphic(T1, T2))
 		std::cout << "YES! \n";
 	else
 		std::cout << "NO! \n";
-
 
 	return 0;
 
