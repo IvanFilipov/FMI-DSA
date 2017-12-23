@@ -6,7 +6,7 @@
 #include<string> //std::string
 #include<list>	//std::list
 
-#include <functional>
+#include <functional> //std::hash
 
 typedef int data_type;
 typedef std::string key_type;
@@ -171,12 +171,13 @@ void HashTable::rehash() {
 	//in this line our table is empty object
 	table.resize(oldTable.size() * 2);
 
-	//for each chain ...
-	for (auto el : oldTable) { //for each of its elements
-		
+	//for each element form the old table ...
+	for (auto el : oldTable) { 		
 		put(el.key, el.data); //put it in the now table
+		//which will lead to re-calculating the hash values
+		
 		--logicFill; //because put will increase the logic size
-	} //which will lead to re-calculating the hash values
+	} 
 
 	std::cout << ".............\n";
 
