@@ -77,10 +77,10 @@ void getTest(HashTable& table, const keySet& keys) {
 
 void eraseTest(HashTable& table, const keySet& keys) {
 
-	const size_t N_GETS = 3;
+	const size_t N_DELETES = 3;
 
 	size_t which;
-	for (size_t i = 0; i < N_GETS; i++) {
+	for (size_t i = 0; i < N_DELETES; i++) {
 
 		which = std::rand() % keys.size();
 
