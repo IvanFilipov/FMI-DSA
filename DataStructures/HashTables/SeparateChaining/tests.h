@@ -100,7 +100,7 @@ void eraseTest(HashTable& table, const keySet& keys) {
 	}
 
 
-	std::string randomTest = "Vidin";
+	std::string randomTest = "Pleven";
 
 	std::cout << "erasing element with key "
 		<< std::quoted(randomTest)
@@ -108,7 +108,7 @@ void eraseTest(HashTable& table, const keySet& keys) {
 
 	try {
 
-		table.erase(keys[which]);
+		table.erase(randomTest);
 		std::cout << " erased !\n";
 	}
 	catch (std::exception& e) {
