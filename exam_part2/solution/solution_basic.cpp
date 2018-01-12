@@ -108,7 +108,7 @@ unsigned int accumTree(const Node* root) {
 		return 0;
 
 	return root->val + accumTree(root->pLeft)
-					 + accumTree(root->pRight);
+			 + accumTree(root->pRight);
 
 }
 
