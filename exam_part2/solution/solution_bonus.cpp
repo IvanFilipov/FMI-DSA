@@ -100,7 +100,7 @@ void bloomTree(Node* root, fptrBloomFunc f) {
 
 	//is leaf
 	if (root->pLeft == nullptr &&
-		root->pRight == nullptr) {
+	    root->pRight == nullptr) {
 
 		root->pLeft = new Node(f(root->val));
 		root->pRight = new Node(f(root->val));
@@ -136,7 +136,7 @@ ull_int accumTree(const Node* root, ull_int beg, fptrAcumm f) {
 		return beg;
 
 	return f(root->val, f(accumTree(root->pLeft, beg, f),
-		accumTree(root->pRight, beg, f)));
+			      accumTree(root->pRight, beg, f)));
 }
 
 //pretty printing bonus
@@ -231,7 +231,7 @@ void prettyPrint(Node* root){
 			std::cout << ' ';
 
 		if (wave.front().first != nullptr)
-			printf("%u", wave.front().first->val);
+			std::cout << wave.front().first->val;
 		else
 			std::cout << ' '; //empty node
 
@@ -291,10 +291,10 @@ int main() {
 
 	ull_int secondRes = accumTree(root, 0, sum);
 	std::cout << "\naccumulate with sum function : "
-		<< secondRes;
+		  << secondRes;
 
 	std::cout << "\naccum(T\') - accum(T) = "
-		<< secondRes - firstRes;
+		  << secondRes - firstRes;
 
 	//cleaning everything
 	destroyTree(root);
@@ -319,7 +319,7 @@ int main() {
 
 	firstRes = accumTree(root, 1, mul);
 	std::cout << "\naccumulate with multiply function : "
-		<< firstRes;
+		  << firstRes;
 
 	bloomTree(root, inc);
 	std::cout << "\nafter blooming with +1 function T\': \n";
@@ -327,10 +327,10 @@ int main() {
 
 	secondRes = accumTree(root, 1, mul);
 	std::cout << "\naccumulate with multiply function : "
-		<< secondRes;
-
+ 		  << secondRes;
+ 
 	std::cout << "\naccum(T\') - accum(T) = "
-		<< secondRes - firstRes;
+		  << secondRes - firstRes;
 	
 	//notice that these memory releases may be unnecessary
 	destroyTree(root);
