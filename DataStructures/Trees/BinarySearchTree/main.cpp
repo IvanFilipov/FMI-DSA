@@ -19,6 +19,6 @@ int main() {
 
 	runAdvancedTests(secondTree);
 
-	return 0;
 
+	return 0;
 }
