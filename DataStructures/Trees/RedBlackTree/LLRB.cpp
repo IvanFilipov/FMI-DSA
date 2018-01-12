@@ -113,8 +113,8 @@ unsigned int LLRB::rec_getHeight(node* root) const{
 	if (root == nullptr)
 		return 0;
 
-	unsigned int leftSubTreeHeight = getHeight(root->pLeft);
-	unsigned int rightSumTreeHeight = getHeight(root->pRight);
+	unsigned int leftSubTreeHeight = rec_getHeight(root->pLeft);
+	unsigned int rightSumTreeHeight = rec_getHeight(root->pRight);
 
 	return 1 + ((leftSubTreeHeight > rightSumTreeHeight) ?
 		leftSubTreeHeight :
@@ -436,6 +436,21 @@ unsigned int LLRB::getHeight() const{
 	return rec_getHeight(root);
 }
 
+//returns the biggest key
+key_type LLRB::getMaxKey() const {
+
+	if (root == nullptr)
+		return 0;
+
+	node* it = root;
+
+	while (it->pRight)
+		it = it->pRight;
+
+	return it->key;
+}
+
+
 //prints all data in nodes sorted by their keys
 void LLRB::printSortedKeys() const{
 
@@ -447,24 +462,31 @@ void LLRB::printSortedKeys() const{
 //a pretty tree look - like output in console
 //useful to understand what is happening with the tree
 //in every moment
-void LLRB::printTree() const{
+void LLRB::printTree() const {
 
 	printf("\nthe tree looks something like this :\n\n");
 
-	unsigned int height = rec_getHeight(root);
-
-	//the 'drawing' has some constrains...
-	//	if (height > 6 && other_constrains) {
-
-	//	printf("the tree can't be drawn!\n");
-	//		return;
-
-	//}
+	unsigned int height = getHeight();
 
 	unsigned int curLevel = 0;
 
-	//how many spaces between the elements
-	unsigned int indent = (( 1 << height + 1) / 2) - 1;
+	//how many spaces between the elements : 
+
+	//the maximum value of children in a binary tree
+	//with height h is 2 ^ ( h - 1) why?
+	unsigned int maxChildren = 1 << (height - 1);
+
+	//we will have at least one space between each children
+	maxChildren <<= 1; // *= 2
+
+					   //which is the longest number
+	unsigned int maxElem = getMaxKey();
+
+	//how many digits it has
+	unsigned int maxDigits = unsigned int(log10(maxElem) + 1);
+
+	//how many cells do we need in each line
+	unsigned int indent = maxChildren * (maxDigits + 1) - 1;
 
 	//preforming BFS - pushing nodes form the tree and
 	//empty ones in order to make the 'draw' easier
@@ -472,32 +494,36 @@ void LLRB::printTree() const{
 	//key - level of node
 	std::queue<std::pair<node*, unsigned int>> wave;
 
-	wave.push(std::make_pair(root, curLevel+1));
+	wave.push(std::make_pair(root, curLevel + 1));
 
 	while (curLevel <= height) {
 
 		if (curLevel < wave.front().second) {
+
 			curLevel = wave.front().second;
+
 			printf("\n");
 
-			//indent = (width / (1 << curLevel)) - curLevel;
+			if (curLevel > height)
+				return;
+
+			//on each line below indent will be index / 2
 			indent >>= 1;
-			
+
 		}
 
-		for (int i = 0; i < indent; i++)
-			printf(" ");
+		for (unsigned int i = 0; i < indent; i++)
+			putchar(' ');
 
 		if (wave.front().first != nullptr)
-			printf("%3d", wave.front().first->key);
+			printf("%u", wave.front().first->key);
 		else
-			printf("  ");
+			putchar(' '); //empty node
 
-		for (int i = 0; i < indent; i++)
-			printf(" ");
+		for (unsigned int i = 0; i <= indent; i++)
+			putchar(' ');
 
-
-		//if real node
+		//if real node, pushing its children into the wave
 		if (wave.front().first != nullptr) {
 			if (wave.front().first->pLeft != nullptr)
 				wave.push(std::make_pair(wave.front().first->pLeft,
@@ -515,7 +541,7 @@ void LLRB::printTree() const{
 		}
 		else { //fake node
 
-			//pushing two fake children
+			   //pushing two fake children
 			wave.push(std::make_pair(nullptr, wave.front().second + 1));
 			wave.push(std::make_pair(nullptr, wave.front().second + 1));
 		}

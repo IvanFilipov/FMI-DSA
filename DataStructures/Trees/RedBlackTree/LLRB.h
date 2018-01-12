@@ -93,6 +93,8 @@ public:
 
 	unsigned int getHeight()const;
 
+	key_type getMaxKey() const;
+
 	void printSortedKeys() const;
 
 	void printTree()const;
