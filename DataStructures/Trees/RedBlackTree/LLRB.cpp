@@ -110,21 +110,15 @@ void LLRB::rec_printSortedKeys(node* root) const{
 //same as in BST
 unsigned int LLRB::rec_getHeight(node* root) const{
 
-	if (root) {
-		//return 1 + rec_getHeight(root->pLeft) + rec_getHeight(root->pRight);
-
-		unsigned int leftSubTreeHeight = rec_getHeight(root->pLeft);
-		unsigned int rightSumTreeHeight = rec_getHeight(root->pRight);
-
-		return 1 +
-			((leftSubTreeHeight > rightSumTreeHeight) ?
-				leftSubTreeHeight :
-				rightSumTreeHeight);
-
-	}
-	else
+	if (root == nullptr)
 		return 0;
 
+	unsigned int leftSubTreeHeight = getHeight(root->pLeft);
+	unsigned int rightSumTreeHeight = getHeight(root->pRight);
+
+	return 1 + ((leftSubTreeHeight > rightSumTreeHeight) ?
+		leftSubTreeHeight :
+		rightSumTreeHeight);
 }
 
 
