@@ -317,7 +317,7 @@ template<class T>
 int DynamicArray<T>::binarySearch(const T& e, size_t L, size_t R)const {
 
 	//there is no such element
-	if (L > R)
+	if (L == R && pData[L] != e)
 		return -1;
 
 	size_t med = (L + R) / 2;
