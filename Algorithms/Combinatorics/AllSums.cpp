@@ -23,7 +23,7 @@ void creatSum(unsigned int n, int pos){
 		return;
 	}
 
-	for (int k = n; k >= 1; k--){
+	for (unsigned int k = n; k >= 1; k--){
 
 		addends[pos] = k;
 
