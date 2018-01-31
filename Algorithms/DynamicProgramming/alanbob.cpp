@@ -5,7 +5,7 @@ const size_t NUM_PRE = 10;
 const unsigned int MAXVAL = 200;
 
 const unsigned int values[NUM_PRE] = { 3, 2, 3, 2, 2, 77,
-										  89, 23, 90, 11 };
+					  89, 23, 90, 11 };
 
 const unsigned long int ALL_SUMS = NUM_PRE * MAXVAL;
 
