@@ -63,7 +63,5 @@ int main()
 {
 	Test_PriorityQueue();
 
-	system("pause");
-
 	return 0;
 }
