@@ -7,7 +7,7 @@
 //a func that fills our array with 10000 random elements
 void init(DynamicArray<int>& arr) {
 
-	srand(time(0));
+	
 	
 	for (int i = 0; i < 10000; i++)
 		arr.pushBack(rand() % 1000);
@@ -20,6 +20,9 @@ int main(){
 
 	
 	DynamicArray<int> arr;
+
+	//seed the random generator
+	srand(static_cast<unsigned int>(time(nullptr)));
 
 	init(arr);
 

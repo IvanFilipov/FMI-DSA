@@ -45,8 +45,6 @@ public:
 	//removes an elem on random position
 	void removeAt(size_t);
 
-	const T& getAt(size_t)const;
-	void setAt(size_t,const T&);
 	const T& operator[](size_t)const;
 	T& operator[](size_t);
 
@@ -210,19 +208,6 @@ void DynamicArray<T>::insertAt(size_t pos, const T& newElem){
 
 }
 
-
-
-template<class T>
-void DynamicArray<T>::setAt(size_t pos, const T& elem){
-
-
-	if (pos >= curSize)
-		throw std::out_of_range("Can't set a non-existent element");
-
-	pData[pos] = elem;
-
-}
-
 template<class T>
 void DynamicArray<T>::removeAt(size_t pos) {
 
@@ -245,28 +230,24 @@ void DynamicArray<T>::removeAt(size_t pos) {
 	popBack();
 
 }
-template<class T>
-const T& DynamicArray<T>::getAt(size_t pos)const{
-
-	if (pos  >= curSize)
-		throw std::out_of_range("out of range!!!");
-
-	return pData[pos];
-}
 
 template<class T>
-const T& DynamicArray<T>::operator[](size_t pos)const{
-
-	getAt(pos);
-}
-
-template<class T>
-T& DynamicArray<T>::operator[](size_t pos){
+const T& DynamicArray<T>::operator[](size_t pos) const {
 
 	if (pos >= curSize)
 		throw std::out_of_range("out of range!!!");
 
 	return pData[pos];
+}
+
+template<class T>
+T& DynamicArray<T>::operator[](size_t pos){
+
+	//casting is a bad idea in general, but
+	//code duplication is even worse
+	return const_cast<T&>(
+			static_cast<const DynamicArray&>(*this)[pos];
+	);
 }
 
 template<class T>
