@@ -1,4 +1,6 @@
-#include<iostream>
+//generates all permutations of a given set of numbers
+
+#include <stdio.h>
 
 #define USED true
 #define UNUSED false
@@ -7,52 +9,42 @@
 const int MAXN = 4;
 
 //the set we are permuting
-int given[MAXN] = { 3,11,23,7};
+int given[MAXN] = { 3, 11, 23, 7};
 
 //buffer for generating the current permutation
-int curPerm[MAXN];
+int cur_perm[MAXN];
 
 //used in current permutation -> TRUE , else -> FALSE
 bool used[MAXN] = { UNUSED, }; 
-
-
-void print() {
+//outputs the current permutation
+void print_perm() {
 
 	for (int i = 0; i < MAXN; i++)
-		std::cout << curPerm[i] << " ";
+		printf("%d ", cur_perm[i]);
 
-	std::cout << std::endl;
-
+	putchar('\n');
 }
-
-// permuting the i-th element
+//permuting the i-th element
 void perm(int i) {
 
 	//the bottom of the recursion
 	if (i >= MAXN) {
 
-		print();
+		print_perm();
 		return;
 	}
-
-
+	
 	for (int k = 0; k < MAXN; k++) {
-		
 		//trying to use the k-th element of the set
 		if (used[k] == UNUSED) {
-
+				
 			used[k] = USED; //marking it as used 
-			curPerm[i] = given[k];  //saving it's value
+			cur_perm[i] = given[k];  //saving it's value
 			perm(i + 1); //generating the next element
 			used[k] = UNUSED; //unmarking after coming back form the recursion call
-
 		}
 	}
-
 }
-
-
-
 
 int main() {
 
