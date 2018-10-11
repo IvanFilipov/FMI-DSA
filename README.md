@@ -1,7 +1,7 @@
 # ФМИ - СДП
 
 Код от семинарите по СДП 2016/17/18г. спец. Информатика, ФМИ, СУ
-[Код от практикумите](https://github.com/VasiPeycheva/Data-Structures-and-Algorithms--2018-2019)
+<br>[Код от практикумите](https://github.com/VasiPeycheva/Data-Structures-and-Algorithms--2018-2019)
 
 
 ## Организация на хранилището :
@@ -26,7 +26,7 @@
 
 Some examples and source code during the DSA (data structures and algorithms) courses at
 Faculty of Mathematics and Informatics at Sofia University
-[Code from practicums](https://github.com/VasiPeycheva/Data-Structures-and-Algorithms--2018-2019)                     
+<br>[Code from practicums](https://github.com/VasiPeycheva/Data-Structures-and-Algorithms--2018-2019)                     
 
 ## repository organization :
    * `/Algorithms/` - simple examples of basic algorithm classes - 
