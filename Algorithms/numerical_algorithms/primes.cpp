@@ -16,7 +16,7 @@ int max(int a, int b) {
 bool is_prime(int n) {
 
 	if (n < 2)
-		return true;
+		return false;
 
 	int sq = sqrt(n);
 
