@@ -1,0 +1,6 @@
+We have two brothers - Alan and Bob.
+They have N presents to share. 
+Each present "Pi" for i = 1..N has a value V(Pi).
+If Alan takes presents for value A and
+Bob for B, our task is to minimize
+the difference |A - B| 
