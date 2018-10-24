@@ -25,7 +25,7 @@ public:
 private:
 
 	void copy_from(const dynamic_array& rhs);
-    void free();
+   
 	void resize(size_t new_cap);
 	
 	//returns the index of the searched element, -1 if there is no such element
@@ -34,6 +34,8 @@ private:
 	
 public:
 
+	//frees the allocated memory
+	void clear();
 	//add a new elem in the end
 	void push_back(const T& new_el);
 	//removes the last elem
@@ -64,20 +66,20 @@ public:
 	void print_elems(std::ostream& os) const; 
 };
 
-template<class T>
+template<typename T>
 dynamic_array<T>::dynamic_array() : data_ptr(nullptr), cur_size(0), capacity(0) {
 
 	/*...*/
 }
 
-template<class T>
+template<typename T>
 dynamic_array<T>::~dynamic_array() {
 
-	free();
+	clear();
 }
 
-template<class T>
-void dynamic_array<T>::free() {
+template<typename T>
+void dynamic_array<T>::clear() {
 	
 	delete[] data_ptr;
 
@@ -86,7 +88,7 @@ void dynamic_array<T>::free() {
 	capacity = 0;
 }
 
-template<class T>
+template<typename T>
 void dynamic_array<T>::copy_from(const dynamic_array<T>& rhs) {
 
 	data_ptr = new T[rhs.capacity];
@@ -102,25 +104,25 @@ void dynamic_array<T>::copy_from(const dynamic_array<T>& rhs) {
 	is_sorted = rhs.is_sorted;
 }
 
-template<class T>
+template<typename T>
 dynamic_array<T>::dynamic_array(const dynamic_array<T>& rhs) : data_ptr(nullptr), cur_size(0), capacity(0) {
 
 	copy_from(rhs);
 }
 
-template<class T>
+template<typename T>
 dynamic_array<T>& dynamic_array<T>::operator=(const dynamic_array<T>& other) { 
 
 	if (this != &other) {
 
-		free();
+		clear();
 		copy_from(other);
 	}
 	
 	return *this;
 }
 
-template<class T>
+template<typename T>
 void dynamic_array<T>::resize(size_t new_cap) {
 
 	T *temp = data_ptr;
@@ -135,7 +137,7 @@ void dynamic_array<T>::resize(size_t new_cap) {
 	delete[] temp;
 }
 
-template<class T>
+template<typename T>
 void dynamic_array<T>::push_back(const T& new_el) {
 
 	if (cur_size >= capacity) {
@@ -156,7 +158,7 @@ void dynamic_array<T>::push_back(const T& new_el) {
 		is_sorted = false;
 }
 
-template<class T>
+template<typename T>
 void dynamic_array<T>::pop_back() {
 
 	if (cur_size)
@@ -171,7 +173,7 @@ void dynamic_array<T>::pop_back() {
 	}
 }
 
-template<class T>
+template<typename T>
 void dynamic_array<T>::insert_at(size_t index, const T& new_el) {
 	
 	bool sorted_before = is_sorted;
@@ -194,7 +196,7 @@ void dynamic_array<T>::insert_at(size_t index, const T& new_el) {
 	}
 }
 
-template<class T>
+template<typename T>
 void dynamic_array<T>::remove_at(size_t index) {
 
 	if (index >= cur_size || cur_size == 1) { //just removes the last elem
@@ -217,7 +219,7 @@ void dynamic_array<T>::remove_at(size_t index) {
 	pop_back();
 }
 
-template<class T>
+template<typename T>
 const T& dynamic_array<T>::operator[](size_t index) const {
 
 	if (index >= cur_size)
@@ -226,7 +228,7 @@ const T& dynamic_array<T>::operator[](size_t index) const {
 	return data_ptr[index];
 }
 
-template<class T>
+template<typename T>
 T& dynamic_array<T>::operator[](size_t index) {
 
 	//casting is a bad idea in general, but
@@ -236,21 +238,21 @@ T& dynamic_array<T>::operator[](size_t index) {
 	);
 }
 
-template<class T>
+template<typename T>
 inline
 size_t dynamic_array<T>::get_size() const {
 
 	return cur_size;
 }
 
-template<class T>
+template<typename T>
 inline
 size_t dynamic_array<T>::get_capacity() const {
 
 	return capacity;
 }
 
-template<class T>
+template<typename T>
 void dynamic_array<T>::sort() {
 
 	if (is_sorted)
@@ -264,7 +266,7 @@ void dynamic_array<T>::sort() {
 	is_sorted = true;
 }
 
-template<class T>
+template<typename T>
 int dynamic_array<T>::search(const T& el) const {
 
 	if (is_sorted)
@@ -273,7 +275,7 @@ int dynamic_array<T>::search(const T& el) const {
 	return linear_search(el); // O(N)
 }
 
-template<class T>
+template<typename T>
 int dynamic_array<T>::binary_search(const T& el, int left, int right) const {
 
 	//there is no such element
@@ -295,7 +297,7 @@ int dynamic_array<T>::binary_search(const T& el, int left, int right) const {
 	return -1;
 }
 
-template<class T>
+template<typename T>
 int dynamic_array<T>::linear_search(const T& el) const {
 
 	for (size_t i = 0; i < cur_size; i++)
@@ -305,7 +307,7 @@ int dynamic_array<T>::linear_search(const T& el) const {
 	return -1;
 }
 
-template<class T>
+template<typename T>
 void dynamic_array<T>::print_info(std::ostream& os) const {
 
 	os  << "obj at : Ox" << this
@@ -315,7 +317,7 @@ void dynamic_array<T>::print_info(std::ostream& os) const {
 } 
 
 
-template<class T>
+template<typename T>
 void dynamic_array<T>::print_elems(std::ostream& os) const {
 	
 	os << "content : ";
