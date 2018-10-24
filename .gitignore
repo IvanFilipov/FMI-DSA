@@ -31,3 +31,6 @@
 # Project files
 *.layout
 *.depend
+
+# Test project dir
+/example/*
