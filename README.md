@@ -2,6 +2,7 @@
 
 Код от семинарите по СДП 2016/17/18г. спец. Информатика, ФМИ, СУ
 <br>[Код от практикумите](https://github.com/VasiPeycheva/Data-Structures-and-Algorithms--2018-2019)
+<br>[Примери за напреднали](https://github.com/IvanFilipov/modern_c_plus_plus)
 
 
 ## Организация на хранилището :
@@ -28,7 +29,8 @@
 
 Some examples and source code during the DSA (data structures and algorithms) courses at
 Faculty of Mathematics and Informatics at Sofia University
-<br>[Code from practicums](https://github.com/VasiPeycheva/Data-Structures-and-Algorithms--2018-2019)                     
+<br>[Code from practicums](https://github.com/VasiPeycheva/Data-Structures-and-Algorithms--2018-2019)
+<br>[Advanced examples](https://github.com/IvanFilipov/modern_c_plus_plus)
 
 ## repository organization :
    * `/algorithms/` - simple examples of basic algorithm classes - 
