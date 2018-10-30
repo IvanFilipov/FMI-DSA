@@ -376,7 +376,7 @@ typename slinked_list<T>::iterator slinked_list<T>::
 			
 		delete back_ptr;
 		back_ptr = it.node_ptr;
-		back_ptr = nullptr;
+		back_ptr->next_ptr = nullptr;
 		return iterator(back_ptr);
 	}
 	
