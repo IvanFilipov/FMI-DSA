@@ -376,7 +376,8 @@ typename slinked_list<T>::iterator slinked_list<T>::
 			
 		delete back_ptr;
 		back_ptr = it.node_ptr;
-		return back_ptr;
+		back_ptr = nullptr;
+		return iterator(back_ptr);
 	}
 	
 	node* to_delete = it.node_ptr->next_ptr;
@@ -384,7 +385,7 @@ typename slinked_list<T>::iterator slinked_list<T>::
 	//we will have node_ptr->next_ptr->next_ptr, because, the ptr->next_ptr is not the last element
 	it.node_ptr->next_ptr = it.node_ptr->next_ptr->next_ptr;
 
-	delete[] to_delete;
+	delete to_delete;
 
 	return it.node_ptr->next_ptr;
 }
