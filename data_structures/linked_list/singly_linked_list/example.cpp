@@ -1,5 +1,15 @@
-#include <iostream>
+/*
+ * Example usage of custom singly linked list. Testing with some STL algorithms.
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+ *
+ * Author : Ivan Filipov	
+ */
+ 
+#include <iostream>  // std::cout
+#include <algorithm> // std::count_if(), std::transform(), std::is_sorted()
 #include "slinked_list.hpp"
+
+using dsa::slinked_list;
 
 void run_basic_tests() {
 	
@@ -71,18 +81,68 @@ void run_basic_tests() {
 	
 	
 	slinked_list<int> second = f_list;
-	std::cout << "\ncopy working?\n";
+	std::cout << "\ncopy working?" << std::endl;
 	second.print_elems(std::cout);
 	
 }	
 
 void run_advanced_tests() {
 	
-	std::cout << "\nmodern C++ tests : TODO \n\n";
-	//modern C++ look-like iterations
-	//custom iterator algorithms
-	//STL algorithms?
-	//TO DO : add and explain advanced usages
+	// create a test list with initializer list
+	slinked_list<int> f_list = { 1, 2, 3, 3, 4, 5, 6, 7, 8, 9, 10 };
+	
+	std::cout << "\nmodern C++ tests\n\n";
+	// because we have iterator, which is STL compatible
+	// we can take advantage of : 
+	// moder C++ look-like iterations
+	// STL algorithms
+	// our structure is compatible with all algorithms that takes forward iterators 
+	
+	std::cout << "iterating over all elements using iterator based for :" << std::endl;
+	for (slinked_list<int>::iterator it = f_list.begin(); it != f_list.end(); ++it) {
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl << std::endl;
+	
+	std::cout << "iterating over all elements using range based for :" << std::endl;
+	for (int el : f_list) {
+		std::cout << el << " ";
+	}
+	std::cout << std::endl << std::endl;
+
+	std::cout << "applying iterator based filter for each second number :" << std::endl;
+	int i = 0;
+	for (slinked_list<int>::iterator it = f_list.begin(); it != f_list.end(); ) {
+		if (i % 2 == 0) 
+			it = f_list.remove_after(it);
+		else 
+			++it;
+		++i;
+	}
+	f_list.print_elems(std::cout);
+	std::cout << std::endl;
+
+	std::cout << "applying iterator based map for +1 function :" << std::endl;
+	for (slinked_list<int>::iterator it = f_list.begin(); it != f_list.end(); ++it) {
+
+		(*it)++;
+	}
+	f_list.print_elems(std::cout);
+	
+	std::cout << "\n\nTESTING SOME STL ALGORITHM FUNCTIONS :" << std::endl;
+	f_list.print_elems(std::cout);
+	int num_items3 = std::count_if(f_list.begin(), f_list.end(), [](int i) -> bool {return i % 3 == 0;});
+    std::cout << "number divisible by three: " << num_items3 << std::endl;
+	
+	std::cout << "\nour elements multiplied by three and stored into another list:" << std::endl;
+	slinked_list<int> s_list;
+	std::transform(f_list.begin(), f_list.end(), std::back_inserter(s_list),
+                   [](int i) -> int { return i * 3; });
+	s_list.print_elems(std::cout);
+
+	std::cout << "\nis the new list sorted? :" 
+			  << ((std::is_sorted(s_list.begin(), s_list.end())) ? "yes" : "no") 
+			  << std::endl;
 }
 
 int main() {
