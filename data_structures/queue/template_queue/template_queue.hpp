@@ -12,21 +12,22 @@ class t_queue {
 	
 private:
 	// the laying down container could be different, 
-	// it only should have an interface : back, push/pop_back, empty, size
+	// it only should have an interface : back, front, push_back, pop_front, empty, size
 	Container container;
 
 public:
 	// interface :
 	
-	// letting us to "see" the top or to "adjust" it
+	// letting us to "see" the first or to "adjust" it
 	T& front() { return container.front(); }
 	const T& front() const { return container.front(); }
-	
+	// same for the last one
 	T& back() { return container.back(); }
 	const T& back() const { return container.back(); }
 
-	// remove / add top element
+	// enqueue - new element at the end
 	void push(const T& el) { container.push_back(el); }
+	// dequeue - remove first element
 	void pop() { container.pop_front(); }
 	
 	// getters
