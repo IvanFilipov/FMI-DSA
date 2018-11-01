@@ -1,5 +1,9 @@
-//a basic benchmarking generic function
-//for the students to test their own algorithms
+/*
+ * A basic benchmarking generic function, for the students to test their own algorithms.
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+ *
+ * Author : Ivan Filipov	
+ */
 
 #pragma once
 
@@ -10,7 +14,7 @@
 
 //marco to create a string
 #define fnc_name_to_str(f) #f
-
+namespace dsa {
 //format argument
 enum class T_FORMAT {
 	
@@ -97,3 +101,4 @@ void benchmark_test_fnc(Functor f, T_FORMAT format = T_FORMAT::F_MICRO,
 			<< std::setw(3) << us.count() << std::endl; 
 	}
 }
+} // namespace dsa
