@@ -14,9 +14,6 @@
          структури от данни - "Динамичен масив", "Свързан списък", "Стек", "Опашка",
          "Дървета", "Хеш - таблици"
 
-   * `/exam_partX/` - в тези поддиректории може да намерите условия и примерни решения на задачите давани
-         на  "Х-тото" контролно по избираемата дисциплина СПД - практикум
-
    * `/recap/` - материали за преговор на наученото по ООП и УП
 
    * `/utils/` - общи помощни ресурси
@@ -40,8 +37,6 @@ Faculty of Mathematics and Informatics at Sofia University
    * `/data_structures/` - implementations for all basic data structures : 
          "Dynamic array", "Linked list", "Stack", "Queue",
          "Trees", "Hash tables"
-
-   * `/exam_partX/` - tasks and solutions form the "X" numbered exam during the SDA - practicum course
 
    * `/recap/` - some materials to review the learned during IP and OOP
 
