@@ -5,6 +5,8 @@
  * Author : Ivan Filipov	
  */
 
+#pragma once
+ 
 #include<stdexcept>
 
 // the implementation is pretty close to the

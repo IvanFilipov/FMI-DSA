@@ -4,6 +4,9 @@
  *
  * Author : Ivan Filipov	
  */
+ 
+#pragma once
+ 
 #include <stdexcept> // exception types
 
 // first template argument is the type of stored objects 

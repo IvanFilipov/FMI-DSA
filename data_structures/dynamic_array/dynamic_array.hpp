@@ -5,6 +5,8 @@
  * Author : Ivan Filipov	
  */
 
+#pragma once
+ 
 #include <utility>   // std::swap
 #include <stdexcept> // standard exceptions
 #include <iosfwd>    // forward declarations of ostreams

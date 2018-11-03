@@ -5,6 +5,8 @@
  * Author : Ivan Filipov	
  */
 
+#pragma once
+ 
 #include <stdexcept>        // exception types
 #include <iosfwd>           // forward declarations of ostreams
 #include <initializer_list> // initializer_list
