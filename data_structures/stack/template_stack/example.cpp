@@ -13,17 +13,13 @@
 #include "../../../utils/benchmark.hpp"                          // our test benchmark lib
 #include "../../dynamic_array/dynamic_array.hpp"                 // our custom vector
 #include "../../linked_list/singly_linked_list/slinked_list.hpp" // our custom singly linked list
+#include "../../linked_list/doubly_linked_list/dlinked_list.hpp" // our custom doubly linked list
 #include "../dynamic_stack/dynamic_stack.hpp"                    // our custom dynamic stack
 
 #include "template_stack.hpp" // the template for stack interface with variadic down-laying container 
 
 // bring here some names from our lib
-using dsa::dynamic_array;
-using dsa::t_stack;
-using dsa::benchmark_test_fnc;
-using dsa::dynamic_stack;
-using dsa::T_FORMAT;
-using dsa::slinked_list;
+using namespace dsa;
 
 // and also from std
 using std::vector;
@@ -109,11 +105,12 @@ int main() {
 	///!!! our pop_back is O(n), while std::list's one is O(1), because it is doubly linked list, that's way this one is much slower
 	benchmark_test_fnc(test_stack_adaptor<slinked_list<int>>, T_FORMAT::F_MILLI, "implementation on dsa::slinked_list");
 	
+	/* test operations with our custom doubly linked list */
+	benchmark_test_fnc(test_stack_adaptor<dlinked_list<int>>, T_FORMAT::F_MILLI, "implementation on dsa::dlinked_list");
+	
 	/* test operations with std::stack */
 	benchmark_test_fnc(test_stack_plain<stack<int>>, T_FORMAT::F_MILLI, "implementation on std::stack");
 	
 	/* test operations with our custom dynamic stack */
 	benchmark_test_fnc(test_stack_plain<dynamic_stack<int>>, T_FORMAT::F_MILLI, "implementation on dsa::dynamic_stack");
-		
-	// TO DO : add test std::list vs. dsa::doubly_linked_list
 }
