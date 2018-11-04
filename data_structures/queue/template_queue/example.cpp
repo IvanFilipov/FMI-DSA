@@ -13,17 +13,13 @@
 #include "../../../utils/benchmark.hpp"                          // our test benchmark lib
 #include "../../dynamic_array/dynamic_array.hpp"                 // our custom vector
 #include "../../linked_list/singly_linked_list/slinked_list.hpp" // our custom singly linked list
+#include "../../linked_list/doubly_linked_list/dlinked_list.hpp" // our custom doubly linked list
 #include "../dynamic_queue/dynamic_queue.hpp"                    // our custom dynamic stack
 
 #include "template_queue.hpp" // the template for stack interface with variadic down-laying container 
 
 // bring here some names from our lib
-using dsa::dynamic_array;
-using dsa::t_queue;
-using dsa::benchmark_test_fnc;
-using dsa::dynamic_queue;
-using dsa::T_FORMAT;
-using dsa::slinked_list;
+using namespace dsa;
 
 // and also from std
 using std::vector;
@@ -109,11 +105,12 @@ int main() {
 	/// the queue only needs pop_front & push_back, both O(1) in these implementations, but std::list is doubly linked. 
 	benchmark_test_fnc(test_queue_adaptor<slinked_list<int>>, T_FORMAT::F_MILLI, "implementation on dsa::slinked_list");
 	
+	/* test operations with our custom doubly linked list */
+	benchmark_test_fnc(test_queue_adaptor<dlinked_list<int>>, T_FORMAT::F_MILLI, "implementation on dsa::dlinked_list");
+		
 	/* test operations with std::queue */
 	benchmark_test_fnc(test_queue_plain<queue<int>>, T_FORMAT::F_MILLI, "implementation on std::queue");
 	
 	/* test operations with our custom dynamic queue */
 	benchmark_test_fnc(test_queue_plain<dynamic_queue<int>>, T_FORMAT::F_MILLI, "implementation on dsa::dynamic_queue");
-		
-	// TO DO : add test std::list vs. dsa::doubly_linked_list
 }
