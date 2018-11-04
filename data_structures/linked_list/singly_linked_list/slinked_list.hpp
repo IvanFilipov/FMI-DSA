@@ -391,7 +391,7 @@ typename slinked_list<T>::iterator slinked_list<T>::find(const T& elem) const {
 
 template<typename T>
 typename slinked_list<T>::iterator slinked_list<T>::
-	insert_after(const slinked_list<T>::iterator& it, const T& el) {
+	insert_after(const typename slinked_list<T>::iterator& it, const T& el) {
 	
 	//insert after the last element
 	if(it == end() || it.node_ptr == back_ptr) {
@@ -411,7 +411,7 @@ typename slinked_list<T>::iterator slinked_list<T>::
 }
 template<typename T>
 typename slinked_list<T>::iterator slinked_list<T>::
-	remove_after(const slinked_list<T>::iterator& it) {
+	remove_after(const typename slinked_list<T>::iterator& it) {
 	
 	if(empty())
 		throw std::logic_error("empty queue!");
