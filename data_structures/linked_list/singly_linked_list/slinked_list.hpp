@@ -333,7 +333,7 @@ void slinked_list<T>::pop_front() {
 	
 	if(cur_size == 1) {
 		// remove the first and zero the structure
-		clean();
+		clear();
 		return;
 	}
 	
@@ -353,7 +353,7 @@ void slinked_list<T>::pop_back() {
 	
 	if(cur_size == 1) {
 		
-		clean();
+		clear();
 		return;
 	}
 	// we should get to the end, step by step
