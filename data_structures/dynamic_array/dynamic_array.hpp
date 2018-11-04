@@ -11,6 +11,7 @@
 #include <stdexcept> // standard exceptions
 #include <iosfwd>    // forward declarations of ostreams
 #include <initializer_list> // initializer_list
+#include <iterator>         // declaration of random_access_iterator_tag
 
 namespace dsa { // the "course" name space
 template<typename T> // the data type
