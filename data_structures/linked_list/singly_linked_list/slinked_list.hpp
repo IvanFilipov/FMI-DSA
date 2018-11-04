@@ -10,6 +10,7 @@
 #include <stdexcept>        // exception types
 #include <iosfwd>           // forward declarations of ostreams
 #include <initializer_list> // initializer_list
+#include <iterator>         // declaration of forward_iterator_tag
 
 namespace dsa {
 template<typename T>
@@ -96,7 +97,7 @@ public:
 	
 private:
 	/* helpers */
-	// copy all objects from another dynamic array
+	// copy all objects from another list
 	void copy_from(const slinked_list& rhs);
 	
 public:
@@ -329,7 +330,13 @@ void slinked_list<T>::pop_front() {
 
 	if (empty())
 		throw std::logic_error("the list is empty!");
-
+	
+	if(cur_size == 1) {
+		// remove the first and zero the structure
+		clean();
+		return;
+	}
+	
 	node* destroyer = front_ptr;
 	front_ptr = front_ptr->next_ptr;
 	delete destroyer;
@@ -346,11 +353,7 @@ void slinked_list<T>::pop_back() {
 	
 	if(cur_size == 1) {
 		
-		delete front_ptr;
-		
-		front_ptr = nullptr;
-		back_ptr = nullptr;
-		cur_size = 0;
+		clean();
 		return;
 	}
 	// we should get to the end, step by step
