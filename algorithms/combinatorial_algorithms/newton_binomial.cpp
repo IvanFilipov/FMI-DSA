@@ -1,3 +1,10 @@
+/*
+ * An example for calculating "n over k", full describtion below.
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+ *
+ * Author : Ivan Filipov	
+ */
+
 // calculates the binomial coefficient from Newton's binomial theorem 
 // ( n )
 // (   )  =  ?  

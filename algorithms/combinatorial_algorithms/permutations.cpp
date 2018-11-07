@@ -1,4 +1,9 @@
-//generates all permutations of a given set of numbers
+/*
+ * An example for generating all permutations of a given set of numbers
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+ *
+ * Author : Ivan Filipov	
+ */
 
 #include <stdio.h>
 

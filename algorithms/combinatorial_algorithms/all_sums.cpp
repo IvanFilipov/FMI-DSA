@@ -1,4 +1,9 @@
-//all possible ways of presenting a natural number as a sum of other natural numbers
+/*
+ * An example for generating all possible ways of presenting a natural number as a sum of other natural numbers.
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+ *
+ * Author : Ivan Filipov	
+ */
 
 #include <stdio.h>
 

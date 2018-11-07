@@ -1,4 +1,10 @@
-// Eratosthenes algorithm : finds out the prime numbers below N -> [2, N] 
+/*
+ * An example for Eratosthenes algorithm : finds out the prime numbers below N -> [2, N] 
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+ *
+ * Author : Ivan Filipov	
+ */
+
 #include<stdio.h>
 
 #define PRIME false

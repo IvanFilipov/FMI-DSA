@@ -1,5 +1,10 @@
-//finds out the greatest common deviser of two
-//natural numbers using Euclid's algorithm
+/*
+ * Finding out the greatest common deviser of two natural numbers using Euclid's algorithm. 
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+ *
+ * Author : Ivan Filipov	
+ */
+
 #include<stdio.h>
 
 //following the recursive definition
