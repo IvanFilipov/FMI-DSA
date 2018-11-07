@@ -326,7 +326,8 @@ typename dynamic_array<T>::iterator dynamic_array<T>::
 }
 
 template<typename T>
-typename dynamic_array<T>::iterator dynamic_array<T>::linear_search(const T& el) const {
+typename dynamic_array<T>::iterator dynamic_array<T>::
+	linear_search(const T& el) const {
 
 	for (size_t i = 0; i < cur_size; i++)
 		if (data_ptr[i] == el)
