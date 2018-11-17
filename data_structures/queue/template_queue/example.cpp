@@ -34,7 +34,7 @@ void test_queue_adaptor() {
 	t_queue<int, Container> q;
 	
 	// adding elements
-	for(size_t i = 0; i < ECOUNT; i++)
+	for (size_t i = 0; i < ECOUNT; i++)
 		q.push(static_cast<int>(i));
 
 	// make a copy
@@ -48,8 +48,7 @@ void test_queue_adaptor() {
 	
 	unsigned long long sum = 0;
 	// remove elements
-	while(!q.empty()) {
-		
+	while (!q.empty()) {
 		sum += q.front();
 		q.pop();
 	}
@@ -65,7 +64,7 @@ void test_queue_plain() {
 	Queue q;
 	
 	// adding elements
-	for(size_t i = 0; i < ECOUNT; i++)
+	for (size_t i = 0; i < ECOUNT; i++)
 		q.push(static_cast<int>(i));
 
 	// make a copy
@@ -79,8 +78,7 @@ void test_queue_plain() {
 	
 	unsigned long long sum = 0;
 	// remove elements
-	while(!q.empty()) {
-		
+	while (!q.empty()) {
 		sum += q.front();
 		q.pop();
 	}

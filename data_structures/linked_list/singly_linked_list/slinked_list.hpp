@@ -171,7 +171,7 @@ slinked_list<T>::slinked_list() :
 template<typename T>
 slinked_list<T>::slinked_list(std::initializer_list<T> il) : slinked_list() {
 	
-	for(const T& el : il)
+	for (const T& el : il)
 		push_back(el);
 }
 
@@ -186,7 +186,6 @@ template<typename T>
 slinked_list<T>& slinked_list<T>::operator=(const slinked_list<T>& rhs) {
 
 	if (this != &rhs) {
-
 		clear();
 		copy_from(rhs);
 	}
@@ -226,7 +225,6 @@ void slinked_list<T>::copy_from(const slinked_list<T>& rhs) {
 		back_ptr = copier_it;
 
 	} catch (std::bad_alloc&) {
-
 		clear();
 		throw;
 	}
@@ -259,7 +257,6 @@ template<typename T>
 void slinked_list<T>::push_front(const T& el) {
 
 	if (empty()) {
-
 		front_ptr = new node(el);
 		back_ptr = front_ptr;
 		cur_size++;
@@ -279,7 +276,6 @@ template<typename T>
 void slinked_list<T>::push_back(const T& el) {
 
 	if (empty()) {
-			
 		push_front(el);
 		return;
 	}
@@ -331,7 +327,7 @@ void slinked_list<T>::pop_front() {
 	if (empty())
 		throw std::logic_error("the list is empty!");
 	
-	if(cur_size == 1) {
+	if (cur_size == 1) {
 		// remove the first and zero the structure
 		clear();
 		return;
@@ -344,25 +340,21 @@ void slinked_list<T>::pop_front() {
 	cur_size--;
 }
 
-
 template<typename T>
 void slinked_list<T>::pop_back() {
 
 	if (empty())
 		throw std::logic_error("the list is empty!");
 	
-	if(cur_size == 1) {
-		
+	if (cur_size == 1) {
 		clear();
 		return;
 	}
 	// we should get to the end, step by step
 	node* it = front_ptr;
-
-	while (it->next_ptr != back_ptr) {
-
+	// iterate to the last element
+	while (it->next_ptr != back_ptr)
 		it = it->next_ptr;
-	}
 	// remove the 'tail'
 	delete back_ptr;
 	// redirect the 'tail' to the element before it
@@ -373,14 +365,12 @@ void slinked_list<T>::pop_back() {
 	cur_size--;
 }
 
-
 template<typename T>
 typename slinked_list<T>::iterator slinked_list<T>::find(const T& elem) const {
 
 	node* it = front_ptr;
 
 	while (it != nullptr) {
-
 		if (it->data == elem)
 			return iterator(it);
 		it = it->next_ptr;
@@ -394,8 +384,7 @@ typename slinked_list<T>::iterator slinked_list<T>::
 	insert_after(const typename slinked_list<T>::iterator& it, const T& el) {
 	
 	//insert after the last element
-	if(it == end() || it.node_ptr == back_ptr) {
-			
+	if (it == end() || it.node_ptr == back_ptr) {
 		push_back(el);
 		return iterator(back_ptr);
 	}
@@ -413,14 +402,13 @@ template<typename T>
 typename slinked_list<T>::iterator slinked_list<T>::
 	remove_after(const typename slinked_list<T>::iterator& it) {
 	
-	if(empty())
+	if (empty())
 		throw std::logic_error("empty queue!");
 	// there is no element after this iterator
 	if (it.node_ptr->next_ptr == nullptr)
 			return end();
 	// last element case
-	if(it.node_ptr->next_ptr == back_ptr) {
-			
+	if (it.node_ptr->next_ptr == back_ptr) {
 		delete back_ptr;
 		back_ptr = it.node_ptr;
 		back_ptr->next_ptr = nullptr;
@@ -444,13 +432,11 @@ void slinked_list<T>::print_elems(std::ostream& os) const {
 	os << "content : ";
 	
 	if(cur_size == 0) {
-		
 		os << "{}" << std::endl;	
 		return;
 	}
 	
 	if(cur_size == 1) {
-		
 		os << '{' << front_ptr->data << '}' << std::endl;
 		return;
 	}
@@ -458,7 +444,6 @@ void slinked_list<T>::print_elems(std::ostream& os) const {
 	os << "{ ";
 	node* it = front_ptr;
 	while (it->next_ptr != nullptr) {
-
 		os << it->data << ", ";
 		it = it->next_ptr;
 	}

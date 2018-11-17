@@ -23,7 +23,7 @@ int main() {
 	printf("please, enter %d elements :\n", N_INPUTS);
 	do {
 		scanf("%d", &el);
-		if(el > 1000) el = el % 1000;
+		if (el > 1000) el = el % 1000;
 		stack_push(&s, el);
 	} while (--cnt);
 	// nicely output the elements using pop() 

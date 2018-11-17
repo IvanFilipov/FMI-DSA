@@ -241,7 +241,7 @@ dynamic_array<T>::dynamic_array(std::initializer_list<T> ilist) : dynamic_array(
 	// parameter to allocate memory only once, not to resize
 	// each time new element from the initializer list is added
 	size_t i = 0;
-	for(const T& el : ilist)    // for each element from the initializer list
+	for (const T& el : ilist)    // for each element from the initializer list
 		data_ptr[i++] = el;     // take its value and write it into our array
 	cur_size = (i) ? i - 1 : 0; // remember how much elements we have read
 }
@@ -256,7 +256,6 @@ template<typename T>
 dynamic_array<T>& dynamic_array<T>::operator=(const dynamic_array<T>& other) { 
 
 	if (this != &other) {
-
 		clear();
 		copy_from(other);
 	}
@@ -318,7 +317,7 @@ typename dynamic_array<T>::iterator dynamic_array<T>::
 	if (data_ptr[med] > el)
 		return binary_search(el, left, med - 1);
 
-	if(data_ptr[med] < el)
+	if (data_ptr[med] < el)
 		return binary_search(el, med + 1, right);
 		
 	//won't reach this line, but added just to stop compiler's complaining
@@ -352,7 +351,6 @@ template<typename T>
 void dynamic_array<T>::push_back(const T& new_el) {
 	// is a reallocation needed
 	if (cur_size >= capacity) {
-
 		size_t new_cap = (capacity == 0 ? 2 : capacity * 2);
 		resize(new_cap);
 	}
@@ -369,7 +367,6 @@ void dynamic_array<T>::pop_back() {
 		throw std::logic_error("already empty dynamic array!");
 	// optional, downsizing sometimes only slows down 
 	if (cur_size * 2 <= capacity) {
-
 		size_t new_cap = ((cur_size == 0) ? 0 : capacity / 2);
 		resize(new_cap);
 	}
@@ -383,10 +380,8 @@ typename dynamic_array<T>::iterator dynamic_array<T>::
 	
 	size_t index = it - data_ptr; // the difference between the pointers it the wanted index
 	//now we should 'roll' our element back to the wanted position 
-	for (size_t i = cur_size - 1; i > index; i--) {
-
+	for (size_t i = cur_size - 1; i > index; i--)
 		std::swap(data_ptr[i], data_ptr[i - 1]);
-	}
 	
 	return iterator(data_ptr + index);
 }
@@ -397,20 +392,18 @@ typename dynamic_array<T>::iterator dynamic_array<T>::
 	
 	size_t index = it - iterator(data_ptr);
 	if (index >= cur_size || cur_size == 1) { //just removes the last elem
-		
 		pop_back();
 		return iterator(data_ptr + cur_size - 1);
 	}
 
 	if (!keep_order) { //faster version O(1)
-		
 		std::swap(data_ptr[cur_size - 1], data_ptr[index]);
 		pop_back();
 		return iterator(data_ptr + index);
 	}
 
 	//else rolling forward
-	for(size_t i = index; i < cur_size - 1; i++)
+	for (size_t i = index; i < cur_size - 1; i++)
 		std::swap(data_ptr[i], data_ptr[i+1]);
 
 	pop_back();
@@ -474,6 +467,7 @@ size_t dynamic_array<T>::get_capacity() const {
 template<typename T>
 inline
 bool dynamic_array<T>::empty() const {
+	
 	return cur_size == 0;
 }
 
@@ -502,20 +496,18 @@ void dynamic_array<T>::print_elems(std::ostream& os) const {
 	
 	os << "content : ";
 	
-	if(cur_size == 0) {
-		
+	if (cur_size == 0) {
 		os << "{}" << std::endl;	
 		return;
 	}
 	
-	if(cur_size == 1) {
-		
+	if (cur_size == 1) {
 		os << '{' << data_ptr[0] << '}' << std::endl;
 		return;
 	}
 	
 	os << "{ ";
-	for(size_t i = 0; i < cur_size - 1; i++)
+	for (size_t i = 0; i < cur_size - 1; i++)
 		os << data_ptr[i] << ", ";		
 	os << data_ptr[cur_size - 1] << " }" << std::endl;
 }

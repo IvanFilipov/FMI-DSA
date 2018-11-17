@@ -78,7 +78,6 @@ template<class T>
 dynamic_queue<T>& dynamic_queue<T>::operator=(const dynamic_queue<T>& rhs) {
 
 	if (this != &rhs) {
-          
 		clean();
 		copy_from(rhs);
 	}
@@ -98,7 +97,6 @@ void dynamic_queue<T>::clean() {
 	node * destroyer ;
 	
 	while (front_ptr != nullptr) {
-
 		//taking the first one
 		destroyer = front_ptr;		
 		//setting the new first one to the one linked with the old first one
@@ -118,14 +116,13 @@ void dynamic_queue<T>::copy_from(const dynamic_queue<T>& rhs) {
 	if (rhs.empty())
 		return;
 
-	try{
+	try {
 		front_ptr = new node(rhs.front_ptr->data);
 
 		node* to_copy = rhs.front_ptr;
 		node* copier = front_ptr;
 
 		while (to_copy->next_ptr != 0) {
-
 			to_copy = to_copy->next_ptr;
 
 			copier->next_ptr = new node(to_copy->data);
@@ -135,7 +132,6 @@ void dynamic_queue<T>::copy_from(const dynamic_queue<T>& rhs) {
 		rear_ptr = copier;
 		cur_size = rhs.cur_size;
 	} catch (std::bad_alloc &) {
-
 		clean();
 		throw;
 	}
@@ -145,7 +141,6 @@ template<class T>
 void dynamic_queue<T>::push(const T& el) {
 
 	if (empty()) {
-
 		front_ptr = new node(el);
 		rear_ptr = front_ptr;
 		cur_size++;
@@ -176,7 +171,7 @@ void dynamic_queue<T>::pop() {
 template<class T>
 const T& dynamic_queue<T>::front() const {
 
-	if(empty())
+	if (empty())
 		throw std::logic_error("empty dynamic_queue!");
 	 
 	return front_ptr->data;
@@ -193,7 +188,7 @@ T& dynamic_queue<T>::front() {
 template<class T>
 const T& dynamic_queue<T>::back() const { 
 
-	if(empty())
+	if (empty())
 		throw std::logic_error("empty!");
 	 
 	return rear_ptr->data;

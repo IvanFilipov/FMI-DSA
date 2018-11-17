@@ -75,14 +75,14 @@ void primes_in_interval_fast(int a_in, int b_in) {
 			break;
 		}
 
-		if(is_prime(i))
+		if (is_prime(i))
 			printf("%d ", i);
 	}
 	
 	int last_checked;
 	for (int i = new_down; i < b - INTERVAL_STEP; i += INTERVAL_STEP)
 		for (int j = 0; j < N_STEPS; j++)
-			if(is_prime(i + steps[j])) {
+			if (is_prime(i + steps[j])) {
 				printf("%d ", i + steps[j]);
 				last_checked = i + steps[j];
 			}

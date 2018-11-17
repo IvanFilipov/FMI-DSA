@@ -79,7 +79,6 @@ void run_basic_tests() {
 	f_list.back()  = 202;
 	f_list.print_elems(std::cout);
 	
-	
 	slinked_list<int> second = f_list;
 	std::cout << "\ncopy working?" << std::endl;
 	second.print_elems(std::cout);

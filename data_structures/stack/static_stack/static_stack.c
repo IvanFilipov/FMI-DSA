@@ -10,7 +10,7 @@
 void stack_init(stack* const context) {
 	
 	context->top = 0;
-	for(int i = 0; i < MAX_SSIZE; i++)
+	for (int i = 0; i < MAX_SSIZE; i++)
 		context->data[i] = 0;
 }
 
@@ -32,7 +32,6 @@ void stack_push(stack* const context, data_type el) {
 data_type stack_pop(stack* const context) {
 	
 	if (stack_is_empty(context)) {
-
 		fprintf(stderr, "empty stack!");
 		return 0;
 	}

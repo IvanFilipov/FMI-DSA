@@ -32,7 +32,6 @@ void run_basic_tests() {
 	std::cout << "\nsearching for 11 :" << std::endl;
 	dlinked_list<int>::iterator it = f_list.find(11);
 	if (it != f_list.end()) {
-
 		std::cout << "found 11!" << std::endl;
 		std::cout << "inserting 73 on it's position :" << std::endl;
 		f_list.insert(it, 73);
@@ -42,7 +41,6 @@ void run_basic_tests() {
 	std::cout << "\nsearching for 1 :" << std::endl;
 	it = f_list.find(1);
 	if (it != f_list.end()) {
-
 		std::cout << "found 1!" << std::endl;
 		std::cout << "removing it :" << std::endl;
 		f_list.remove(it);
@@ -52,7 +50,6 @@ void run_basic_tests() {
 	std::cout << "\nsearching for 404 :" << std::endl;
 	it = f_list.find(404);
 	if (it != f_list.end()) {
-
 		std::cout << "found 404!" << std::endl;
 		std::cout << "inserting 405 on it's position :" << std::endl;
 		f_list.insert(it, 405);
@@ -81,11 +78,9 @@ void run_basic_tests() {
 	f_list.back()  = 202;
 	f_list.print_elems(std::cout);
 	
-	
 	dlinked_list<int> second = f_list;
 	std::cout << "\ncopy working?" << std::endl;
 	second.print_elems(std::cout);
-	
 }	
 
 void run_advanced_tests() {
@@ -119,7 +114,7 @@ void run_advanced_tests() {
 	std::cout << std::endl << std::endl;
 
 	std::cout << "applying iterator based filter for even numbers :" << std::endl;
-	for (dlinked_list<int>::iterator it = f_list.begin(); it != f_list.end(); ) {
+	for (dlinked_list<int>::iterator it = f_list.begin(); it != f_list.end();) {
 		if (*it % 2 == 0) 
 			it = f_list.remove(it);
 		else 
@@ -130,7 +125,6 @@ void run_advanced_tests() {
 
 	std::cout << "applying iterator based map for +1 function :" << std::endl;
 	for (dlinked_list<int>::iterator it = f_list.begin(); it != f_list.end(); ++it) {
-
 		(*it)++;
 	}
 	f_list.print_elems(std::cout);
@@ -158,7 +152,6 @@ void run_advanced_tests() {
 	std::cout << "\nreversing the result :" << std::endl;
 	std::reverse(rev_list.begin(), rev_list.end());
 	rev_list.print_elems(std::cout);
-	
 	
 	std::cout << "\nmerging the result with { 10, 20, 30, 40 }:" << std::endl;
 	dlinked_list<int> m = { 10, 20, 30, 40 };

@@ -97,13 +97,11 @@ inline size_t static_queue<T, N>::size() const {
 	size_t num_elems = 0;
 
 	if (head > tail) { // we should make a new cycle
-		
 		num_elems += (N - head);
 		num_elems += tail;
-	}
-	else
+	} else {
 		num_elems += (tail - head);
-
+	}
 	return num_elems;
 }
 

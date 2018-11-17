@@ -34,7 +34,7 @@ void test_stack_adaptor() {
 	t_stack<int, Container> st;
 	
 	// adding elements
-	for(size_t i = 0; i < ECOUNT; i++)
+	for (size_t i = 0; i < ECOUNT; i++)
 		st.push(static_cast<int>(i));
 
 	// make a copy
@@ -48,8 +48,7 @@ void test_stack_adaptor() {
 	
 	unsigned long long sum = 0;
 	// remove elements
-	for(size_t i = ECOUNT; i > 0; i--) {
-		
+	for (size_t i = ECOUNT; i > 0; i--) {
 		sum += st.peek();
 		st.pop();
 	}
@@ -65,7 +64,7 @@ void test_stack_plain() {
 	Stack st;
 	
 	// adding elements
-	for(size_t i = 0; i < ECOUNT; i++)
+	for (size_t i = 0; i < ECOUNT; i++)
 		st.push(static_cast<int>(i));
 
 	// make a copy
@@ -79,8 +78,7 @@ void test_stack_plain() {
 	
 	unsigned long long sum = 0;
 	// remove elements
-	for(size_t i = ECOUNT; i > 0; i--) {
-		
+	for (size_t i = ECOUNT; i > 0; i--) {
 		sum += st.top();
 		st.pop();
 	}

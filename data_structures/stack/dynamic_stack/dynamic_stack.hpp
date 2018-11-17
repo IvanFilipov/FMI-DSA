@@ -79,7 +79,6 @@ template<class T>
 dynamic_stack<T>& dynamic_stack<T>::operator=(const dynamic_stack<T>& rhs) {
 
 	if (this != &rhs){
-
 		clean();
 		copy_from(rhs);
 	}
@@ -93,14 +92,13 @@ void dynamic_stack<T>::copy_from(const dynamic_stack<T>& rhs) {
 	if (rhs.empty())
 		return;
 
-	try{
+	try {
 		top_ptr = new node(rhs.top_ptr->data);
 		
 		node* ours = top_ptr;
 		node* theirs = rhs.top_ptr->next_ptr;
 
 		while (theirs != nullptr){
-
 			ours->next_ptr = new node(theirs->data);
 			
 			ours = ours->next_ptr;
@@ -121,7 +119,6 @@ void dynamic_stack<T>::clean() {
 	node* temp;
 
 	while (top_ptr != nullptr) {
-
 		temp = top_ptr;
 		top_ptr = top_ptr->next_ptr;
 		delete temp;

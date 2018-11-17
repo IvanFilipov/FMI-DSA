@@ -194,20 +194,18 @@ public:
 template<typename T>
 dlinked_list<T>::dlinked_list() : 
 	front_ptr(nullptr), back_ptr(nullptr), cur_size(0), dummy(new node({} , back_ptr)) {
-
 	//...
 }
 template<typename T>
 dlinked_list<T>::dlinked_list(std::initializer_list<T> il) : dlinked_list() {
 	
-	for(const T& el : il)
+	for (const T& el : il)
 		push_back(el);
 	fix_dummy();
 }
 
 template<typename T>
-dlinked_list<T>::dlinked_list(const dlinked_list<T>& rhs) : 
-	dlinked_list() {
+dlinked_list<T>::dlinked_list(const dlinked_list<T>& rhs) : dlinked_list() {
 
 	copy_from(rhs);
 }
@@ -216,11 +214,10 @@ template<typename T>
 dlinked_list<T>& dlinked_list<T>::operator=(const dlinked_list<T>& rhs) {
 
 	if (this != &rhs) {
-
 		clear();
 		copy_from(rhs);
 	}
-
+	
 	return *this;
 }
 
@@ -270,7 +267,7 @@ template<typename T>
 void dlinked_list<T>::fix_dummy() {
 	
 	dummy->prev_ptr = back_ptr;
-	if(back_ptr) back_ptr->next_ptr = dummy;
+	if (back_ptr) back_ptr->next_ptr = dummy;
 }
 
 /* interface */
@@ -318,7 +315,6 @@ template<typename T>
 void dlinked_list<T>::push_back(const T& el) {
 
 	if (empty()) {
-			
 		push_front(el);
 		return;
 	}
@@ -372,7 +368,6 @@ void dlinked_list<T>::pop_front() {
 		throw std::logic_error("the list is empty!");
 	
 	if(cur_size == 1) {
-		
 		clear();
 		return;
 	}
@@ -393,8 +388,7 @@ void dlinked_list<T>::pop_back() {
 	if (empty())
 		throw std::logic_error("the list is empty!");
 	
-	if(cur_size == 1) {
-		
+	if (cur_size == 1) {
 		clear();
 		return;
 	}
@@ -417,7 +411,6 @@ typename dlinked_list<T>::iterator dlinked_list<T>::find(const T& elem) const {
 	node* it = front_ptr;
 
 	while (it != dummy) {
-
 		if (it->data == elem)
 			return iterator(it);
 		it = it->next_ptr;
@@ -431,8 +424,7 @@ typename dlinked_list<T>::iterator dlinked_list<T>::
 	insert(const typename dlinked_list<T>::iterator& it, const T& el) {
 	
 	//insert after the last element
-	if(it == begin() || cur_size < 2) {
-			
+	if (it == begin() || cur_size < 2) {
 		push_front(el);
 		return iterator(front_ptr);
 	}
@@ -450,14 +442,13 @@ template<typename T>
 typename dlinked_list<T>::iterator dlinked_list<T>::
 	remove(const typename dlinked_list<T>::iterator& it) {
 	
-	if(empty())
+	if (empty())
 		throw std::logic_error("empty queue!");
 	// there is no element after this iterator
 	if (it == end())
-			return end();
+		return end();
 	// last element case
-	if(it.node_ptr == back_ptr) {
-			
+	if (it.node_ptr == back_ptr) {
 		pop_back();
 		return iterator(back_ptr);
 	}
@@ -478,13 +469,11 @@ void dlinked_list<T>::print_elems(std::ostream& os) const {
 	os << "content : ";
 	
 	if(cur_size == 0) {
-		
 		os << "{}" << std::endl;	
 		return;
 	}
 	
 	if(cur_size == 1) {
-		
 		os << '{' << front_ptr->data << '}' << std::endl;
 		return;
 	}
@@ -492,7 +481,6 @@ void dlinked_list<T>::print_elems(std::ostream& os) const {
 	os << "{ ";
 	node* it = front_ptr;
 	while (it->next_ptr != dummy) {
-
 		os << it->data << ", ";
 		it = it->next_ptr;
 	}
