@@ -1,0 +1,25 @@
+	This is at least a partial credits-file of people that have
+	contributed to DSA examples repository. It is sorted by name and
+	formatted to allow easy grepping and beautification by
+	scripts. The fields are: name (N), gitHub profile (G),
+	contributed with (C). 
+	Thanks,
+
+			Ivan Filipov
+------------
+
+N: Gratsiela Gancheva 
+G: https://github.com/ganchGra
+C: author of example implementation of priority queue
+
+N: Nikolay Babulkov
+G: https://github.com/nbabulkov
+C: author of examples about Prim's algo for MST, LSD radix sort
+
+N: Plamen Minev
+G: https://github.com/pminev
+C: corrections in the example of BST
+
+N: Vasilena Peycheva
+G: https://github.com/VasiPeycheva
+C: ensuring that all examples can be compiled with MSVC++
