@@ -5,7 +5,9 @@
  * Author : Ivan Filipov	
  */
 
-#include <stdio.h>
+#include <cstdio>
+
+using std::printf;
 
 unsigned int const MAXN = 100;
 int addends[MAXN];

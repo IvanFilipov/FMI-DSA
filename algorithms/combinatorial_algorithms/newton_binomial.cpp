@@ -12,7 +12,7 @@
 //using Pascal's triangle
 //the result is the k-th element of triangle's n-th line 
 
-#include<stdio.h>
+#include <cstdio>
 
 const int N = 5;
 const int K = 2;
@@ -40,9 +40,9 @@ int calc_N_over_K() {
 
 int main() {
 
-	printf("( %d )\n", N);
-	printf("(   ) = %d\n", calc_N_over_K());
-	printf("( %d )\n", K);
+	std::printf("( %d )\n", N);
+	std::printf("(   ) = %d\n", calc_N_over_K());
+	std::printf("( %d )\n", K);
 
 	return 0;
 }

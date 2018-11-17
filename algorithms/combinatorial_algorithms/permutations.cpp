@@ -5,7 +5,7 @@
  * Author : Ivan Filipov	
  */
 
-#include <stdio.h>
+#include <cstdio>
 
 #define USED true
 #define UNUSED false
@@ -25,9 +25,9 @@ bool used[MAXN] = { UNUSED, };
 void print_perm() {
 
 	for (int i = 0; i < MAXN; i++)
-		printf("%d ", cur_perm[i]);
+		std::printf("%d ", cur_perm[i]);
 
-	putchar('\n');
+	std::putchar('\n');
 }
 //permuting the i-th element
 void perm(int i) {

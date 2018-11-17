@@ -5,8 +5,8 @@
  * Author : Ivan Filipov	
  */
 
-#include<stdio.h>
-#include<math.h>
+#include <cstdio> // std::printf()
+#include <cmath>  // std::sqrt()
 
 int min(int a, int b) {
 	
@@ -24,7 +24,7 @@ bool is_prime(int n) {
 	if (n < 2)
 		return false;
 
-	int sq = sqrt(n);
+	int sq = std::sqrt(n);
 
 	for (int i = 2; i <= sq; i++)
 		if (n % i == 0)
@@ -38,9 +38,9 @@ void primes_in_interval_slow(int a, int b) {
 
 	for (int i = a; i < b; i++)
 		if (is_prime(i))
-			printf("%d ", i);
+			std::printf("%d ", i);
 
-	putchar('\n');
+	std::putchar('\n');
 }
 
 
@@ -76,20 +76,20 @@ void primes_in_interval_fast(int a_in, int b_in) {
 		}
 
 		if (is_prime(i))
-			printf("%d ", i);
+			std::printf("%d ", i);
 	}
 	
 	int last_checked;
 	for (int i = new_down; i < b - INTERVAL_STEP; i += INTERVAL_STEP)
 		for (int j = 0; j < N_STEPS; j++)
 			if (is_prime(i + steps[j])) {
-				printf("%d ", i + steps[j]);
+				std::printf("%d ", i + steps[j]);
 				last_checked = i + steps[j];
 			}
 	
 	for (int i = last_checked + 1; i < b ; i++)
 			if (is_prime(i))
-				printf("%d ", i);
+				std::printf("%d ", i);
 
 }
 
@@ -98,7 +98,7 @@ int main() {
 
 	primes_in_interval_slow(50, 10000);
 
-	printf("\n------------------------------------\n\n");
+	std::printf("\n------------------------------------\n\n");
 
 	primes_in_interval_fast(50, 10000);
 

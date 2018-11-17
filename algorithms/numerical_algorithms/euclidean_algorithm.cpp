@@ -5,7 +5,7 @@
  * Author : Ivan Filipov	
  */
 
-#include<stdio.h>
+#include <cstdio>
 
 //following the recursive definition
 int gcd_rec(int a, int b) {
@@ -33,8 +33,8 @@ int main() {
 	
 	int a = 272, b = 64;
 	
-	printf("using recursive approach : GCD(%d, %d) = %d\n", a, b, gcd_rec(272, 64));
-	printf("using iterative approach : GCD(%d, %d) = %d\n", a, b, gcd_itr(272, 64));
+	std::printf("using recursive approach : GCD(%d, %d) = %d\n", a, b, gcd_rec(272, 64));
+	std::printf("using iterative approach : GCD(%d, %d) = %d\n", a, b, gcd_itr(272, 64));
 	
 	return 0;
 	return 0;
