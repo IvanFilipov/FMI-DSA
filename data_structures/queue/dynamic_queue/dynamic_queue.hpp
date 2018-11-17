@@ -7,7 +7,7 @@
 
 #pragma once
  
-#include<stdexcept>
+#include <stdexcept>
 
 // the implementation is pretty close to the
 // one of singly linked list...
