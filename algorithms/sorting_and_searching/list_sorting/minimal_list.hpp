@@ -34,8 +34,6 @@ private :
 	size_t cur_size; // current amount of objects stored
 
 public:
-
-	public :
 	/* object life cycle */
 	minimal_list();
 	minimal_list(std::initializer_list<T> il);
