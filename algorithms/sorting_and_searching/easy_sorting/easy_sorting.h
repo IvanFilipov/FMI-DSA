@@ -27,7 +27,6 @@ void swap(int* f, int* s);
 /// + no additional memory is needed
 /// - bad sides : difficulty ~ O(n^2) in worst and average case, too much compare and swap operations 
 /// ! usage : only as academical example 
-
 void bubble_sort(int arr[], size_t size);
 
 
@@ -37,7 +36,6 @@ void bubble_sort(int arr[], size_t size);
 /// - bad sides : NOT STABLE ( in basic implementation on array )
 /// - difficulty O(n^2) in best, worst and average case -> non-adaptive
 /// ! usage : when in hurry, and the elements to be sorted are very few
-
 void selection_sort(int arr[], size_t size);
 
 /// Insertion sort
@@ -45,5 +43,4 @@ void selection_sort(int arr[], size_t size);
 /// + no additional memory is needed, in average case less swaps then bubble, comparisons are fewer, except the worst case
 /// - bad sides : difficulty ~ O(n^2) in worst ( data is sorted in the opposite way ), average case
 /// ! usage : as a part of some "fast" sorting algorithms, applicable on linked list
-
 void insertion_sort(int arr[], size_t size);
