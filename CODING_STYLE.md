@@ -55,7 +55,7 @@ const size_t MAX_SIZE = 1024;
   If your block contains only one operation the braces are optional, also it can be done on the same line. E.g :
 
   ```C++
-  if(cond)
+  if (cond)
       long_long_op;
   
   if (cond) short_op;
