@@ -23,7 +23,7 @@ void swap(int* f, int* s);
 
 
 /// Bubble sort 
-/// + good sides : easy to implement , STABLE , adaptive (fast when data is nearly sorted ~ O(n)
+/// + good sides : easy to implement, STABLE, adaptive (fast when data is nearly sorted ~ O(n)
 /// + no additional memory is needed
 /// - bad sides : difficulty ~ O(n^2) in worst and average case, too much compare and swap operations 
 /// ! usage : only as academical example 
@@ -40,7 +40,7 @@ void bubble_sort(int arr[], size_t size);
 
 void selection_sort(int arr[], size_t size);
 
-/// InsertionSort
+/// Insertion sort
 /// + good sides : easy to implement, STABLE, adaptive - fast when data is nearly sorted ~ O(n),
 /// + no additional memory is needed, in average case less swaps then bubble, comparisons are fewer, except the worst case
 /// - bad sides : difficulty ~ O(n^2) in worst ( data is sorted in the opposite way ), average case
