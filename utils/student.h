@@ -19,15 +19,20 @@ struct student {
 	student(const std::string& n, int fnum) :
 		name(n), fn(fnum) {} 
 	
-	bool operator<(const student& rhs) {
+	student()                          = default;
+	student(const student&)            = default;
+	student& operator=(const student&) = default;
+	~student()                         = default;
+	
+	bool operator<(const student& rhs) const {
 
 		return name < rhs.name;
 	}
-	bool operator>(const student& rhs) {
+	bool operator>(const student& rhs) const {
 		
 		return name > rhs.name;
 	}
-	bool operator>=(const student& rhs) {
+	bool operator>=(const student& rhs) const {
 		
 		return name >= rhs.name;
 	}
