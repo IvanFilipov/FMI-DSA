@@ -19,7 +19,7 @@ int linear_search(int* arr, size_t size, int elem) {
 
 // binary search helper
 // array - left bound - right bound - searched element
-static int binary_search_rec(int *arr,int L,int R,int elem) {
+static int binary_search_rec(int *arr, int L, int R, int elem) {
 
 	//there is no such element
 	if (L > R)
