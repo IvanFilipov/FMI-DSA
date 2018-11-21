@@ -33,8 +33,8 @@ void insertion_sort(student_vec& arr, Comparator cmp) {
 template <typename Iterator, typename Comparator>
 void insertion_sort_iter(Iterator begin, Iterator end, Comparator cmp) {
 	
-	for (Iterator i = begin + 1; i < end; i++)
-		for (Iterator j = i; j > begin; j--)
+	for (Iterator i = begin + 1; i < end; ++i)
+		for (Iterator j = i; j > begin; --j)
 			if (cmp(*j, *(j - 1))) // slight difference is here
 				std::swap(*j , *(j - 1));
 }
