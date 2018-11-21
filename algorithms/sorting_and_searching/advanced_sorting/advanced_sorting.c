@@ -29,11 +29,11 @@ static void merge(int* arr, size_t left, size_t right) {
 	int* copy = malloc(sizeof(int) * (left + right));
 	// indexes of the first half , second and copied
 	int left_ind = 0, right_ind = left, copy_ind = 0;
-	//iterating both left and right parts
-	//in each step we
-	//take the smaller element form each part
-	//and copy it in 'copy' array
-	//in order to have sorted sequence in the copy array at the end
+	// iterating both left and right parts
+	// in each step we
+	// take the smaller element form each part
+	// and copy it in 'copy' array
+	// in order to have sorted sequence in the copy array at the end
 	while (left_ind < left && right_ind < left + right)
 		copy[copy_ind++] = (arr[left_ind] < arr[right_ind]) 
 						    ? arr[left_ind++] 
@@ -46,9 +46,9 @@ static void merge(int* arr, size_t left, size_t right) {
 	// elements left from the second part
 	while (right_ind < left + right)
 		copy[copy_ind++] = arr[right_ind++];
-	//copy the memory back into the given array
+	// copy the memory back into the given array
 	memcpy(arr, copy, sizeof(int) * (left + right));
-	//release the memory used
+	// release the memory used
 	free(copy);
 };
 
@@ -89,6 +89,7 @@ void quick_sort(int* arr, size_t size) {
 	// not the smartest way to choose the pivot element
 	// but the easiest to implement and to debug with
 	// int pivot = arr[size / 2];
+	// int pivot = arr[0]; // even easier, but even more lame
 	
 	// better : median-of- three
 	int pivot = max(min(arr[size / 2], arr[size - 1]),
