@@ -42,7 +42,7 @@ void selection_sort(int arr[], size_t size) {
 	// iterate through the whole array 
 	for (size_t i = 0; i < size - 1; i++) {
 
-		index = i; // thing the current element as smallest
+		index = i; // mark the current element as smallest
 
 		for (size_t j = i + 1; j < size; j++) // for the elements in the non-sorted part
 			if (arr[index] > arr[j]) // check if a smaller element than the current smallest is present
