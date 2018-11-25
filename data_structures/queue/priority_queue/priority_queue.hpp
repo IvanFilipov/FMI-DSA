@@ -64,33 +64,33 @@ public:
 	size_t size() const;
 };
 
-template<class T, class Compare>
+template<typename T, typename Compare>
 priority_queue<T, Compare>::priority_queue(const Compare cmp) : cmp(cmp) {
 	//...
 }
 
-template<class T, class Compare>
+template<typename T, typename Compare>
 inline
 size_t priority_queue<T, Compare>::get_left_child_ind(size_t index) const {
 	
 	return index * 2 + 1;
 }
 
-template<class T, class Compare>
+template<typename T, typename Compare>
 inline
 size_t priority_queue<T, Compare>::get_right_child_ind(size_t index) const {
 	
 	return index * 2 + 2;
 }
 
-template<class T, class Compare>
+template<typename T, typename Compare>
 inline
 int priority_queue<T, Compare>::get_parent_ind(size_t index) const {
 	
 	return (index) ? (index - 1) / 2 : -1 ;
 }
 
-template<class T, class Compare>
+template<typename T, typename Compare>
 void  priority_queue<T, Compare>::sift_down(size_t index) {
 	
 	if (empty())
@@ -118,7 +118,7 @@ void  priority_queue<T, Compare>::sift_down(size_t index) {
 	data[index] = el_to_swap;
 }
 
-template<class T, class Compare>
+template<typename T, typename Compare>
 void  priority_queue<T, Compare>::sift_up(size_t index) {
 	
 	T el_to_swap = data[index];
@@ -133,20 +133,20 @@ void  priority_queue<T, Compare>::sift_up(size_t index) {
 	data[index] = el_to_swap;
 }
 
-template<class T, class Compare>
+template<typename T, typename Compare>
 const T& priority_queue<T, Compare>::top() const {
 	
 	return data.front();
 }
 
-template<class T, class Compare>
+template<typename T, typename Compare>
 void priority_queue<T, Compare>::push(const T& el) {
 	
 	data.push_back(el);
 	sift_up(data.size() - 1);
 }
 
-template<class T, class Compare>
+template<typename T, typename Compare>
 void  priority_queue<T, Compare>::pop() {
 	
 	std::swap(data.front(), data.back());
@@ -154,19 +154,19 @@ void  priority_queue<T, Compare>::pop() {
 	sift_down(0);
 }
 
-template<class T, class Compare>
+template<typename T, typename Compare>
 void  priority_queue<T, Compare>::clear() {
 	
 	data.clear();
 }
 
-template<class T, class Compare>
+template<typename T, typename Compare>
 inline bool priority_queue<T, Compare>::empty() const {
 	
 	return data.empty();
 }
 
-template<class T, class Compare>
+template<typename T, typename Compare>
 inline size_t priority_queue<T, Compare>::size() const {
 	
 	return data.size();
