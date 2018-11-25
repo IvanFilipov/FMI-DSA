@@ -36,6 +36,12 @@ struct student {
 		
 		return name >= rhs.name;
 	}
+	
+	bool operator==(const student& rhs) const {
+		
+		return (name == rhs.name) && (fn == rhs.fn);
+	}
+	
 };
 }
 // can lead to linkage errors if included in more than one cpp
