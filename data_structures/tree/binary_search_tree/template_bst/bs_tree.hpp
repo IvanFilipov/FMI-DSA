@@ -165,7 +165,7 @@ void bs_tree<T>::insert_rec(typename bs_tree<T>::node*& root, const T& key) {
 template<typename T>
 const T& bs_tree<T>::search_rec(typename bs_tree<T>::node* root, 
 								const T& key) const {
-	//can't find it...
+	// can't find it...
 	if (root == nullptr)
 		throw std::logic_error("no element with such key!");
 	// is on this node
@@ -177,6 +177,9 @@ const T& bs_tree<T>::search_rec(typename bs_tree<T>::node* root,
 	// search left sub tree
 	if (key < root->key)
 		return search_rec(root->left_ptr, key);
+	// won't get here, but stops compiler's warnings/errors(*errors on clang)
+	//* possibly get here when using double/float
+	throw std::logic_error("no element with such key!");
 }
 
 // node*& because we have pointer redirections

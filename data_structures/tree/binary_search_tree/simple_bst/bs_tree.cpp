@@ -83,7 +83,7 @@ void bs_tree::insert_rec(node*& root, const key_type& key, const data_type& data
 }
 
 data_type bs_tree::search_rec(node* root, const key_type& key) const {
-	//can't find it...
+	// can't find it...
 	if (root == nullptr)
 		throw std::logic_error("no element with such key!");
 	// is on this node
@@ -95,6 +95,8 @@ data_type bs_tree::search_rec(node* root, const key_type& key) const {
 	// search left sub tree
 	if (key < root->key)
 		return search_rec(root->left_ptr, key);
+	// won't get here, but stops compiler's warnings/errors(*errors on clang)
+	throw std::logic_error("no element with such key!");
 }
 
 // node*& because we have pointer redirections
