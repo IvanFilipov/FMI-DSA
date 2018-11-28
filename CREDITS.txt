@@ -8,6 +8,10 @@
 			Ivan Filipov
 ------------
 
+N: Alexander Kruztev 
+G: https://github.com/kruztev
+C: ensuring that all examples can be compiled with Clang
+
 N: Gratsiela Gancheva 
 G: https://github.com/ganchGra
 C: author of example implementation of priority queue
