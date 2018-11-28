@@ -21,7 +21,7 @@
   * `разписание` - примерно разписание по седмици на обхванатите теми и допълнителна информация
          за съдържанието на цялостното изложение
 
-       *всички примери са компилирани и тествани с компилаторите на GNU и MS (gcc, g++, VC++)
+       *всички примери са компилирани и тествани с компилаторите на GNU, MS и  Apple  (gcc, g++, VC++, clang)
 # FMI - DSA
 
 Some examples and source code during the DSA (data structures and algorithms) courses at
@@ -44,4 +44,4 @@ Faculty of Mathematics and Informatics at Sofia University
 
   * `schedule` - all the themes that are included + plan about when talking for them will be
 
-       *all examples are compiled and run using GNU and MS compilers (gcc, g++, VC++)
+       *all examples are compiled and run using GNU, MS and Apple compilers (gcc, g++, VC++, clang)
