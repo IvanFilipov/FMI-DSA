@@ -27,6 +27,7 @@ public:
 	/* object life cycle */
 	dynamic_array(); // default constructor
 	dynamic_array(size_t size); // constructor with parameter size, allocates memory for "size" objects
+	dynamic_array(size_t size, const T& value); // constructor with parameter size and default value
 	dynamic_array(std::initializer_list<T> ilist); // constructor with initializer list { ... }
 	dynamic_array(const dynamic_array& rhs); // copy constructor
 	dynamic_array& operator=(const dynamic_array& rhs); // assignment operator
@@ -133,9 +134,7 @@ private :
 	/* helpers */
 	// copy all objects from another dynamic array
 	void copy_from(const dynamic_array& rhs);
-    // reallocate internal buffer memory
-	void resize(size_t new_cap);
-	
+   
 	// returns an iterator with index of the searched element
 	// if the element is not found, returns iterator to end()
 	iterator binary_search(const T& el, int left, int right) const;
@@ -148,6 +147,11 @@ public :
 	/* interface */
 	// free the allocated memory
 	void clear();
+	// reallocate internal buffer memory
+	void resize(size_t new_cap);
+	// swaps two dynamic arrays for O(1)
+	// only pointers are swapped, not element by element
+	void swap_with(dynamic_array& rhs);
 	
 	// modifiers : 
 	// add a new elem in the end
@@ -233,6 +237,13 @@ dynamic_array<T>::dynamic_array(size_t size) :
 	data_ptr(new T[size]), cur_size(0), capacity(size) {
 	/*...*/
 }
+template<typename T>
+dynamic_array<T>::dynamic_array(size_t size, const T& value) : 
+	data_ptr(new T[size]), cur_size(size), capacity(size) {
+	
+	for (size_t i = 0; i < cur_size; i++)
+		data_ptr[i] = value;
+}
 
 template<typename T>
 dynamic_array<T>::dynamic_array(std::initializer_list<T> ilist) : dynamic_array(ilist.size()) {
@@ -287,21 +298,6 @@ void dynamic_array<T>::copy_from(const dynamic_array<T>& rhs) {
 }
 
 template<typename T>
-void dynamic_array<T>::resize(size_t new_cap) {
-
-	T *temp = data_ptr;
-	
-	data_ptr = new T[new_cap];
-
-	for (size_t i = 0; i < cur_size; i++)
-		data_ptr[i] = temp[i];
-	
-	capacity = new_cap;
-
-	delete[] temp;
-}
-
-template<typename T>
 typename dynamic_array<T>::iterator dynamic_array<T>::
 	binary_search(const T& el, int left, int right) const {
 
@@ -345,6 +341,29 @@ void dynamic_array<T>::clear() {
 	data_ptr = nullptr;
 	cur_size = 0;
 	capacity = 0;
+}
+
+template<typename T>
+void dynamic_array<T>::resize(size_t new_cap) {
+
+	T* temp = data_ptr;
+	
+	data_ptr = new T[new_cap];
+
+	for (size_t i = 0; i < cur_size; i++)
+		data_ptr[i] = temp[i];
+	
+	capacity = new_cap;
+
+	delete[] temp;
+}
+
+template<typename T>
+void dynamic_array<T>::swap_with(dynamic_array<T>& rhs) {
+	
+	std::swap(data_ptr, rhs.data_ptr);
+	std::swap(capacity, rhs.capacity);
+	std::swap(cur_size, rhs.cur_size);
 }
 
 template<typename T>
