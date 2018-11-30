@@ -39,8 +39,9 @@ void lin_pr_hash_table::rehash() {
 	lin_pr_hash_table new_table(table.size() * 2);
 	
 	// for each element form the old table ...
-	for (const table_elem& el : table) { 		
-		new_table.insert(el.key, el.data); // put it in the new table
+	for (const table_elem& el : table) {
+		if (el.key != "")
+			new_table.insert(el.key, el.data); // put it in the new table
 		// which will lead to re-calculating the hash values
 	} 
 	// for O(1) swaps the tables
@@ -56,7 +57,7 @@ void lin_pr_hash_table::insert(const key_type& key, const data_type& data) {
 	// calculate where to add the new element using the hash function
 	size_t index = hash_func(key, table.size());
 	// check if resizing is needed
-	if (logic_fill >= table.size()) {
+	if (logic_fill * 2 >= table.size()) {
 		rehash();
 		// calculate the hash again, because the table now have different size
 		index = hash_func(key, table.size());
@@ -111,11 +112,8 @@ void lin_pr_hash_table::erase(const key_type& key) {
 
 	// where the next elem could be
 	size_t next_ind = (index + STEP) % table.size();
-
 	// moving it down the cluster
-	// while the hashes are the same
-	while (hash_func(table[next_ind].key, table.size()) == 
-		   hash_func(table[index].key, table.size())) {
+	while (table[next_ind].key != "") {
 		// swap the keys and data-s
 		std::swap(table[next_ind], table[index]);
 		// go to the next element
