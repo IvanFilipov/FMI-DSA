@@ -22,7 +22,7 @@ using key_set  = std::array<std::string, N_ELEMS>;
 using data_set = std::vector<data_type>;
 
 template<typename HashTable>
-static void put_test(HashTable& table, const key_set& keys, const data_set& data) {
+void put_test(HashTable& table, const key_set& keys, const data_set& data) {
 
 	for (size_t i = 0; i < N_ELEMS; i++) {
 		std::cout << "putting element with key "
@@ -43,7 +43,7 @@ static void put_test(HashTable& table, const key_set& keys, const data_set& data
 }
 
 template<typename HashTable>
-static void get_test(HashTable& table, const key_set& keys) {
+void get_test(HashTable& table, const key_set& keys) {
 
 	const size_t N_GETS = 3;
 
@@ -79,7 +79,7 @@ static void get_test(HashTable& table, const key_set& keys) {
 }
 
 template<typename HashTable>
-static void erase_test(HashTable& table, const key_set& keys) {
+void erase_test(HashTable& table, const key_set& keys) {
 
 	const size_t N_DELETES = 3;
 
