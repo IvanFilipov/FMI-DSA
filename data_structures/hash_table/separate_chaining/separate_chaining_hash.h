@@ -58,20 +58,22 @@ private:
 	void rehash();
 	// helper for searching in the linked list
 	// returns iterator to the element, end() if not found
+	// should be const, but we don't support const_iterator
+	// and the syntax will be too compilacted
 	chain_iter find(size_t index, const key_type& key);
 	
 public:
 	/* interface */
 	// adding new element with his key and data
 	void insert(const key_type& key, const data_type& data);
-	// get an element by key
+	// get an element by key, should be const, same reason as above
 	data_type get(const key_type& key);
 	// remove element from the table
 	void erase(const key_type& key);
 	/// all of above have amortized O(1) best and average case time complexity
 	/// but O(MAX_CHAIN_SIZE) in the worst case
 	
-	// prints the contain of the hash table
+	// prints the contain of the hash table, should be const, same reason as above
 	void print();
 };
 
