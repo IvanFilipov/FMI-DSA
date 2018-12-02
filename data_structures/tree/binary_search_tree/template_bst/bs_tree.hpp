@@ -17,15 +17,12 @@ class bs_tree {
 private:
 	// each node have two pointer for it's children
 	struct node {
-
-		T key;               // stored object used as a key
-		node*     left_ptr;  // a pointer to left child
-		node*     right_ptr; // a pointer to right child
+		T     key;       // stored object used as a key
+		node* left_ptr;  // a pointer to left child
+		node* right_ptr; // a pointer to right child
 
 		node(const T& k = {}) : key(k),
-			left_ptr(nullptr), right_ptr(nullptr) {
-			//...
-		}
+			left_ptr(nullptr), right_ptr(nullptr) {}
 	};
 	/* private data members */
 	//the root of the tree
@@ -43,7 +40,6 @@ private:
 	/* helpers */
 	// copies all elements for another tree
 	void copy_from(const bs_tree& rhs);
-
 	/// methods with suffix _rec are recursive functions :
 	// destroy a tree with root "root" recursively
 	void destroy_tree_rec(node* root);
@@ -112,7 +108,7 @@ template<typename T>
 void bs_tree<T>::destroy_tree_rec(typename bs_tree<T>::node* root) {
 
 	if (root != nullptr) {
-		destroy_tree_rec(root->left_ptr); // go left
+		destroy_tree_rec(root->left_ptr);  // go left
 		destroy_tree_rec(root->right_ptr); // then go right
 		// after that free the memory
 		delete root;
@@ -257,7 +253,7 @@ unsigned int bs_tree<T>::get_height_rec(typename bs_tree<T>::node* root) const {
 	if (root == nullptr)
 		return 0;
 	// left and right sub-tree's height 
-	unsigned int left_height = get_height_rec(root->left_ptr);
+	unsigned int left_height  = get_height_rec(root->left_ptr);
 	unsigned int right_height = get_height_rec(root->right_ptr);
 	// return the height including this node
 	return 1 + ((left_height > right_height) ? left_height : right_height);
@@ -290,7 +286,7 @@ template<typename T>
 T bs_tree<T>::get_max_key() const {
 
 	if (root == nullptr)
-		return 0;
+		throw std::logic_error("empty tree!");
 
 	node* it = root;
 
