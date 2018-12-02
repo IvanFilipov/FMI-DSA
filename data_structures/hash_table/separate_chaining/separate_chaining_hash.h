@@ -35,7 +35,6 @@ private:
 	// same for internal iterators
 	using chain_iter = dsa::dlinked_list<table_elem>::iterator;
 private:
-	
 	/* private data members */
 	// the whole table
 	hash_table table;
@@ -61,7 +60,7 @@ private:
 	// helper for searching in the linked list
 	// returns iterator to the element, end() if not found
 	// should be const, but we don't support const_iterator
-	// and the syntax will be too compilacted
+	// and the syntax will be too complicated
 	chain_iter find(size_t index, const key_type& key);
 	
 public:
