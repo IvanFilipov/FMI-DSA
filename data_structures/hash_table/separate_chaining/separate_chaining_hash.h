@@ -24,8 +24,10 @@ class sp_ch_hash_table {
 private:
 	// an inner representation of each table element
 	struct table_elem {
-		key_type  key  = "";  // key
-		data_type data = -1; // data
+		key_type  key;
+		data_type data;
+		table_elem(const key_type& key = "", const data_type& data = -1) :
+			key(key), data(data) {}
 	};
 	// typedef for easier writing
 	// same as typedef dynamic_array<dlinked_list<table_elem>> hash_table;
