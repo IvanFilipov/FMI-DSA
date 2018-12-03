@@ -20,7 +20,7 @@ void print_primes() {
 
 	for (ull_int i = 2; i < N; i++)
 		if (sieve[i] == PRIME)
-			printf("%d is a prime!\n", i);
+			printf("%llu is a prime!\n", i);
 }
 //the algorithm is simple, for each prime number,
 //mark all numbers which have this number as a multiplier  
