@@ -65,8 +65,11 @@ void lin_pr_hash_table::insert(const key_type& key, const data_type& data) {
 	// searching for the first free position, maximum number of tries is the size
 	unsigned int trys = table.size();
 	// skip all taken cells
-	while (table[index].key != "" && --trys)
+	while (table[index].key != "" && --trys) {
+		if (table[index].key == key)  // handling same keys
+			throw std::logic_error("this key is taken!");
 		index = (index + STEP) % table.size(); // taking by mod(size) means, make cycles
+	}
 	//successfully found a free position
 	if (table[index].key == "") { 
 		table[index].key  = key;

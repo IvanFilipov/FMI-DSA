@@ -60,6 +60,11 @@ sp_ch_hash_table::chain_iter sp_ch_hash_table::find(size_t index, const key_type
 void sp_ch_hash_table::insert(const key_type& key, const data_type& data) {
 	// calculate where to add the new element using the hash function
 	size_t index = hash_func(key, table.size());
+	// check if this key is taken
+	chain_iter it = find(index, key);
+	// there is not such element
+	if (it != table[index].end())
+		throw std::logic_error("this key is already taken!\n");
 	// check if resizing is needed
 	if (table[index].size() >= MAX_CHAIN_SIZE) {
 		rehash();

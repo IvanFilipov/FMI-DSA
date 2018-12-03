@@ -32,12 +32,18 @@ void put_test(HashTable& table, const key_set& keys, const data_set& data) {
 		try {
 			table.insert(keys[i], data[i]);
 		} catch(const std::exception& e){
-			std::cerr << "put error : " << e.what();
+			std::cerr << "insert error : " << e.what();
 		}
+	}
+	std::cout << "\ntrying to insert taken key:" << std::endl;
+	try {
+		table.insert(keys[0], data[0]);
+	} catch(const std::exception& e){
+		std::cerr << "insert error : " << e.what();
 	}
 	
 	std::cout << std::endl
-	          << "After the test the table looks like :"
+	          << "\nAfter the test the table looks like :"
 	          << std::endl << std::endl;
 	table.print();
 }
