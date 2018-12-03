@@ -67,7 +67,7 @@ void primes_in_interval_fast(int a_in, int b_in) {
 	}
 
 	//finding the first "30q" number
-	int new_down;
+	int new_down = a;
 	for (int i = a; i < a + INTERVAL_STEP; i++) {
 
 		if (i % INTERVAL_STEP == 0) {
@@ -79,7 +79,7 @@ void primes_in_interval_fast(int a_in, int b_in) {
 			std::printf("%d ", i);
 	}
 	
-	int last_checked;
+	int last_checked = 0;
 	for (int i = new_down; i < b - INTERVAL_STEP; i += INTERVAL_STEP)
 		for (int j = 0; j < N_STEPS; j++)
 			if (is_prime(i + steps[j])) {
