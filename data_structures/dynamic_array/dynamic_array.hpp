@@ -53,7 +53,7 @@ public :
 		                                  iterator_category;
 		typedef int                       difference_type;
 		// basic constructor
-		iterator(pointer e) : elem_ptr(e) { }
+		iterator(pointer e = nullptr) : elem_ptr(e) { }
 		
 	public :
 		
