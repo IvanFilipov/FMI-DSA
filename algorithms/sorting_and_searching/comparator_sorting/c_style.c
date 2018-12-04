@@ -39,9 +39,9 @@ int less(const elem* lhs, const elem* rhs) {
 
 	if (lhs->key < rhs->key)
 		return 1;
-	if (lhs->key == rhs->key)
+	else if (lhs->key == rhs->key)
 		return 0;
-	if (lhs->key > rhs->key)
+	else
 		return -1;
 }
 
@@ -49,9 +49,9 @@ int greater(const elem* lhs, const elem* rhs) {
 
 	if (lhs->key > rhs->key)
 		return 1;
-	if (lhs->key == rhs->key)
+	else if (lhs->key == rhs->key)
 		return 0;
-	if (lhs->key < rhs->key)
+	else
 		return -1;
 }
 
