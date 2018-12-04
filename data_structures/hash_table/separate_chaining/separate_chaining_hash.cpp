@@ -62,7 +62,6 @@ void sp_ch_hash_table::insert(const key_type& key, const data_type& data) {
 	size_t index = hash_func(key, table.size());
 	// check if this key is taken
 	chain_iter it = find(index, key);
-	// there is not such element
 	if (it != table[index].end())
 		throw std::logic_error("this key is already taken!\n");
 	// check if resizing is needed
