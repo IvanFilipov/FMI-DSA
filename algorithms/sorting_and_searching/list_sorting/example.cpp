@@ -2,8 +2,8 @@
 #include <cstdlib> //rand(), srand()
 #include <ctime> //time()
 
-#include "minimal_list.hpp"   // minimal slightly linked list
 #include "../../../utils/student.h"
+#include "minimal_list.hpp"   // minimal slightly linked list
 
 void test_custom_merge_sort() {
 	
