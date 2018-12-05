@@ -9,7 +9,7 @@
  
 #include <utility>   // std::swap
 #include <stdexcept> // standard exceptions
-#include <iosfwd>    // forward declarations of ostreams
+#include <iostream>    // forward declarations of ostreams
 #include <initializer_list> // initializer_list
 #include <iterator>         // declaration of random_access_iterator_tag
 
