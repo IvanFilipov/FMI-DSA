@@ -156,7 +156,7 @@ public:
 	// iterators creation interface
 	iterator begin() {
 
-		return iterator(front_ptr);
+		return (front_ptr) ? iterator(front_ptr) : iterator(dummy);
 	}
 
 	iterator end() {
@@ -447,6 +447,11 @@ typename dlinked_list<T>::iterator dlinked_list<T>::
 	// there is no element after this iterator
 	if (it == end())
 		return end();
+	// first element case
+	if (it.node_ptr == front_ptr) {
+		pop_front();
+		return iterator(back_ptr);	
+	}
 	// last element case
 	if (it.node_ptr == back_ptr) {
 		pop_back();

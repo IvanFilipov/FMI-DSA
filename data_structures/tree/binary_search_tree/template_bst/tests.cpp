@@ -8,8 +8,9 @@
 #include <iostream>
  
 #include "tests.h"
-#include "bs_tree.hpp"
 #include "../../../../utils/student.h"
+#include "bs_tree.hpp"
+
 
 void run_basic_tests() {
 	// create empty tree
