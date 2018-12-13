@@ -51,9 +51,9 @@ void init_maze() {
 // used to set delay between printing each step
 void delay(unsigned secs) {
 
-	time_t retTime = time(NULL) + secs;   
+	time_t ret_time = time(NULL) + secs;   
 
-	while (time(NULL) < retTime)
+	while (time(NULL) < ret_time)
 		;               
 }
 
