@@ -28,10 +28,10 @@ using point = std::pair<size_t, size_t>;
 // each direction we can have
 using directions = std::array<point, 4>;
 directions dirs = {
-	std::make_pair( 0,  1), //left
-	std::make_pair( 0, -1), //right
-	std::make_pair( 1,  0), //up
-	std::make_pair(-1,  0) //down
+	std::make_pair( 0,  1), // left
+	std::make_pair( 0, -1), // right
+	std::make_pair( 1,  0), // up
+	std::make_pair(-1,  0)  // down
 };
 
 // simply prints the maze contain
@@ -80,7 +80,7 @@ void bfs_traversal(const point& start) {
 	wave.push(start);
 	// where is the next step
 	int new_x, new_y;
-	// until the wave is empty
+	// until the wave is not empty
 	while (!wave.empty()) {
 		// for each direction
 		for (const point& dir : dirs) {
