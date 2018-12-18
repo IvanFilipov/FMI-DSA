@@ -10,6 +10,8 @@
 #include <tuple>  // std::tuple
 #include <array>  // std::array
 
+using std::printf;
+
 const int MAX_VER_VAL = 26;
 // mark for unknown vertex's parent
 const char NO_PARENT = '?';

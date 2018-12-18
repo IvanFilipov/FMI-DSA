@@ -13,6 +13,8 @@
 #include <unordered_set> // std::unordered_set
 #include <limits>        // std::numeric_limits
 
+using std::printf;
+
 // vertices are characters
 typedef char vertex;
 // weights are numbers
@@ -82,7 +84,7 @@ auto edge_cmp = [](const edge& e1, const edge& e2) {
 };
 
 // uses v_begin as starting vertex
-graph prim(graph& G, vertex v_begin) {
+graph build_prim_mst(graph& G, vertex v_begin) {
 	// the result
 	graph mst;
 	// a set containing all vertices already added into the MST
@@ -111,10 +113,10 @@ graph prim(graph& G, vertex v_begin) {
 				mst[parent_v].push_back(cur_edge);
 		}
 		// iterating over the children_list of the current vertex
-		for (edge e : G[cur_v]) {
+		for (const edge& e : G[cur_v]) {
 			// get the vertex and edge's cost
-			vertex child =  std::get<1>(e);
-			weight w = std::get<2>(e);
+			vertex child = std::get<1>(e);
+			weight w     = std::get<2>(e);
 			// get current best weight for child or +inf if not visited
 			weight weight_current = get_weight(child, cur_best_costs);
 			// add it to the MST if the cost is better than the currently known best
@@ -137,7 +139,7 @@ int main() {
 	
 	/* run the algorithm */
 	vertex v_begin = 'a';
-	graph mst = prim(G, v_begin);
+	graph mst = build_prim_mst(G, v_begin);
 	
 	printf("\nbuilding MST from %c:\n", v_begin);
 	print_graph(mst);
