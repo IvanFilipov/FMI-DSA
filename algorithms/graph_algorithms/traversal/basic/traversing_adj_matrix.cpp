@@ -154,15 +154,21 @@ int main() {
 	
 	print_graph();
 
-	std::cout << "the order of visited vertices by bfs is: ";
+	std::cout << "the order of visited vertices by BFS starting from "
+	          << 1
+	          << " is: ";
 	bfs(1);
 	std::cout << std::endl;
 
-	std::cout << "the order of visited vertices by recursive dfs is: ";
+	std::cout << "the order of visited vertices by recursive DFS starting from "
+	          << 1
+	          << " is: ";
 	recursive_dfs(1);
 	std::cout << std::endl;
 
-	std::cout << "the order of visited vertices by iterative dfs is: ";
+	std::cout << "the order of visited vertices by iterative DFS starting from "
+	          << 1
+	          << " is: ";
 	iterative_dfs(1);
 	std::cout << std::endl;
 
