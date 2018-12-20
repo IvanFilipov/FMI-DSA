@@ -65,6 +65,7 @@ void print_path_rec(vertex v_start, vertex v_end, const parent_list& pl) {
 // from starting vertex @v_begin, after
 // running Dijkstra's algorithm with output in
 // parent list @pl and distance_vector @dv
+//!< Time complexity : O((m + n)logn) -> (with many edges) O(mlogn)
 void print_paths_info(vertex v_begin, const parent_list& pl, const distance_vector& dv) {
 	// for each vertex
 	for (size_t i = 0; i < dv.size() - 1; i++) {
