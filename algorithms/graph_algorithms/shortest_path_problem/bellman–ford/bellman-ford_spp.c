@@ -17,7 +17,7 @@
 // helper marco as function
 #define min(x, y) ((x) < (y)) ? (x) : (y)
 
-// the graph is represented as weighing graph 
+// the graph is represented as weighing matrix
 int graph[SIZE][SIZE] = {
 // vertex "to" :
 //     A    B    C    D    E    F     // vertex "from" :
