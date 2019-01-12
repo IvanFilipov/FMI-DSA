@@ -8,7 +8,8 @@
  * @date   01.2019
  * @brief  Solution to "knight's tour" problem,
  *         as an example of backtracking algorithm.
- * @link   https://en.wikipedia.org/wiki/Knight%27s_tour
+ *
+ * @see https://en.wikipedia.org/wiki/Knight%27s_tour
  */
 
 #include <stdio.h>   // printf(), scanf(), putchar()
