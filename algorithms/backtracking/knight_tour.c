@@ -11,8 +11,7 @@
  * @link   https://en.wikipedia.org/wiki/Knight%27s_tour
  */
 
-#include <stdlib.h>
-#include <stdio.h>   // printf()
+#include <stdio.h>   // printf(), scanf(), putchar()
 #include <stdbool.h> // bool type
 
 /* constants */
@@ -107,7 +106,8 @@ bool knight_next_move(unsigned x, unsigned y, unsigned step, unsigned board_size
 
 int main() {
 	
-	// valid solution from size = 6, input x = 0, y = 5
+	// valid solution from size = 6, x = 0, y = 5
+	// size = 6, x = 1, y = 5
 	/* read inputs */
 	unsigned board_size, start_x, start_y;
 	
