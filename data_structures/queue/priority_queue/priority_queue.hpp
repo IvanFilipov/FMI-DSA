@@ -29,7 +29,7 @@ public :
 	/* object life cycle */
 	// no dynamic memory to handle, so no need for big 4
 	priority_queue() = default;
-	priority_queue(const Compare cmp); // additional constructor with parameter compare function
+	priority_queue(const Compare& cmp); // additional constructor with parameter compare function
 	// we are OK with the compile-generated
 	priority_queue(const priority_queue&)            = default;
 	priority_queue& operator=(const priority_queue&) = default;
@@ -65,7 +65,7 @@ public:
 };
 
 template<typename T, typename Compare>
-priority_queue<T, Compare>::priority_queue(const Compare cmp) : cmp(cmp) {
+priority_queue<T, Compare>::priority_queue(const Compare& cmp) : cmp(cmp) {
 	//...
 }
 
@@ -91,7 +91,7 @@ int priority_queue<T, Compare>::get_parent_ind(size_t index) const {
 }
 
 template<typename T, typename Compare>
-void  priority_queue<T, Compare>::sift_down(size_t index) {
+void priority_queue<T, Compare>::sift_down(size_t index) {
 	
 	if (empty())
 		return;
@@ -119,13 +119,12 @@ void  priority_queue<T, Compare>::sift_down(size_t index) {
 }
 
 template<typename T, typename Compare>
-void  priority_queue<T, Compare>::sift_up(size_t index) {
+void priority_queue<T, Compare>::sift_up(size_t index) {
 	
 	T el_to_swap = data[index];
 	int cur_parent = get_parent_ind(index);
 
-	while (cur_parent >= 0 && cmp(data[cur_parent], el_to_swap))
-	{
+	while (cur_parent >= 0 && cmp(data[cur_parent], el_to_swap)) {
 		data[index] = data[cur_parent];
 		index = cur_parent;
 		cur_parent = get_parent_ind(index);
@@ -147,7 +146,7 @@ void priority_queue<T, Compare>::push(const T& el) {
 }
 
 template<typename T, typename Compare>
-void  priority_queue<T, Compare>::pop() {
+void priority_queue<T, Compare>::pop() {
 	
 	std::swap(data.front(), data.back());
 	data.pop_back();
@@ -155,7 +154,7 @@ void  priority_queue<T, Compare>::pop() {
 }
 
 template<typename T, typename Compare>
-void  priority_queue<T, Compare>::clear() {
+void priority_queue<T, Compare>::clear() {
 	
 	data.clear();
 }
