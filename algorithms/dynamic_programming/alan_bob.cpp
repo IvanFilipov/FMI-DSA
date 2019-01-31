@@ -12,7 +12,7 @@
  * @see README.md
  */
 
-#include <cstdio>
+#include <cstdio> // std::printf()
 
 /// count of all presents
 const size_t NUM_PRE = 10;
