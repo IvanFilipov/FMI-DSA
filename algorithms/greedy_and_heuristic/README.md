@@ -3,10 +3,10 @@
 ## Examples
 
 Heuristic:
-* _Random search_
+* [_Random search_](https://github.com/IvanFilipov/FMI-DSA/blob/master/algorithms/greedy_and_heuristic/random_search.cpp)
 
 Greedy:
-* _Lectures_ </br>
+* [_Lectures_](https://github.com/IvanFilipov/FMI-DSA/blob/master/algorithms/greedy_and_heuristic/lectures.cpp)</br>
 Task: We have lectures with their start-end times.</br>
       We want to attend as many as we can, but we can't be </br>
       at two lectures at the same time ofc. Which should we take? </br>
