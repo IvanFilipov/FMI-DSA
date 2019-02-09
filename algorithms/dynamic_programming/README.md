@@ -2,7 +2,7 @@
 
 ## Examples
 
-* _Alan and Bob_
+* [_Alan and Bob_](https://github.com/IvanFilipov/FMI-DSA/blob/master/algorithms/dynamic_programming/alan_bob.cpp)
 
 **Task:** </br>
 We have two brothers - Alan and Bob. </br>
@@ -20,4 +20,4 @@ the difference |A - B|. </br>
 
 ## Examples
 
-* [_Fibonacci_]
+* [_Fibonacci_](https://github.com/IvanFilipov/FMI-DSA/blob/master/algorithms/dynamic_programming/fibonacci_memoization.cpp)
