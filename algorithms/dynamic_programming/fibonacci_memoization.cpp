@@ -44,8 +44,6 @@ fib_num fib_memo(unsigned int n) {
 	return cached_val;
 }
 
-
-
 int main() {
 	
 	/* run some tests */
