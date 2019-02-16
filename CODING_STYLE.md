@@ -26,13 +26,12 @@ const size_t MAX_SIZE = 1024;
 
   ````C++
   class class_definition {
-  
-  private :
+  private:
       //...
   };
   struct struct_definition {
-      
-      int x;
+      int    x;
+      double y;
   };
   void func() {
       
@@ -67,6 +66,14 @@ const size_t MAX_SIZE = 1024;
   func_call(param, other_param);
   if (a < b && b > c) do_something;
   ````
+  In loops the rules are:
+   ````C++
+  for (int i = 0; i < n; i++)
+      do_something;
+  
+  for (int i: arr)
+     do_something;
+  ````
 
   Between binary operations there **are** spaces, but before/after unary operators there are **not**.
 
@@ -77,4 +84,4 @@ Choose names that are meaningful, but not too long.
 
 Comments : in header files describe what a function/class should do, what parameters does it take,
 some theoretical information about complexity, usages etc. In source files write single line comments
-with information what logical steps does the algorithm make.
+with information what logical steps does the algorithm make. Also try to follow Doxygen style.

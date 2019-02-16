@@ -1,6 +1,6 @@
 # ФМИ - СДП
 
-Код от семинарите по СДП 2016/17/18г. спец. Информатика, ФМИ, СУ
+Код от семинарите по СДП 2016-2019г. спец. Информатика, ФМИ, СУ
 <br>[Код от практикумите](https://github.com/VasiPeycheva/Data-Structures-and-Algorithms--2018-2019)
 <br>[Примери за напреднали](https://github.com/IvanFilipov/modern_c_plus_plus)
 
