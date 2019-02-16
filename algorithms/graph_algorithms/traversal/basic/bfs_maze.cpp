@@ -112,7 +112,7 @@ int main() {
 	print_maze();
 	/* create a random start point */
 	point start(rand() % MAXN, rand() % MAXM);
-	std::printf("starting from (%d, %d) :\n", start.first, start.second);
+	std::printf("starting from (%lu, %lu) :\n", start.first, start.second);
 	/* run the algorithm */
 	bfs_traversal(start);
 	/* output the result */
