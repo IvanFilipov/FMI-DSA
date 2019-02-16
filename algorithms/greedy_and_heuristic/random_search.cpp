@@ -63,7 +63,7 @@ int main() {
 	if (index == -1)
 		printf("can't find such element\n");
 	else
-		printf("found at index %d", index);
+		printf("found at index %d\n", index);
 									  
 
 	return 0;
