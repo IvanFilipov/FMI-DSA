@@ -17,9 +17,9 @@
 #include <algorithm> // std::sort()
 
 /// begin - end time for each lecture
-using time = std::pair<size_t, size_t>;
+using time_interval = std::pair<size_t, size_t>;
 /// name - time for each lecture
-using lecture = std::pair<std::string, time>;
+using lecture = std::pair<std::string, time_interval>;
 /// all lectures in a scheduler
 using scheduler = std::vector<lecture>;
 /// all lectures to be taken
@@ -47,7 +47,7 @@ void solve() {
 		return a.second.second < b.second.second;
 	});
 	// first lecture is selected
-	printf("%s form %u to %u\n", sch[0].first.c_str(), 
+	printf("%s form %lu to %lu\n", sch[0].first.c_str(), 
 		sch[0].second.first, sch[0].second.second);
 
 	size_t last = 0, cur = 0;
@@ -57,7 +57,7 @@ void solve() {
 		cur++;
 		if (sch[cur].second.first > sch[last].second.second) {
 			last = cur;
-			printf("%s form %u to %u\n", sch[cur].first.c_str(),
+			printf("%s form %lu to %lu\n", sch[cur].first.c_str(),
 				sch[cur].second.first, sch[cur].second.second);
 		}
 	}
