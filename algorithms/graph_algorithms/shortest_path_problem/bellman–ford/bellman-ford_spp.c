@@ -86,7 +86,7 @@ void ford_shortest_paths(int v_begin) {
 		}
 	
 	// check the output for negative cycle
-	if (find_negative_loop(dist_vector))
+	if (find_negative_cycle(dist_vector))
 		printf("\nthe given graph contains a negative loop!\n");
 	else // if there is no such cycle, output the shortest paths
 		print_paths(v_begin, dist_vector);
