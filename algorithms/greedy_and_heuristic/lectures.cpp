@@ -17,9 +17,9 @@
 #include <algorithm> // std::sort()
 
 /// begin - end time for each lecture
-using time = std::pair<size_t, size_t>;
-/// name - time for each lecture
-using lecture = std::pair<std::string, time>;
+using time_interval = std::pair<size_t, size_t>;
+/// name - time interval for each lecture
+using lecture = std::pair<std::string, time_interval>;
 /// all lectures in a scheduler
 using scheduler = std::vector<lecture>;
 /// all lectures to be taken
