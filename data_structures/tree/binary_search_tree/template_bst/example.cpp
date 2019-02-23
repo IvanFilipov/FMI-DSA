@@ -3,14 +3,19 @@
  *******************************************************************************/
 
 /**
- * @file   tests.h
+ * @file   main.cpp
  * @author Ivan Filipov
  * @date   02.2019
- * @brief  Some tests for our custom binary search tree.
+ * @brief  Main for running tests for our custom binary search tree.
  */
 
+#include <iostream>
+#include "tests.h"
 
-#pragma once
+int main() {
+	
+	std::cout << "running basic tests on given binary search tree" << std::endl;
+	run_basic_tests();
 
-/** Run a fixed tree tests */
-void run_basic_tests();
+	return 0;
+}

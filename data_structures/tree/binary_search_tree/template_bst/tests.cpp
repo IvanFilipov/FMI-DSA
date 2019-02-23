@@ -1,8 +1,12 @@
-/*
- * Some tests for our custom BST.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   tests.cpp
+ * @author Ivan Filipov
+ * @date   02.2019
+ * @brief  Some tests for our custom binary search tree.
  */
 
 #include <iostream>
