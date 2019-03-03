@@ -62,13 +62,13 @@ public:
 private:
 	/* helpers */
 	/** 
-	  *  @brief     copies all elements for another tree
+	  *  @brief     Copies all elements for another tree.
 	  *  @param[in] rhs: tree from which to copy.
 	  */
 	void copy_from(const bs_tree& rhs);
-	// methods with suffix _rec are recursive functions :
+	// methods with suffix _rec are recursive functions:
 	/**
-	 *  @brief     free the memory for a %bs_tree recursively
+	 *  @brief     Frees the memory for a %bs_tree recursively.
 	 *  @param[in] root: the root node of the %bs_tree to be freed.
 	 */
 	void destroy_tree_rec(node* root);
@@ -79,9 +79,9 @@ private:
 	void copy_tree_rec(node*& dest_root, node* src_root);
 	/**
 	  * @brief Helper for searching a key in a %bs_tree recursively.
-	  * @see   search()
+	  * @see   find()
 	  */
-	const T& search_rec(node* root, const T& key) const;
+	const T& find_rec(node* root, const T& key) const;
 	/**
 	  * @brief Helper for inserting a key into a %bs_tree recursively.
 	  * @see   insert()
@@ -99,7 +99,7 @@ private:
 	void print_sorted_keys_rec(node* root, std::ostream& os) const;
 	/**
 	  * @brief Helper for getting the height of a %bs_tree recursively.
-	  * @see   get_height_rec()
+	  * @see   get_height()
 	  */
 	unsigned int get_height_rec(node* root) const;
 
@@ -107,18 +107,18 @@ public:
 	/* interface */
 	/**
 	  * @brief     Search for a key into %bs_tree.
-	  * @param[in] key: the key to be searched
-	  * @retval    read only reference to the element
-	  * @throw     std::logic_error if there is no such key
+	  * @param[in] key: the key to be searched.
+	  * @retval    read only reference to the element.
+	  * @throw     std::logic_error if there is no such key.
 	  * 
 	  * @note time complexity in the best case: O(logn),
 	  *       but linear in elements count in worst and average.
 	  */
-	const T& search(const T& key) const;
+	const T& find(const T& key) const;
 	/**
 	  * @brief     Inserts a key into %bs_tree, if the key is not presenting.
-	  * @param[in] key: the key to be inserted
-	  * @throw     std::logic_error if there is already such key inside the tree
+	  * @param[in] key: the key to be inserted.
+	  * @throw     std::logic_error if there is already such key inside the tree.
 	  * 
 	  * @note Time complexity in the best case: O(logn),
 	  *       but linear in elements count in worst and average.
@@ -126,8 +126,8 @@ public:
 	void insert(const T& key);
 	/**
 	  * @brief     Removes a key from %bs_tree, if the key is presenting.
-	  * @param[in] key: the key to be inserted
-	  * @throw     std::logic_error if there is not a such key inside the tree
+	  * @param[in] key: the key to be removed.
+	  * @throw     std::logic_error if there is not a such key inside the tree.
 	  * 
 	  * @note Time complexity in the best case: O(logn),
 	  *       but linear in elements count in worst and average.
@@ -137,15 +137,15 @@ public:
 	unsigned int get_height() const;
 	/** 
 	 * @brief  Get the maximum key of elements stored in the %bs_tree.
-	 * @retval a copy of the key
-	 * @throw  std::logic_error if the tree is empty
+	 * @retval a copy of the key.
+	 * @throw  std::logic_error if the tree is empty.
 	 */
 	T get_max_key() const;
 	/** 
 	 * @brief  Outputs all keys stored in the %bs_tree in order.
-	 * @param[in] os: output stream to write to
-	 * @retval a copy of the key
-	 * @throw  std::logic_error if the tree is empty
+	 * @param[in] os: output stream to write to.
+	 * @retval a copy of the key.
+	 * @throw  std::logic_error if the tree is empty.
 	 *
 	 * Iterate left-root-right through the tree gives the elements in order.
 	 */
@@ -236,7 +236,7 @@ void bs_tree<T>::insert_rec(typename bs_tree<T>::node*& root, const T& key) {
 }
 
 template<typename T>
-const T& bs_tree<T>::search_rec(typename bs_tree<T>::node* root, 
+const T& bs_tree<T>::find_rec(typename bs_tree<T>::node* root, 
 								const T& key) const {
 	// can't find it...
 	if (root == nullptr)
@@ -246,10 +246,10 @@ const T& bs_tree<T>::search_rec(typename bs_tree<T>::node* root,
 		return key;
 	// search right sub tree
 	if (key > root->key)
-		return search_rec(root->right_ptr, key);
+		return find_rec(root->right_ptr, key);
 	// search left sub tree
 	if (key < root->key)
-		return search_rec(root->left_ptr, key);
+		return find_rec(root->left_ptr, key);
 	// won't get here, but stops compiler's warnings/errors(*errors on clang)
 	//* possibly get here when using double/float
 	throw std::logic_error("no element with such key!");
@@ -340,9 +340,9 @@ void bs_tree<T>::insert(const T& key) {
 }
 
 template<typename T>
-const T& bs_tree<T>::search(const T& key) const {
+const T& bs_tree<T>::find(const T& key) const {
 
-	return search_rec(root, key);
+	return find_rec(root, key);
 }
 
 template<typename T>

@@ -34,7 +34,7 @@ void run_basic_tests() {
 	
 	std::cout << "\n\nsearching for Ivancho :" << std::endl;
 	try {
-		const dsa::student& s = tree.search({ "Ivancho", 40000 });
+		const dsa::student& s = tree.find({ "Ivancho", 40000 });
 		std::cout << "found! His fn is : " << s.fn << std::endl;
 	} catch (...) {
 		std::cout << "not found!" << std::endl;
@@ -42,7 +42,7 @@ void run_basic_tests() {
 	
 	std::cout << "\n\nsearching for Ivan :" << std::endl;
 	try {
-		const dsa::student& s = tree.search({ "Ivan", 200 });
+		const dsa::student& s = tree.find({ "Ivan", 200 });
 		std::cout << "found! His fn is : " << s.fn << std::endl;
 	} catch (...) {
 		std::cout << "not found!" << std::endl;
