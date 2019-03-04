@@ -148,13 +148,13 @@ private:
 	 *
 	 *
 	 * example:
-     *      1                         2
-     *      F                         Q
-     *     / \ (r)                (r)/  \
-     *   A-E  Q          =>         F   R-Z
-     *    /\                       / \
-     *  G-P R-Z                  A-E  G-P
-     */
+	 *      1                         2
+	 *      F                         Q
+	 *     / \ (r)                (r)/  \
+	 *   A-E  Q          =>         F   R-Z
+	 *    /\                       / \
+	 *  G-P R-Z                  A-E  G-P
+	 */
 	node* left_rotate(node* n_ptr);
 	/**
 	 * @brief     Makes a right rotation on a subtree.
@@ -163,13 +163,13 @@ private:
 	 *
 	 *
 	 * example:
-     *      2                         1
-     *      F                         Q 
-     *     / \ (r)                (r)/ \
+	 *      2                         1
+	 *      F                         Q 
+	 *     / \ (r)                (r)/ \
 	 *   A-E  Q          <=         F	R-Z
-     *   / \                       / \
+	 *   / \                       / \
 	 *G-P   R-Z                  A-E  G-P
-     */
+	 */
 	node* right_rotate(node* n_ptr);
 	/**
 	 * @brief Returns the opposite color of a given one.
@@ -187,12 +187,12 @@ private:
 	 * @param[in] n_ptr: the root to be color-flipped.
 	 *
 	 * example:
-     *
-     *     |           |(r)
-	 *	   M       =>  M
+	 *
+	 *     |           |(r)
+	 *     M       =>  M
 	 *(r) / \ (r)     / \
-	 *	 P   Q       P   Q
-     */
+	 *   P   Q       P   Q
+	 */
 	void color_flip(node* n_ptr);
 
 	/* deletion helpers */
