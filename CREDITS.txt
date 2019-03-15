@@ -28,5 +28,6 @@ N: Vasilena Peycheva
 G: https://github.com/VasiPeycheva
 C: ensuring that all examples can be compiled with MSVC++,
    author of example about BFS/DFS-iterative/DFS-recursive,
-   creator of all graph visial representations
+   creator of all graph visial representations,
+   implemented Trie (Prefix tree).
    
