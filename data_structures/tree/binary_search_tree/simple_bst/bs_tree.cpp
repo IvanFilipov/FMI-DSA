@@ -1,3 +1,16 @@
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   bs_tree.cpp
+ * @author Ivan Filipov
+ * @date   02.2019
+ * @brief  Example implementation of classic binary search tree.
+ *
+ * @see https://en.wikipedia.org/wiki/Binary_search_tree
+ */
+
 #include <stdexcept> // std::logic_error
 #include <cstdio>    // printf()
 #include <cmath>     // log10()
@@ -7,8 +20,7 @@
 
 #include "bs_tree.h"
 
-
-bs_tree::bs_tree() : root(nullptr) {
+bs_tree::bs_tree(): root(nullptr) {
 	//...
 }
 
@@ -82,7 +94,7 @@ void bs_tree::insert_rec(node*& root, const key_type& key, const data_type& data
 	}
 }
 
-data_type bs_tree::search_rec(node* root, const key_type& key) const {
+data_type bs_tree::find_rec(node* root, const key_type& key) const {
 	// can't find it...
 	if (root == nullptr)
 		throw std::logic_error("no element with such key!");
@@ -91,43 +103,39 @@ data_type bs_tree::search_rec(node* root, const key_type& key) const {
 		return root->data;
 	// search right sub tree
 	if (key > root->key)
-		return search_rec(root->right_ptr, key);
+		return find_rec(root->right_ptr, key);
 	// search left sub tree
 	if (key < root->key)
-		return search_rec(root->left_ptr, key);
+		return find_rec(root->left_ptr, key);
 	// won't get here, but stops compiler's warnings/errors(*errors on clang)
 	throw std::logic_error("no element with such key!");
 }
 
 // node*& because we have pointer redirections
 void bs_tree::remove_rec(node*& root, const key_type& key) {
-	// search phase :
-	
+	// search phase:
 	// there isn't elem with key "key"
 	if (root == nullptr)
 		throw std::logic_error("no element with such key!");
-
 	// search right sub-tree
 	if (key > root->key) {
 		remove_rec(root->right_ptr, key);
 		return;
 	}
-
 	// search left sub-tree
 	if (key < root->key) {
 		remove_rec(root->left_ptr, key);
 		return;
 	}
+	//
 
 	// remove phase :
-
 	// simple leaf
 	if (!root->left_ptr && !root->right_ptr) {
 		delete root;
 		root = nullptr;
 		return;
 	}
-	
 	// have two children
 	if (root->left_ptr != nullptr && root->right_ptr != nullptr) {
 		// finding the max elem in the left sub-tree
@@ -154,6 +162,7 @@ void bs_tree::remove_rec(node*& root, const key_type& key) {
 		
 		delete destroyer; //release wanted node
 	}
+	//
 }
 
 // using left - root - right tree iteration
@@ -176,19 +185,15 @@ unsigned int bs_tree::get_height_rec(node* root) const {
 	// return the height including this node
 	return 1 + ((left_height > right_height) ? left_height : right_height);
 }
-
-// the interface realizations are just callers to the recursive helpers  
+ 
 void bs_tree::insert(const key_type& key, const data_type& data) {
 
 	insert_rec(root, key, data);
 }
 
-// searches for a specific key, if there is
-// such key, returns a copy of its data
-// else throws logic_error exception
-data_type bs_tree::search(const key_type& key) const {
+data_type bs_tree::find(const key_type& key) const {
 
-	return search_rec(root, key);
+	return find_rec(root, key);
 }
 
 unsigned int bs_tree::get_height() const {
@@ -246,7 +251,6 @@ void bs_tree::print_tree() const {
 	wave.push(std::make_pair(root, cur_lvl + 1)); // adding the root and level to the front of the wave
 
 	while (cur_lvl <= height) { // until end is reached
-			
 		if (cur_lvl < wave.front().second) {
 			cur_lvl = wave.front().second;
 			printf("\n");
