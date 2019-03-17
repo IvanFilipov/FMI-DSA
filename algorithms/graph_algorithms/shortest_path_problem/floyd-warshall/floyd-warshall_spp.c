@@ -1,21 +1,29 @@
-/*
- * Finding the shortest path from each vertex to all others, using Floyd-Warshall's algorithm.
- * Difference from Dijkstra - edges can also have negative weights, solves all-to-all (SPP).
- * Written in plain C.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   floyd-warshall_spp.cpp
+ * @author Ivan Filipov
+ * @date   01.2019
+ * @brief  Finding the shortest path from each vertex to all others, using Floyd-Warshall's algorithm.
  *
- * Author : Ivan Filipov	
+ * @see https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm
+ * @note Written in plain C.
+ *
+ * Difference from Dijkstra - edges can also have negative weights, solves all-to-all (SPP).
  */
 
 #include <stdio.h> // printf(), putchar()
 
+/// graph matrix size
 #define SIZE 6 
-// this constant means no path
-#define MAX 1000 // should be maximum INT_MAX / 2
-// helper marco as function
+/// "no path" constant, should be maximum INT_MAX / 2
+#define MAX 1000
+/// helper marco for finding minimum of two numbers
 #define min(x, y) ((x) < (y)) ? (x) : (y)
 
-// the graph is represented as weighing matrix 
+/// the graph is represented as weighing matrix
 int graph[SIZE][SIZE] = {
 // vertex "to" :
 //     A    B    C    D    E    F     // vertex "from" :
@@ -27,7 +35,7 @@ int graph[SIZE][SIZE] = {
 	{ MAX,   5, MAX, MAX, MAX, MAX }  // F
 };
 
-// simply outputs info about all found paths
+/// simply outputs info about all found paths
 void print_paths() {
     
     printf("\nall paths with their weights:\n");
@@ -42,9 +50,12 @@ void print_paths() {
 	}
 }
 
-// runs Floyd-Warshall's algorithm into the given graph
-// outputs the path's weights into the same weighting matrix
-//!< Time complexity : O(n^3)
+/**
+ * @brief Runs Floyd-Warshall'salgorithm in the given graph.
+ *
+ * @note Outputs the path's weights into the same weighting matrix
+ * @note Time complexity : O(n^3)
+ */
 void floyd_shortest_paths() {
 
 	for (size_t k = 0; k < SIZE; k++)           // for each vertex

@@ -1,23 +1,31 @@
-/*
- * Finding the shortest path from a starting vertex to all others, using Bellman-Ford's algorithm.
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   bellman-ford_spp.cpp
+ * @author Ivan Filipov
+ * @date   01.2019
+ * @brief  Finding the shortest path from a starting vertex to all others, using Bellman-Ford's algorithm.
+ *
+ * @see https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
+ * @note Written in plain C.
+ *
  * Difference from Dijkstra - edges can also have negative weights.
  * Also finds out if the graph contains negative cycle.
- * Written in plain C.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
  */
 
 #include <stdio.h>   // printf(), putchar()
 #include <stdbool.h> // bool
 
+/// graph matrix size
 #define SIZE 6 
-// this constant means no path
-#define MAX 1000 // should be maximum INT_MAX / 2
-// helper marco as function
+/// "no path" constant, should be maximum INT_MAX / 2
+#define MAX 1000
+/// helper marco for finding minimum of two numbers
 #define min(x, y) ((x) < (y)) ? (x) : (y)
 
-// the graph is represented as weighing matrix
+/// the graph is represented as weighing matrix
 int graph[SIZE][SIZE] = {
 // vertex "to" :
 //     A    B    C    D    E    F     // vertex "from" :
@@ -29,7 +37,7 @@ int graph[SIZE][SIZE] = {
 	{ MAX,   5, MAX, MAX, MAX, MAX }  // F
 };
 
-// simply outputs info about all found paths
+/// simply outputs info about all found paths
 void print_paths(int v_begin, int dist_vector[]) {
     
     printf("\nfrom %c to:\n", 'A' + v_begin);
@@ -46,10 +54,15 @@ void print_paths(int v_begin, int dist_vector[]) {
 	}
 }
 
-// check for negative cycle in the output from Bellman-Ford's algo
-// if there are two edges (i and j) and the distance to i
-// is greater from the distance to j plus the edge between them
-// we can conclude that the graph contains a negative cycle
+/**
+ * @brief Checks for negative cycle in the output from Bellman-Ford's algo.
+ * @param[in] dist_vector: distances between vertices, as outputted from the algo.
+ * @retval true if there is a negative cycle
+ *
+ * If there are two edges (i and j) and the distance to i
+ * is greater from the distance to j plus the edge between them
+ * we can conclude that the graph contains a negative cycle.
+ */
 bool find_negative_cycle(int dist_vector[]) {
 	
 	for (int i = 0; i < SIZE; i++)
@@ -62,9 +75,12 @@ bool find_negative_cycle(int dist_vector[]) {
 	return false;
 }
 
-// runs Bellman-Ford's algorithm in the given graph
-// starting from vertex @v_begin
-// outputs in an inner scoped array of distances
+/**
+ * @brief Runs Bellman-Ford's algorithm in the given graph.
+ * @param[in] v_begin: staring vertex
+ *
+ * @note outputs in an inner scoped array of distances
+ */
 void ford_shortest_paths(int v_begin) {
 	// distance to each vertex -> the algorithm's output
 	int dist_vector[SIZE]; 
