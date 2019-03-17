@@ -165,8 +165,6 @@ public:
 	/** 
 	 * @brief  Outputs all keys stored in the %bs_tree in order.
 	 * @param[in] os: output stream to write to.
-	 * @retval a copy of the key.
-	 * @throw  std::logic_error if the tree is empty.
 	 *
 	 * Iterate left-root-right through the tree gives the elements in order.
 	 */
