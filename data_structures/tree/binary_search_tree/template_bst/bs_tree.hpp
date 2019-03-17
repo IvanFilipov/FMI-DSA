@@ -46,16 +46,19 @@ public:
 	/* object life cycle */
 	/** Creates %bs_tree with no elements */
 	bs_tree();
+	
 	/**
 	  *  @brief     %bs_tree copy constructor.
 	  *  @param[in] rhs: A %bs_tree of identical element type, from which to copy.
 	  */
 	bs_tree(const bs_tree& rhs);
+	
 	/**
 	  *  @brief     %bs_tree assignment operator.
 	  *  @param[in] rhs: A %bs_tree of identical element type, from which to copy.
 	  */
 	bs_tree& operator=(const bs_tree& rhs);
+	
 	/** Frees all memory allocated. */
 	~bs_tree();
 
@@ -66,37 +69,44 @@ private:
 	  *  @param[in] rhs: tree from which to copy.
 	  */
 	void copy_from(const bs_tree& rhs);
+	
 	// methods with suffix _rec are recursive functions:
 	/**
 	 *  @brief     Frees the memory for a %bs_tree recursively.
 	 *  @param[in] root: the root node of the %bs_tree to be freed.
 	 */
 	void destroy_tree_rec(node* root);
+	
 	/**
 	  * @brief Helper for copy a %bs_tree recursively.
 	  * @see   copy_from()
 	  */
 	void copy_tree_rec(node*& dest_root, node* src_root);
+	
 	/**
 	  * @brief Helper for searching a key in a %bs_tree recursively.
 	  * @see   find()
 	  */
 	const T& find_rec(node* root, const T& key) const;
+	
 	/**
 	  * @brief Helper for inserting a key into a %bs_tree recursively.
 	  * @see   insert()
 	  */
 	void insert_rec(node*& root, const T& key);
+	
 	/**
 	  * @brief Helper for removing a key from a %bs_tree recursively.
 	  * @see   remove()
 	  */
 	void remove_rec(node*& root, const T& key);
+	
 	/**
 	  * @brief Helper for printing the contain of a %bs_tree recursively.
 	  * @see   print_sorted_keys()
 	  */
 	void print_sorted_keys_rec(node* root, std::ostream& os) const;
+	
 	/**
 	  * @brief Helper for getting the height of a %bs_tree recursively.
 	  * @see   get_height()
@@ -115,6 +125,7 @@ public:
 	  *       but linear in elements count in worst and average.
 	  */
 	const T& find(const T& key) const;
+	
 	/**
 	  * @brief     Inserts a key into %bs_tree, if the key is not presenting.
 	  * @param[in] key: the key to be inserted.
@@ -124,6 +135,7 @@ public:
 	  *       but linear in elements count in worst and average.
 	  */
 	void insert(const T& key);
+	
 	/**
 	  * @brief     Removes a key from %bs_tree, if the key is presenting.
 	  * @param[in] key: the key to be removed.
@@ -133,14 +145,23 @@ public:
 	  *       but linear in elements count in worst and average.
 	  */
 	void remove(const T& key);
+	
 	/** Get the maximum height of a tree */
 	unsigned int get_height() const;
+	
 	/** 
 	 * @brief  Get the maximum key of elements stored in the %bs_tree.
 	 * @retval a copy of the key.
 	 * @throw  std::logic_error if the tree is empty.
 	 */
 	T get_max_key() const;
+	
+	/** Check if the tree is empty */
+	bool empty() const { return root == nullptr; }
+	
+	/** Frees the resources for the tree */
+	void clear() { destroy_tree_rec(root); }
+	
 	/** 
 	 * @brief  Outputs all keys stored in the %bs_tree in order.
 	 * @param[in] os: output stream to write to.

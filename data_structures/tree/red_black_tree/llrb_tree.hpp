@@ -51,6 +51,7 @@ private:
 		RED = 0, //!< red color
 		BLACK    //!< black color
 	};
+	
 	/**
 	 *  @struct node
 	 *  @brief  An inner representation of each %llrb_tree's "node".
@@ -76,16 +77,19 @@ public:
 	/* object life cycle */
 	/** Creates %llrb_tree with no elements */
 	llrb_tree();
+	
 	/**
 	  *  @brief     %llrb_tree copy constructor.
 	  *  @param[in] rhs: A %llrb_tree of identical element type, from which to copy.
 	  */
 	llrb_tree(const llrb_tree& rhs);
+	
 	/**
 	  *  @brief     %llrb_tree assignment operator.
 	  *  @param[in] rhs: A %llrb_tree of identical element type, from which to copy.
 	  */
 	llrb_tree& operator=(const llrb_tree& rhs);
+	
 	/** Frees all memory allocated. */
 	~llrb_tree();
 	
@@ -96,37 +100,44 @@ private:
 	  *  @param[in] rhs: tree from which to copy.
 	  */
 	void copy_from(const llrb_tree&);
+	
 	// methods with suffix _rec are recursive functions:
 	/**
 	 *  @brief     free the memory for a %llrb_tree recursively
 	 *  @param[in] root: the root node of the %llrb_tree to be freed.
 	 */
 	void destroy_tree_rec(node* root);
+	
 	/**
 	  * @brief Helper for copy a %llrb_tree recursively.
 	  * @see   copy_from()
 	  */
 	void copy_tree_rec(node*& dest_root, node* src_root);
+	
 	/**
 	  * @brief Helper for searching a key in a %llrb_tree recursively.
 	  * @see   find()
 	  */
 	const V& find_rec(node* root, const K& key) const;
+	
 	/**
 	  * @brief Helper for inserting a key into a %llrb_tree recursively.
 	  * @see   insert()
 	  */
 	node* insert_rec(node* root, const K& key, const V& value, bool update);
+	
 	/**
 	  * @brief Helper for removing a key from a %llrb_tree recursively.
 	  * @see   remove()
 	  */
 	node* remove_rec(node* root, const K& key);
+	
 	/**
 	  * @brief Helper for getting a sorted vector of %llrb_tree key-value pairs.
 	  * @see   get_sorted_pairs()
 	  */
 	void get_sorted_pairs_rec(node* root, std::vector<std::pair<K, V>>& pairs) const;
+	
 	/**
 	  * @brief Helper for getting the height of a %llrb_tree recursively.
 	  * @see   get_height()
@@ -141,6 +152,7 @@ private:
 	  * @retval    true if the node is red colored.
 	  */
 	bool is_red(node* n_ptr);
+	
 	/**
 	 * @brief     Makes a left rotation on a subtree.
 	 * @param[in] n_ptr: the root of the subtree to be rotated.
@@ -156,6 +168,7 @@ private:
 	 *  G-P R-Z                  A-E  G-P
 	 */
 	node* left_rotate(node* n_ptr);
+	
 	/**
 	 * @brief     Makes a right rotation on a subtree.
 	 * @param[in] n_ptr: the root of the subtree to be rotated.
@@ -171,6 +184,7 @@ private:
 	 *G-P   R-Z                  A-E  G-P
 	 */
 	node* right_rotate(node* n_ptr);
+	
 	/**
 	 * @brief Returns the opposite color of a given one.
 	 * @param[in] c: input color
@@ -182,6 +196,7 @@ private:
 		if (c == RED) return BLACK;
 		else          return RED;
 	}
+	
 	/**
 	 * @brief     Changes the color of a node and it's two children.
 	 * @param[in] n_ptr: the root to be color-flipped.
@@ -203,6 +218,7 @@ private:
 	 * @retval a pointer to the root of the result tree.
 	 */
 	node* fix_up(node* n_ptr);
+	
 	/**
 	 * @brief Color flip and rotate on left if needed. 
 	 * @param[in] n_ptr: root of a subtree to be fixed.
@@ -211,6 +227,7 @@ private:
 	 * @see http://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdf - page 61
 	 */
 	node* move_red_left(node* n_ptr);
+	
 	/**
 	 * @brief Color flip and rotate on right if needed. 
 	 * @param[in] n_ptr: root of a subtree to be fixed.
@@ -219,6 +236,7 @@ private:
 	 * @see http://www.cs.princeton.edu/~rs/talks/LLRB/RedBlack.pdf - page 56
 	 */
 	node* move_red_right(node* n_ptr);
+	
 	/**
 	 * @brief Remove a node from the bottom level. 
 	 * @param[in] n_ptr: root of the subtree, from which to remove.
@@ -239,6 +257,7 @@ public:
 	  * 
 	  */
 	const V& find(const K& key) const;
+	
 	/**
 	  * @brief     Inserts a key-value pair into %llrb_tree.
 	  * @param[in] key: the key to be inserted
@@ -248,20 +267,24 @@ public:
 	  * @throw     std::logic_error if @p update=false and there is already such key inside the tree.
 	  */
 	void insert(const K& key, const V& val, bool update = false);
+	
 	/**
 	  * @brief     Removes a pair from %llrb_tree by key.
 	  * @param[in] key: the key for removing.
 	  * @throw     std::logic_error if there is not a such key inside the tree
 	  */
 	void remove(const K& key);
+	
 	/** Get the maximum height of a tree */
 	unsigned int get_height() const;
+	
 	/** 
 	 * @brief  Get the maximum key of elements stored in the %llrb_tree.
 	 * @retval a copy of the key.
 	 * @throw  std::logic_error if the tree is empty.
 	 */
 	K get_max_key() const;
+	
 	/** 
 	 * @brief  Get a sorted vector of all pairs stored in the %llrb_tree.
 	 * @retval vector of sorted keys.
@@ -269,7 +292,12 @@ public:
 	 * Iterate left-root-right through the tree gives the keys in order.
 	 */
 	std::vector<std::pair<K, V>> get_sorted_pairs() const;
-
+	
+	/** Check if the tree is empty */
+	bool empty() const { return root == nullptr; }
+		
+	/** Frees the resources for the tree */
+	void clear() { destroy_tree_rec(root); }
 	/** 
 	 * @brief  Beautifully prints a %llrb_tree<int, V> in the console.
 	 * @param[in] tree: the tree to be outputted.

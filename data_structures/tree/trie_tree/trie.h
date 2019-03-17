@@ -30,6 +30,7 @@ class trie {
 private:
 	/// length of English alphabet
 	static const size_t ALPHABET_SIZE = 26;
+	
 	/**
 	*  @struct node
 	*  @brief  An inner representation of each trie's "node".
@@ -52,13 +53,16 @@ public:
 	/* object life cycle */
 	/** Creates trie_tree with one node - root node */
 	trie();
+	
 	/** Frees all memory allocated. */
 	~trie();
+	
 	/**
 	 *  @brief     trie_tree is non-copyable.
 	 *  @see https://docs.microsoft.com/en-us/cpp/cpp/explicitly-defaulted-and-deleted-functions?view=vs-2017
 	 */
 	trie(const trie &)            = delete;
+	
 	/// trie_tree is non-copyable.
 	trie& operator=(const trie &) = delete;
 
@@ -70,12 +74,14 @@ private:
 	 *  @param[in] root: the root node of the trie_tree to be freed.
 	 */
 	void clean_rec(node* root);
+	
 	/**
 	 * @brief     Check if a string contains only alpha characters.
 	 * @param[in] str: string to be checked.
 	 * @retval    true if the string is single-word, false otherwise.
 	 */
 	static bool is_word(const std::string& str);
+	
 	/**
 	 * @brief     Calculate the index of a given char in an alphabetic array.
 	 * @param[in] c: char to be calculated.
@@ -94,12 +100,14 @@ public:
 	 * @retval    true if the word is successfully inserted, false otherwise.
 	 */
 	bool insert(const std::string& word);
+	
 	/**
 	 * @brief     Search for a word into the trie tree.
 	 * @param[in] word: the word to be searched.
  	 * @retval    true if word is in the tree, false otherwise.
 	 */
 	bool search(const std::string& word);
+	
 	/// Clean working tree.
 	void clean();
 };
