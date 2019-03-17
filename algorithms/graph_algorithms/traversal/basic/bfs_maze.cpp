@@ -1,10 +1,16 @@
-/*
- * Simply traversing a maze using breadth first search strategy.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
- */
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
 
+/**
+ * @file   bfs_maze.cpp
+ * @author Ivan Filipov
+ * @date   01.2019
+ * @brief  Simply traversing a maze using breadth first search strategy.
+ *
+ * @see https://en.wikipedia.org/wiki/Breadth-first_search
+ */
+ 
 #include <cstdio> // std::printf(), std::putchar
 #include <cstdlib>// std::exit() 
 #include <ctime>  // std::time()
@@ -12,29 +18,30 @@
 #include <queue>  // std::queue
 #include <array>  // std::array
 
-// can't go there
+/// marker for unreachable cell
 const int UNREACHABLE = -1;
-// can go there
+/// marker for reachable cell
 const int REACHABLE = 0;
 // every other int -> visited
 
-// matrix sizes
+/// matrix rows count
 const size_t MAXN = 8;
+/// matrix columns count
 const size_t MAXM = 8;
-// the maze itself
+/// the maze itself
 int maze[MAXN][MAXM];
-// each point is represented by two indexes
+/// each point is represented by two indexes
 using point = std::pair<size_t, size_t>;
-// each direction we can have
+/// each direction we can have
 using directions = std::array<point, 4>;
 directions dirs = {
-	std::make_pair( 0,  1), // left
-	std::make_pair( 0, -1), // right
-	std::make_pair( 1,  0), // up
-	std::make_pair(-1,  0)  // down
+	std::make_pair( 0,  1), //!< left
+	std::make_pair( 0, -1), //!< right
+	std::make_pair( 1,  0), //!< up
+	std::make_pair(-1,  0)  //!< down
 };
 
-// simply prints the maze contain
+/// simply prints the maze content
 void print_maze() {
 
 	for (size_t i = 0; i < MAXN; i++) {
@@ -45,16 +52,17 @@ void print_maze() {
 	std::printf("\n\n\n");
 }
 
-// initialize maze's cells
-// with 66% change -> reachable cell
-// with 33% change -> unreachable cell
+/// initialize maze's cells
+/// with 66% change -> reachable cell
+/// with 33% change -> unreachable cell
 void init_maze() {
 
 	for (size_t i = 0; i < MAXN; i++)
 		for (size_t j = 0; j < MAXM; j++)
            maze[i][j] = ((rand() % 30 ) < 20) - 1;
 }
-// checks if a point is in the maze or outside
+
+/// checks if a point is in the maze or outside
 bool is_valid(int x, int y) {
 
 	if (x < 0 || y < 0)
@@ -65,7 +73,11 @@ bool is_valid(int x, int y) {
 
 	return true;
 }
-// runs BFS from starting point "start"
+
+/**
+ * @brief Runs BFS into the generated maze.
+ * @param[in] start: starting vertex
+ */
 void bfs_traversal(const point& start) {
 	// check if the starting point is reachable
 	if (maze[start.first][start.second] == UNREACHABLE) {
@@ -105,16 +117,21 @@ int main() {
 	
 	/* initialize the random generator */
 	std::srand(std::time(nullptr));
+	
 	/* create the maze */
 	init_maze();
+	
 	/* output the starting maze */
 	std::printf("starting maze looks like :\n\n");
 	print_maze();
+	
 	/* create a random start point */
 	point start(rand() % MAXN, rand() % MAXM);
 	std::printf("starting from (%u, %u) :\n", start.first, start.second);
+	
 	/* run the algorithm */
 	bfs_traversal(start);
+	
 	/* output the result */
 	std::printf("after traversing all possible vertices from the graph\n\n");
 	print_maze();
