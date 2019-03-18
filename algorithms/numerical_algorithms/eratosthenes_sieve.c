@@ -13,7 +13,8 @@
  * @see https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
  */
 
-#include <cstdio> // std::printf
+#include <stdio.h>    // printf()
+#include <stdbool.h> // boolean type
 
 /// marker for prime number
 #define PRIME false
@@ -22,7 +23,7 @@
 /// shorter name for "unsigned long long"
 typedef unsigned long long ull_int;
 /// up to which number to find primes
-const ull_int N = 20000;
+#define N 20000
 /// sieve[i] = PRIME <=> i is a prime number,
 /// otherwise sieve[i] = COMPOSITE
 bool sieve[N] = { PRIME, };
@@ -32,7 +33,7 @@ void print_primes() {
 
 	for (ull_int i = 2; i < N; i++)
 		if (sieve[i] == PRIME)
-			std::printf("%llu is a prime!\n", i);
+			printf("%llu is a prime!\n", i);
 }
 
 /// the algorithm is simple, for each prime number,
