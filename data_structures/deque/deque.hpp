@@ -9,8 +9,19 @@
 #include <stdexcept>
 
 static const size_t SIZE_OF_CHUNK = 16;
+static const size_t INVALID_FRONT_INDEX = SIZE_OF_CHUNK;
+static const size_t INVALID_BACK_INDEX = -1;
 static const size_t SIZE_GROWING_STEP = 2;
 
+/**
+* @class dynamic_queue
+* @brief A collection in which the values are
+		 kept in order and the principle operations are
+		 insert/remove from either front and back.
+*
+* @tparam T: Type of values.
+*
+*/
 namespace dsa {
 
 template<typename T>
@@ -18,14 +29,21 @@ class deque {
 
 private:
 
-	// Using matrix of elements will give us the opportunity
-	// to have O(1) random access
+	/**
+	*  Using matrix of elements will give us the opportunity
+	*  to have O(1) random access
+	*/
 	T** elements;
-	size_t front_el_index;
-	size_t back_el_index;
 	size_t cur_size;
 	size_t chunks_used;
 	size_t chunks_capacity;
+
+	/**
+	*  Additional members which are helping to remember
+	*  the range of the deque.
+	*/
+	size_t front_el_index;
+	size_t back_el_index;
 
 public:
 	deque();
@@ -34,50 +52,102 @@ public:
 	~deque();
 
 private:
+	/* helpers */
+	/**
+	*  @brief     copies all elements for deque
+	*  @param[in] rhs: deque from which to copy.
+	*/
 	void copy_from(const deque& rhs);
 	void resize();
+	void initialize();
 
 public:
 
 	// INTERFACE
+	/**
+	*  @brief Get the first element of the deque.
+	*  @throw std::logic_error if deque is empty
+	*/
 	T& front();
 	const T& front() const;
 
+	/**
+	*  @brief Get the last element of the deque.
+	*  @throw std::logic_error if deque is empty
+	*/
 	T& back();
 	const T& back() const;
 
+	/**
+	*  @brief            Get random element. O(1)
+	*  @param[in] index: Index of the element in the deque
+	*  @throw            std::out_of_range if the index is incorrect
+	*/
 	T& operator[](size_t index);
 	const T& operator[](size_t index) const;
 
+	/**
+	*  @brief         Push a new element on the front. O(1)
+	*  @param[in] el: Value to be inserted
+	*/
 	void push_front(const T& el);
+
+	/**
+	*  @brief Pop the front element. O(1)
+	*/
 	void pop_front();
 
+	/**
+	*  @brief         Push a new element in the end. O(1)
+	*  @param[in] el: Value to be inserted
+	*/
 	void push_back(const T& el);
+
+	/**
+	*  @brief Pop the last element. O(1)
+	*/
 	void pop_back();
 
+	/**
+	*  @brief Pop the last element.
+	*  @retval Is the deque empty
+	*/
 	bool empty() const;
+
+	/**
+	*  @brief Get the current size of the deque.
+	*  @retval Current size.
+	*/
 	size_t size() const;
 
+	/**
+	*  @brief Clears all values of the deque.
+	*/
 	void clean();
+
+	/**
+	*  @brief Debug print of the deque.
+	*/
+	void print() const;
 };
 
 template<typename T>
 deque<T>::deque()
 	: elements(nullptr)
-	, front_el_index(0)
-	, back_el_index(0)
+	, front_el_index(INVALID_FRONT_INDEX)
+	, back_el_index(INVALID_BACK_INDEX)
 	, cur_size(0)
-	, chunks_used(0)
-	, chunks_capacity(0) {
+	, chunks_used(1)
+	, chunks_capacity(SIZE_GROWING_STEP) {
 	elements = new T*[SIZE_GROWING_STEP];
 	elements[0] = new T[SIZE_OF_CHUNK];
+	memset(elements[0], 0, SIZE_OF_CHUNK);
 	chunks_capacity = SIZE_GROWING_STEP;
 }
 
 template<typename T>
 deque<T>::deque(const deque<T>& rhs)
-	: deque()
-{
+	: deque() {
 	copy_from(rhs)
 }
 
@@ -136,6 +206,20 @@ void deque<T>::resize() {
 }
 
 template<typename T>
+void deque<T>::initialize()
+{
+	if (!elements) {
+		cur_size = 0;
+		chunks_used = 1;
+		chunks_capacity = SIZE_GROWING_STEP;
+		elements = new T*[SIZE_GROWING_STEP];
+		elements[0] = new T[SIZE_OF_CHUNK];
+		memset(elements[0], 0, SIZE_OF_CHUNK);
+		chunks_capacity = SIZE_GROWING_STEP;
+	}
+}
+
+template<typename T>
 void deque<T>::clean() {
 	for (size_t i = 0; i < chunks_used; i++)
 	{
@@ -144,8 +228,8 @@ void deque<T>::clean() {
 
 	delete[] elements;
 
-	this->front_el_index = 0;
-	this->back_el_index = 0;
+	this->front_el_index = INVALID_FRONT_INDEX;
+	this->back_el_index = INVALID_BACK_INDEX;
 	this->cur_size = 0;
 	this->chunks_used = 0;
 	this->chunks_capacity = 0;
@@ -160,6 +244,9 @@ T& deque<T>::front() {
 
 template<typename T>
 const T& deque<T>::front() const {
+	if (cur_size == 0) {
+		throw std::logic_error("Deque is empty!");
+	}
 	return elements[0][front_el_index];
 }
 
@@ -172,6 +259,9 @@ T& deque<T>::back() {
 
 template<typename T>
 const T& deque<T>::back() const {
+	if (cur_size == 0) {
+		throw std::logic_error("Deque is empty!");
+	}
 	return elements[chunks_used - 1][back_el_index];
 }
 
@@ -188,8 +278,8 @@ const T& deque<T>::operator[](size_t index) const {
 		throw std::out_of_range("Invalid index!");
 	}
 
-	size_t chunk_index = (front_el_index + index - 1) / SIZE_OF_CHUNK;
-	size_t element_index = (front_el_index + index - 1) % SIZE_OF_CHUNK;
+	size_t chunk_index = (front_el_index + index) / SIZE_OF_CHUNK;
+	size_t element_index = (front_el_index + index) % SIZE_OF_CHUNK;
 
 	return elements[chunk_index][element_index];
 
@@ -197,19 +287,23 @@ const T& deque<T>::operator[](size_t index) const {
 
 template<typename T>
 void deque<T>::push_front(const T& el) {
-	if (cur_size == 0) {
-		return;
+	// First push
+	if (front_el_index == INVALID_BACK_INDEX) {
+		back_el_index = 0;
+		/**
+		* Must initialize the array if clean was called
+		*/
+		initialize();
+	}
+
+	if (chunks_used == chunks_capacity) {
+		resize();
 	}
 
 	if (front_el_index != 0) {
-		elements[0][front_el_index--] = el;
+		elements[0][--front_el_index] = el;
 		cur_size++;
 		return;
-	}
-
-	if (chunks_used == chunks_capacity)
-	{
-		resize();
 	}
 
 	// Move the elements with 1 chunk down
@@ -220,6 +314,7 @@ void deque<T>::push_front(const T& el) {
 	}
 
 	elements[0] = empty_chunk = new T[SIZE_OF_CHUNK];
+	memset(elements[0], 0, SIZE_OF_CHUNK);
 	elements[0][SIZE_OF_CHUNK - 1] = el;
 	front_el_index = SIZE_OF_CHUNK - 1;
 	cur_size++;
@@ -251,20 +346,31 @@ void deque<T>::pop_front() {
 
 template<typename T>
 void deque<T>::push_back(const T& el) {
-	if (back_el_index != SIZE_OF_CHUNK) {
+	// First push
+	if (back_el_index == INVALID_BACK_INDEX) {
+		front_el_index = 0;
+		/**
+		* Must initialize the array if clean was called
+		*/
+		initialize();
+	}
+
+
+	if (chunks_used == chunks_capacity) {
+		resize();
+	}
+
+	if (back_el_index != SIZE_OF_CHUNK - 1) {
 		size_t last_used_chunk = cur_size / SIZE_OF_CHUNK;
-		elements[last_used_chunk][back_el_index++] = el;
+		elements[last_used_chunk][++back_el_index] = el;
 		cur_size++;
 		return;
 	}
 
-	if (chunks_used == chunks_capacity-1) {
-		resize();
-	}
-
-	elements[++chunks_used] = new T[SIZE_OF_CHUNK];
+	elements[chunks_used] = new T[SIZE_OF_CHUNK];
+	memset(elements[chunks_used], 0, SIZE_OF_CHUNK);
 	back_el_index = 0;
-	elements[chunks_used][back_el_index++] = el;
+	elements[chunks_used++][back_el_index] = el;
 	cur_size++;
 }
 
@@ -292,4 +398,49 @@ size_t deque<T>::size() const {
 	return cur_size;
 }
 
+template<typename T>
+void deque<T>::print() const {
+	std::cout << "\n";
+	for (size_t i = 0; i < SIZE_OF_CHUNK; i++)
+	{
+		if (i < front_el_index) {
+			std::cout << "- ";
+			continue;
+		}
+
+		if (front_el_index + cur_size <= i || cur_size == 0) {
+			std::cout << "- ";
+			continue;
+		}
+
+		std::cout << elements[0][i] << ' ';
+	}
+
+	std::cout << '\n';
+	for (size_t i = 1; i < chunks_used - 1; i++)
+	{
+		for (size_t j = 0; j < SIZE_OF_CHUNK; j++)
+		{
+			std::cout << elements[i][j] << ' ';
+		}
+
+		std::cout << '\n';
+	}
+
+	if (chunks_used == 1) {
+		std::cout << "\n\n";
+		return;
+	}
+
+	for (size_t i = 0; i <= SIZE_OF_CHUNK; i++)
+	{
+		if (i > back_el_index) {
+			std::cout << "- ";
+			continue;
+		}
+
+		std::cout << elements[chunks_used - 1][i] << ' ';
+	}
+	std::cout << "\n\n";
+}
 } // namespace dsa
