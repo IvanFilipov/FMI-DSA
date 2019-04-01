@@ -22,7 +22,8 @@ C: author of examples about Prim's algo for MST, LSD radix sort
 
 N: Plamen Minev
 G: https://github.com/pminev
-C: corrections in the example of BST
+C: corrections in the example of BST,
+   author of example implementation of deque
 
 N: Vasilena Peycheva
 G: https://github.com/VasiPeycheva
