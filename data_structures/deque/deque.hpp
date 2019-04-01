@@ -7,6 +7,8 @@
 #pragma once
 
 #include <stdexcept>
+#include <iostream>
+#include <cstring>
 
 static const size_t SIZE_OF_CHUNK = 16;
 static const size_t INVALID_FRONT_INDEX = SIZE_OF_CHUNK;
@@ -148,13 +150,12 @@ deque<T>::deque()
 template<typename T>
 deque<T>::deque(const deque<T>& rhs)
 	: deque() {
-	copy_from(rhs)
+	copy_from(rhs);
 }
 
 template<typename T>
 deque<T>& deque<T>::operator=(const deque<T>& rhs) {
-	if (this != &rhs)
-	{
+	if (this != &rhs) {
 		clean();
 		copy_from(rhs);
 	}
@@ -169,19 +170,12 @@ deque<T>::~deque() {
 
 template<typename T>
 void deque<T>::copy_from(const deque<T>& rhs) {
-	this->elements = new node*[rhs.chunks_capacity];
-	for (size_t i = 0; i < rhs.chunks_used; i++)
-	{
-		this->elements[i] = new node[SIZE_OF_CHUNK];
-		for (size_t j = 0; j < SIZE_OF_CHUNK; j++)
-		{
-			this->elements[i][j] = rhs.elements[i][j]
+	this->elements = new T*[rhs.chunks_capacity];
+	for (size_t i = 0; i < rhs.chunks_used; i++) {
+		this->elements[i] = new T[SIZE_OF_CHUNK];
+		for (size_t j = 0; j < SIZE_OF_CHUNK; j++) {
+			this->elements[i][j] = rhs.elements[i][j];
 		}
-	}
-
-	for (size_t i = rhs.chunks_used; i < rhs.chunks_capacity; i++)
-	{
-		this->elements = nullptr;
 	}
 
 	this->front_el_index = rhs.front_el_index;
@@ -195,8 +189,7 @@ template<typename T>
 void deque<T>::resize() {
 	T** new_chunks = new T*[chunks_capacity*SIZE_GROWING_STEP];
 
-	for (size_t i = 0; i < chunks_capacity; i++)
-	{
+	for (size_t i = 0; i < chunks_capacity; i++) {
 		new_chunks[i] = elements[i];
 	}
 
@@ -221,8 +214,7 @@ void deque<T>::initialize()
 
 template<typename T>
 void deque<T>::clean() {
-	for (size_t i = 0; i < chunks_used; i++)
-	{
+	for (size_t i = 0; i < chunks_used; i++) {
 		delete[] elements[i];
 	}
 
@@ -308,8 +300,7 @@ void deque<T>::push_front(const T& el) {
 
 	// Move the elements with 1 chunk down
 	T* empty_chunk = elements[chunks_capacity - 1];
-	for (int i = chunks_capacity - 1; i > 0; i--)
-	{
+	for (size_t i = chunks_capacity - 1; i > 0; i--) {
 		elements[i] = elements[i - 1];
 	}
 
@@ -335,8 +326,7 @@ void deque<T>::pop_front() {
 	}
 
 	delete[] elements[0];
-	for (size_t i = 1; i < chunks_capacity; i++)
-	{
+	for (size_t i = 1; i < chunks_capacity; i++) {
 		elements[i - 1] = elements[i];
 	}
 	elements[chunks_used--] = nullptr;
@@ -401,8 +391,7 @@ size_t deque<T>::size() const {
 template<typename T>
 void deque<T>::print() const {
 	std::cout << "\n";
-	for (size_t i = 0; i < SIZE_OF_CHUNK; i++)
-	{
+	for (size_t i = 0; i < SIZE_OF_CHUNK; i++) {
 		if (i < front_el_index) {
 			std::cout << "- ";
 			continue;
@@ -417,8 +406,7 @@ void deque<T>::print() const {
 	}
 
 	std::cout << '\n';
-	for (size_t i = 1; i < chunks_used - 1; i++)
-	{
+	for (size_t i = 1; i < chunks_used - 1; i++) {
 		for (size_t j = 0; j < SIZE_OF_CHUNK; j++)
 		{
 			std::cout << elements[i][j] << ' ';
@@ -432,8 +420,7 @@ void deque<T>::print() const {
 		return;
 	}
 
-	for (size_t i = 0; i <= SIZE_OF_CHUNK; i++)
-	{
+	for (size_t i = 0; i <= SIZE_OF_CHUNK; i++) {
 		if (i > back_el_index) {
 			std::cout << "- ";
 			continue;
