@@ -61,7 +61,7 @@ public:
 template<class T>
 dynamic_stack<T>::dynamic_stack() : cur_size(0), top_ptr(nullptr) {
 	/*...*/
-};
+}
 
 template<class T>
 dynamic_stack<T>::~dynamic_stack() {
@@ -73,7 +73,7 @@ template<class T>
 dynamic_stack<T>::dynamic_stack(const dynamic_stack<T>& rhs) :cur_size(0), top_ptr(nullptr) {
 
 	copy_from(rhs);
-};
+}
 
 template<class T>
 dynamic_stack<T>& dynamic_stack<T>::operator=(const dynamic_stack<T>& rhs) {
