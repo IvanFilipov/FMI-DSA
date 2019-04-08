@@ -5,6 +5,7 @@
 /**
  * @file   deque.hpp
  * @author Plamen Minev
+ * @date   04.2019
  * @brief  A template implementation of Deque with (1) random access.
  *
  * @see https://en.cppreference.com/w/cpp/container/deque
