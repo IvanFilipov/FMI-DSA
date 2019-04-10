@@ -13,6 +13,7 @@
  */
  
 #include <math.h> // sqrt()
+
 #include "search_algorithms.h"
  
 int linear_search(int arr[], size_t size, int elem) {
@@ -32,7 +33,7 @@ int linear_search(int arr[], size_t size, int elem) {
  * @param[in] elem: element to be searched
  * @note in each call only [L; R] interval of the array is used.
  */
-static int binary_search_rec(int *arr, int L, int R, int elem) {
+static int binary_search_rec(int arr[], int L, int R, int elem) {
 	//there is no such element
 	if (L > R)
 		return -1;

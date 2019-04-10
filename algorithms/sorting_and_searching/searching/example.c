@@ -16,12 +16,13 @@
 #include <stdio.h>  // printf()
 #include <stdlib.h> // qsort()
 #include <math.h>   // sqrt()
+
 #include "search_algorithms.h"
 
 #define ARR_SIZE 12 //!< how many elements are there
 
 /// simply output an array's content
-void print_arr(int* arr, size_t size) {
+void print_arr(int arr[], size_t size) {
 
 	for (size_t i = 0; i < size; i++)
 		printf("%d ", arr[i]);
