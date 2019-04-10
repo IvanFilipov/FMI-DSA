@@ -12,6 +12,7 @@
  */
 
 #include <cstdio>
+
 #include "tests.h"
 
 int main() {
