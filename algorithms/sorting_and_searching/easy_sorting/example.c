@@ -1,25 +1,30 @@
-/*
- * An example usage of our sorting implementations. 
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   example.c
+ * @author Ivan Filipov
+ * @date   12.2019
+ * @brief  An example usage of our sorting implementations. 
  */
 
-#include <stdio.h> // printf()
+#include <stdio.h>  // printf()
 #include <string.h> // memcpy()
+
 #include "easy_sorting.h"
 
-// simply output the array's contain
-void print_arr(int* arr, size_t size) {
+/// a simple macro to get the # of elements in C array
+#define sizeof_arr(arr) (size_t)(sizeof(arr) / sizeof(int))
+
+/// simply output the array's contain
+void print_arr(int arr[], size_t size) {
 
 	for (size_t i = 0; i < size; i++)
 		printf("%d ", arr[i]);
 
 	printf("\n\n");
 }
-
-// a simple macro to get the # of elements in C array
-#define sizeof_arr(arr) (size_t)(sizeof(arr) / sizeof(int))
 
 int main() {
 
