@@ -13,6 +13,7 @@
 
 #include <iostream>
 #include <fstream>
+
 #include "trie.h"
 
 using dsa::trie;
