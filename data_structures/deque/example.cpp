@@ -12,6 +12,7 @@
  */
 
 #include <iostream>   // std::cout
+
 #include "deque.hpp"  // dsa::deque
 
 int main() {
