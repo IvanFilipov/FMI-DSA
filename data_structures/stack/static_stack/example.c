@@ -1,13 +1,20 @@
-/*
- * Example usage of a C-style stack data structure.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   example.c
+ * @author Ivan Filipov
+ * @date   10.2018
+ * @brief  Example usage of our C-style stack data structure.
+ * @see https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
  */
 
-#include<stdio.h>
-#include "static_stack.h"
+#include <stdio.h> // fprintf()
 
+#include "static_stack.h" // our stack declarations
+
+/// how many input from user to be read
 #define N_INPUTS 5
 
 int main() {

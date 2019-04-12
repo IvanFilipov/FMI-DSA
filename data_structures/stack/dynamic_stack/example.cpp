@@ -1,15 +1,21 @@
-/*
- * Example usage of a custom data structure - dynamic stack. Stack implemented on singly linked list
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   example.cpp
+ * @author Ivan Filipov
+ * @date   10.2018
+ * @brief  Example usage of our custom dynamic_stack.
  */
-#include <iostream>
-#include "dynamic_stack.hpp"
+ 
+#include <iostream> // std::cout, std::endl
+
+#include "dynamic_stack.hpp" // dsa::dynamic_stack
 
 using dsa::dynamic_stack;
 
-const int MAXN = 8;
+const int MAXN = 8; //!< number of additions/removals
 
 int main() {
 

@@ -85,6 +85,7 @@ public:
 	 * @brief  Get the first element of the deque.
 	 * @retval Reference to the first element.
 	 * @throw  std::logic_error if deque is empty
+	 * Time complexity O(1).
 	 */
 	T& front();
 	
@@ -92,6 +93,7 @@ public:
 	 * @brief  Get the first element of the deque.
 	 * @retval Read-only reference to the first element.
 	 * @throw  std::logic_error if deque is empty
+	 * Time complexity O(1).
 	 */
 	const T& front() const;
 
@@ -99,6 +101,7 @@ public:
 	 * @brief  Get the last element of the deque.
 	 * @retval Reference to the last element.
 	 * @throw  std::logic_error if deque is empty
+	 * Time complexity O(1).
 	 */
 	T& back();
 	
@@ -106,49 +109,55 @@ public:
 	 * @brief  Get the last element of the deque.
 	 * @retval Read-only reference to the last element.
 	 * @throw  std::logic_error if deque is empty
+	 * Time complexity O(1).
 	 */
 	const T& back() const;
 
 	/**
-	 * @brief            Get random element. O(1)
+	 * @brief            Get element on random position.
 	 * @param[in] index: Index of the element in the deque
 	 * @throw            std::out_of_range if the index is incorrect
+	 * Time complexity O(1).
 	 */
 	T& operator[](size_t index);
 	const T& operator[](size_t index) const;
 
 	/**
-	 * @brief         Push a new element on the front. O(1)
+	 * @brief         Push a new element on the front.
 	 * @param[in] el: Value to be inserted
+	 * Time complexity O(1).
 	 */
 	void push_front(const T& el);
 
-	/** Pop the front element. O(1) */
+	/** Pop the front element. Time complexity O(1). */
 	void pop_front();
 
 	/**
-	 * @brief         Push a new element in the end. O(1)
+	 * @brief         Push a new element in the end.
 	 * @param[in] el: Value to be inserted
+	 * Time complexity O(1).
 	 */
 	void push_back(const T& el);
 
-	/** Pop the last element. O(1) */
+	/** Pop the last element. Time complexity O(1). */
 	void pop_back();
 
 	/**
 	 * @brief  Checks if the %deque is empty.
 	 * @retval boolean: whether the deque is empty.
+	 * Time complexity O(1).
 	 */
 	bool empty() const;
 
 	/**
 	 * @brief Get the current size of the deque.
  	 * @retval Current size.
+ 	 * Time complexity O(1).
 	 */
 	size_t size() const;
 
-	/** Clears all values of the deque. */
-	void clean();
+	/** Clears all values of the deque. Time complexity linear in elements count. */
+	void clear();
 
 	/**
 	 *  @brief Debug print of the deque.
@@ -180,7 +189,7 @@ template<typename T>
 deque<T>& deque<T>::operator=(const deque<T>& rhs) {
 	
 	if (this != &rhs) {
-		clean();
+		clear();
 		copy_from(rhs);
 	}
 
@@ -190,7 +199,7 @@ deque<T>& deque<T>::operator=(const deque<T>& rhs) {
 template<typename T>
 deque<T>::~deque() {
 	
-	clean();
+	clear();
 }
 
 template<typename T>
@@ -240,7 +249,7 @@ void deque<T>::initialize() {
 }
 
 template<typename T>
-void deque<T>::clean() {
+void deque<T>::clear() {
 	
 	for (size_t i = 0; i < chunks_used; i++) {
 		delete[] elements[i];
