@@ -5,7 +5,7 @@
 /**
  * @file   example.cpp
  * @author Ivan Filipov
- * @date   11.2019
+ * @date   11.2018
  * @brief  Example usage of the template stack idea.
  *         Some benchmarking - a competition between our data structures vs. STL.
  */
