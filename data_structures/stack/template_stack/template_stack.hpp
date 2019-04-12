@@ -5,7 +5,7 @@
 /**
  * @file   template_stack.hpp
  * @author Ivan Filipov
- * @date   11.2019
+ * @date   11.2018
  * @brief  A template generalizing the idea,
  *         that the stack is only an adapter for linked list or array.
  */
