@@ -1,70 +1,144 @@
-/*
- * Implementation of dynamic queue data structure. Adapter on a singly linked list.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   dynamic_queue.hpp
+ * @author Ivan Filipov
+ * @date   10.2018
+ * @brief  Implementation of the queue data structure as 
+ *         an adapter on singly linked list.
+ * @see https://en.wikipedia.org/wiki/Queue_(abstract_data_type)
  */
 
 #pragma once
  
-#include <stdexcept>
+#include <stdexcept> // exception types
 
-// the implementation is pretty close to the
-// one of singly linked list...
 namespace dsa {
+/**
+ * @class dynamic_queue
+ * @brief Stores elements in FIFO style.
+ * @tparam T: type of elements stored
+ */
 template<typename T>
 class dynamic_queue {
-
 private:
-
+	/**
+	 *  @struct node
+	 *  @brief  An inner representation of each "box".
+	 */ 
 	struct node {
-		
-		T data;
-		node* next_ptr;
-
-		node(const T& d, node* ptr = nullptr) : data(d), next_ptr(ptr) {}
+		T     data;     //!< the actual stored data
+		node* next_ptr; //!< a pointer to the next box
+		/** Creates an node by given data. */
+		node(const T& ndata, node* next_ptr = nullptr) :
+			data(ndata), next_ptr(next_ptr) { /**/ }
 	};
 
-	node* front_ptr;
-	node* rear_ptr;
-	size_t cur_size;
-	
-public:
+private:
+	/* private data members */
+	node*  front_ptr; //!< pointer to the front element
+	node*  rear_ptr;  //!< pointer to the back element
+	size_t cur_size;  //!< current amount of objects in the queue
 
-	//BIG FOUR
+public:
+	/* object life cycle */
+	/** Creates %dynamic_queue with no elements */
 	dynamic_queue();
+	
+	/**
+	  *  @brief     %dynamic_queue copy constructor.
+	  *  @param[in] rhs: A %dynamic_queue of identical element type, from which to copy.
+	  */
 	dynamic_queue(const dynamic_queue& rhs);
+	
+	/**
+	  *  @brief     %dynamic_queue assignment operator.
+	  *  @param[in] rhs: A %dynamic_queue of identical element type, from which to copy.
+	  */
 	dynamic_queue& operator=(const dynamic_queue& rhs);
+	
+	/** Frees all memory allocated. */
 	~dynamic_queue();
 
 private:
-
-	//HELP FUNCTIONS
+	/* helpers */
+	/** 
+	  *  @brief     copies all elements for another queue
+	  *  @param[in] rhs: queue from which to copy.
+	  */
 	void copy_from(const dynamic_queue& rhs);
 	
 public:
-
-	//INTERFACE
-
-	// access for first / fast member
+	/* interface */
+	/**
+	 * @brief  get the front element of the queue
+	 * @retval Reference to the front element.
+	 * @throw  std::logic_error if queue is empty
+	 * Time complexity O(1).
+	 */
 	T& front();
+	
+	/**
+	 * @brief  get the front element of the queue
+	 * @retval Read-only reference to the front element.
+	 * @throw  std::logic_error if queue is empty
+	 * Time complexity O(1).
+	 */
 	const T& front()const;
-
+	
+	/**
+	 * @brief  get the back element of the queue
+	 * @retval Reference to the back element.
+	 * @throw  std::logic_error if queue is empty
+	 * Time complexity O(1).
+	 */
 	T& back();
+	
+	/**
+	 * @brief  get the back element of the queue
+	 * @retval Read-only reference to the back element.
+	 * @throw  std::logic_error if queue is empty
+	 * Time complexity O(1).
+	 */
 	const T& back() const;
 
-	// add / remove
+	/**
+	 * @brief         Push a new element at the back of the queue.
+	 * @param[in] el: Value to be inserted
+	 * Time complexity O(1).
+	 */
 	void push(const T& el);
+	
+	/**
+	 * @brief Pop the front element of the queue.
+	 * @throw std::logic_error if the queue is empty
+	 * Time complexity O(1).
+	 */
 	void pop();
 
+	/**
+	 * @brief  Checks if the %dynamic_queue is empty.
+	 * @retval boolean: whether the dynamic_queue is empty.
+	 * Time complexity O(1).
+	 */
 	bool empty() const;
+	
+	/**
+	 * @brief Get the current size of the queue.
+ 	 * @retval Current size.
+ 	 * Time complexity O(1).
+	 */
 	size_t size() const;
 	
-	void clean();
+	/** Frees the resources for the queue. Time complexity liner in the count of the elements. */
+	void clear();
 };
 
 template<class T>
-dynamic_queue<T>::dynamic_queue() : front_ptr(nullptr), rear_ptr(nullptr), cur_size(0) {
+dynamic_queue<T>::dynamic_queue(): 
+	front_ptr(nullptr), rear_ptr(nullptr), cur_size(0) {
 	/*...*/
 }
 
@@ -78,7 +152,7 @@ template<class T>
 dynamic_queue<T>& dynamic_queue<T>::operator=(const dynamic_queue<T>& rhs) {
 
 	if (this != &rhs) {
-		clean();
+		clear();
 		copy_from(rhs);
 	}
 
@@ -88,13 +162,13 @@ dynamic_queue<T>& dynamic_queue<T>::operator=(const dynamic_queue<T>& rhs) {
 template<class T>
 dynamic_queue<T>::~dynamic_queue() {
 
-	clean();
+	clear();
 }
 
 template<class T>
-void dynamic_queue<T>::clean() {
+void dynamic_queue<T>::clear() {
 	//iterating trough all elements
-	node * destroyer ;
+	node* destroyer ;
 	
 	while (front_ptr != nullptr) {
 		//taking the first one
@@ -120,11 +194,10 @@ void dynamic_queue<T>::copy_from(const dynamic_queue<T>& rhs) {
 		front_ptr = new node(rhs.front_ptr->data);
 
 		node* to_copy = rhs.front_ptr;
-		node* copier = front_ptr;
+		node* copier  = front_ptr;
 
 		while (to_copy->next_ptr != 0) {
 			to_copy = to_copy->next_ptr;
-
 			copier->next_ptr = new node(to_copy->data);
 			copier = copier->next_ptr;
 		}
@@ -132,7 +205,7 @@ void dynamic_queue<T>::copy_from(const dynamic_queue<T>& rhs) {
 		rear_ptr = copier;
 		cur_size = rhs.cur_size;
 	} catch (std::bad_alloc &) {
-		clean();
+		clear();
 		throw;
 	}
 }
