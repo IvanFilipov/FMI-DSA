@@ -103,7 +103,7 @@ void run_advanced_tests() {
 	// we can take advantage of : 
 	// moder C++ look-like iterations
 	// STL algorithms
-	// our structure is compatible with all algorithms that takes forward iterators 
+	// our structure is compatible with all algorithms that takes bidirectional iterators 
 	
 	std::cout << "iterating forward over all elements using iterator based for:" << std::endl;
 	for (dlinked_list<int>::iterator it = f_list.begin(); it != f_list.end(); ++it) {
