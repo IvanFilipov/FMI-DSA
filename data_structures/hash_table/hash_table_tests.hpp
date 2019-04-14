@@ -1,9 +1,13 @@
-/*
- * Some basic test written as template functions, so they can be ran with both our
- * linear probing hash table and separate chaining hash table implementations.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   hash_table_tests.hpp
+ * @author Ivan Filipov
+ * @date   01.2019
+ * @brief  Some basic test written as template functions, so they can be ran with both our
+ *         linear probing hash table and separate chaining hash table implementations.
  */
 
 #pragma once
@@ -15,12 +19,15 @@
 #include <cstdlib> // std::srand(), std::rand()
 #include <ctime>   // std::time()
 
-// how many elements
+/// how many elements
 const size_t N_ELEMS = 10;
-// some typedefs for easier writing
+//@{
+/// some typedefs for easier writing
 using key_set  = std::array<std::string, N_ELEMS>;
 using data_set = std::vector<data_type>;
+//@}
 
+/// tests inserting @c N_ELEMS into a hash table.
 template<typename HashTable>
 void put_test(HashTable& table, const key_set& keys, const data_set& data) {
 
@@ -39,7 +46,7 @@ void put_test(HashTable& table, const key_set& keys, const data_set& data) {
 	try {
 		table.insert(keys[0], data[0]);
 	} catch(const std::exception& e){
-		std::cerr << "insert error : " << e.what();
+		std::cerr << "insert error: " << e.what();
 	}
 	
 	std::cout << std::endl
@@ -48,6 +55,7 @@ void put_test(HashTable& table, const key_set& keys, const data_set& data) {
 	table.print();
 }
 
+/// tests getting @c N_ELEMS from a hash table. Also a fixed random search.
 template<typename HashTable>
 void get_test(HashTable& table, const key_set& keys) {
 
@@ -65,7 +73,7 @@ void get_test(HashTable& table, const key_set& keys) {
 				      << table.get(keys[which]) 
 				      << std::endl;
 		} catch (std::exception& e) {
-			std::cerr << "get error : " << e.what();
+			std::cerr << "get error: " << e.what();
 		}
 	}
 
@@ -84,6 +92,7 @@ void get_test(HashTable& table, const key_set& keys) {
 	}
 }
 
+/// tests removing @c N_DELETES elements from a hash table.
 template<typename HashTable>
 void erase_test(HashTable& table, const key_set& keys) {
 
@@ -101,13 +110,11 @@ void erase_test(HashTable& table, const key_set& keys) {
 			table.erase(keys[which]);
 			std::cout << " removed !\n";
 		} catch (std::exception& e) {
-			std::cerr << "remove error : " << e.what();
+			std::cerr << "remove error: " << e.what();
 		}
 	}
-
-
+	
 	std::string random_test = "Pleven";
-
 	std::cout << "erasing element with key "
 			  << std::quoted(random_test)
 		      << " ... ";
@@ -115,7 +122,7 @@ void erase_test(HashTable& table, const key_set& keys) {
 		table.erase(random_test);
 		std::cout << " erased !\n";
 	} catch (std::exception& e) {
-		std::cerr << "remove error : " << e.what() << std::endl;
+		std::cerr << "remove error: " << e.what() << std::endl;
 	}
 	
 	std::cout << std::endl
@@ -124,6 +131,7 @@ void erase_test(HashTable& table, const key_set& keys) {
 	table.print();
 }
 
+/// runs all three tests on a fixed hash table.
 template<typename HashTable>
 void run_tests(HashTable& table) {
 	
