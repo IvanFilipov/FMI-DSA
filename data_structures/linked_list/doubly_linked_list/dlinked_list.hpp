@@ -189,9 +189,7 @@ public:
 	 * Time complexity O(1).
 	 */
 	const T& back() const;
-	
-	
-	
+
 	/**
 	 * @brief         Push a new element in the beginning of the list.
 	 * @param[in] el: Value to be inserted
@@ -227,8 +225,6 @@ public:
 	 */
 	iterator remove(const iterator& it);
 	
-	
-
 	/**
 	 * @brief         Searches the list for a specific element.
 	 * @param[in] el: Element to be searched for.
