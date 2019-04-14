@@ -3,7 +3,7 @@
  *******************************************************************************/
 
 /**
- * @file   linked_list.hpp
+ * @file   doubly_linked_list.hpp
  * @author Ivan Filipov
  * @date   10.2018
  * @brief  A basic linear data structure - doubly linked list.
@@ -22,7 +22,7 @@
 
 namespace dsa {
 /**
- * @class dynamic_queue
+ * @class dlinked_list
  * @brief Basic container for elements. 
  *        Supports fast insertion/removal at random position.
  *        Fast random access is not supported.
