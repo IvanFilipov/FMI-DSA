@@ -3,7 +3,7 @@
  *******************************************************************************/
 
 /**
- * @file   linear_probing_hash.h
+ * @file   linear_probing_hash.cpp
  * @author Ivan Filipov
  * @date   01.2019
  * @brief  Basic implementation of hash table, using
