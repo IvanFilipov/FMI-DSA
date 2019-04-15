@@ -1,15 +1,20 @@
-/*
- * Example usage of custom dynamic array. Some benchmarking and STL algorithms.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   example.cpp
+ * @author Ivan Filipov
+ * @date   10.2018
+ * @brief  Example usage of custom dynamic array.
+ *         Some benchmarking and STL algorithms.
  */
 
 #include <random>    // std::random_device, std::mt19937
 #include <iostream>  // std::cout
 #include <algorithm> // std::sort(), std::shuffle(), std::is_sorted(), std::for_each()
 
-#include "dynamic_array.hpp"
+#include "dynamic_array.hpp"         // dsa::dynamic_array
 #include "../../utils/benchmark.hpp" // custom benchmark function
 
 using dsa::dynamic_array;
@@ -20,39 +25,41 @@ const int N_FILL = 1000000;
 const int MAX_EL = 1000000;
 
 // random generator modern c++ style : https://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine
-std::random_device rd; // create random device
+std::random_device rd;                // create random device
 std::mt19937 random_generator(rd());  // create random generator based on that device
 
-// a dynamic_array global object, used in benchmarking examples
+/// a dynamic_array global object, used in benchmarking examples
 dynamic_array<int> arr;
 
-// a function that fills our array with N_FILL random elements
-// all positive < MAX_EL
+/// a function that fills our array with @c N_FILL random elements
+/// all positive < @c MAX_EL
 void init() {
 
 	for (int i = 0; i < N_FILL; i++)
 		arr.push_back(random_generator() % MAX_EL);
 }
-// searching in the worst case... (no such element)
-// using linear search algorithm
+
+/// searching in the worst case... (no such element)
+/// using linear search algorithm
 void run_search_slow() {
 	
 	arr.find(-1);
 }
-// using binary search algorithm
+
+/// using binary search algorithm
 void run_search_fast() {
 	
 	arr.find(-1, true);
 }
-// sort the array
+
+/// sort the array
 void run_sort() {
 	// yeah, we have random iterators,
 	// how sweet is that, we can use std::sort :)
 	std::sort(arr.begin(), arr.end());
 }
 
-//testing some basic functionality of our class
-//push / pop / add / remove / copy
+/// testing some basic functionality of our class
 void run_basic_tests() {
 	
 	std::cout << std::endl 
@@ -108,6 +115,7 @@ void run_basic_tests() {
 	second.print_elems(std::cout);
 }
 
+/// test modern C++ and STL compatibility
 void run_advanced_tests() {
 	
 	std::cout << std::endl 
@@ -132,7 +140,7 @@ void run_advanced_tests() {
 	std::cout << std::endl << std::endl;
 	
 	std::cout << "iterating over all elements using range based for :" << std::endl;
-	for (int el : f_arr) {
+	for (int el: f_arr) {
 		std::cout << el << " ";
 	}
 	std::cout << std::endl << std::endl;

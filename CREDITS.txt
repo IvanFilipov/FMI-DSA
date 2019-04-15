@@ -22,11 +22,13 @@ C: author of examples about Prim's algo for MST, LSD radix sort
 
 N: Plamen Minev
 G: https://github.com/pminev
-C: corrections in the example of BST
+C: corrections in the example of BST,
+   author of example implementation of deque
 
 N: Vasilena Peycheva
 G: https://github.com/VasiPeycheva
 C: ensuring that all examples can be compiled with MSVC++,
    author of example about BFS/DFS-iterative/DFS-recursive,
-   creator of all graph visial representations
+   creator of all graph visial representations,
+   implemented Trie (Prefix tree).
    

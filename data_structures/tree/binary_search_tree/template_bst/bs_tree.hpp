@@ -1,8 +1,14 @@
-/*
- * Example implementation of classic binary search tree.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   bs_tree.hpp
+ * @author Ivan Filipov
+ * @date   02.2019
+ * @brief  Example implementation of classic binary search tree.
  *
- * Author : Ivan Filipov	
+ * @see https://en.wikipedia.org/wiki/Binary_search_tree
  */
 
 #pragma once
@@ -11,72 +17,162 @@
 #include <iosfwd>    // std::ostream
 
 namespace dsa {
+/**
+ * @class bs_tree
+ * @brief A container that holds items in order. Provides fast lookups.
+ *  
+ * @tparam T: Type of elements. Should be comparable.
+ */
 template<typename T>
 class bs_tree {
-
 private:
-	// each node have two pointer for it's children
+	/**
+	 *  @struct node
+	 *  @brief  An inner representation of each %bs_tree's "node".
+	 */ 
 	struct node {
-		T     key;       // stored object used as a key
-		node* left_ptr;  // a pointer to left child
-		node* right_ptr; // a pointer to right child
-
+		T     key;       //!< stored object used as a key
+		node* left_ptr;  //!< a pointer to left child
+		node* right_ptr; //!< a pointer to right child
+		/** Creates an node by given key. By default tries to create an empty key. */
 		node(const T& k = {}) : key(k),
 			left_ptr(nullptr), right_ptr(nullptr) {}
 	};
+	
 	/* private data members */
-	//the root of the tree
-	node* root;
+	node* root; //!<the root of the tree
 
 public:
 	/* object life cycle */
+	/** Creates %bs_tree with no elements */
 	bs_tree();
+	
+	/**
+	  *  @brief     %bs_tree copy constructor.
+	  *  @param[in] rhs: A %bs_tree of identical element type, from which to copy.
+	  */
 	bs_tree(const bs_tree& rhs);
+	
+	/**
+	  *  @brief     %bs_tree assignment operator.
+	  *  @param[in] rhs: A %bs_tree of identical element type, from which to copy.
+	  */
 	bs_tree& operator=(const bs_tree& rhs);
+	
+	/** Frees all memory allocated. */
 	~bs_tree();
 
 private:
-
 	/* helpers */
-	// copies all elements for another tree
+	/** 
+	  *  @brief     Copies all elements for another tree.
+	  *  @param[in] rhs: tree from which to copy.
+	  */
 	void copy_from(const bs_tree& rhs);
-	/// methods with suffix _rec are recursive functions :
-	// destroy a tree with root "root" recursively
+	
+	// methods with suffix _rec are recursive functions:
+	/**
+	 *  @brief     Frees the memory for a %bs_tree recursively.
+	 *  @param[in] root: the root node of the %bs_tree to be freed.
+	 */
 	void destroy_tree_rec(node* root);
-	// copy a tree recursively
+	
+	/**
+	  * @brief Helper for copy a %bs_tree recursively.
+	  * @see   copy_from()
+	  */
 	void copy_tree_rec(node*& dest_root, node* src_root);
-	// searching elem with key from tree with root "root"
-	const T& search_rec(node* root, const T& key) const;
-	// add new elem with "key" and "data" into tree with "root" 
+	
+	/**
+	  * @brief Helper for searching a key in a %bs_tree recursively.
+	  * @see   find()
+	  */
+	const T& find_rec(node* root, const T& key) const;
+	
+	/**
+	  * @brief Helper for inserting a key into a %bs_tree recursively.
+	  * @see   insert()
+	  */
 	void insert_rec(node*& root, const T& key);
-	// remove elem with "key" from tree with "root" 
+	
+	/**
+	  * @brief Helper for removing a key from a %bs_tree recursively.
+	  * @see   remove()
+	  */
 	void remove_rec(node*& root, const T& key);
-	// iterate left-root-right through the tree and output the elements
+	
+	/**
+	  * @brief Helper for printing the contain of a %bs_tree recursively.
+	  * @see   print_sorted_keys()
+	  */
 	void print_sorted_keys_rec(node* root, std::ostream& os) const;
-	// get the maximum height of a tree with "root"
+	
+	/**
+	  * @brief Helper for getting the height of a %bs_tree recursively.
+	  * @see   get_height()
+	  */
 	unsigned int get_height_rec(node* root) const;
 
 public:
 	/* interface */
-	// search for element with key, returns data if founded, throws an exception else
-	// time complexity : O(logn) best case, O(n) avg and worst
-	const T& search(const T& key) const;
-	// insert an element with key and data if not presenting
-	// time complexity : O(logn) best case, O(n) avg and worst
+	/**
+	  * @brief     Search for a key into %bs_tree.
+	  * @param[in] key: the key to be searched.
+	  * @retval    read only reference to the element.
+	  * @throw     std::logic_error if there is no such key.
+	  * 
+	  * @note time complexity in the best case: O(logn),
+	  *       but linear in elements count in worst and average.
+	  */
+	const T& find(const T& key) const;
+	
+	/**
+	  * @brief     Inserts a key into %bs_tree, if the key is not presenting.
+	  * @param[in] key: the key to be inserted.
+	  * @throw     std::logic_error if there is already such key inside the tree.
+	  * 
+	  * @note Time complexity in the best case: O(logn),
+	  *       but linear in elements count in worst and average.
+	  */
 	void insert(const T& key);
-	// remove an element by key if presenting
-	// time complexity : O(logn) best case, O(n) avg and worst
+	
+	/**
+	  * @brief     Removes a key from %bs_tree, if the key is presenting.
+	  * @param[in] key: the key to be removed.
+	  * @throw     std::logic_error if there is not a such key inside the tree.
+	  * 
+	  * @note Time complexity in the best case: O(logn),
+	  *       but linear in elements count in worst and average.
+	  */
 	void remove(const T& key);
-	// get the maximum height of a tree
+	
+	/** Get the maximum height of a tree */
 	unsigned int get_height() const;
-	// get the maximum key of elements stored in the tree
+	
+	/** 
+	 * @brief  Get the maximum key of elements stored in the %bs_tree.
+	 * @retval a copy of the key.
+	 * @throw  std::logic_error if the tree is empty.
+	 */
 	T get_max_key() const;
-	// iterate left-root-right through the tree and output the elements
+	
+	/** Check if the tree is empty */
+	bool empty() const { return root == nullptr; }
+	
+	/** Frees the resources for the tree */
+	void clear() { destroy_tree_rec(root); }
+	
+	/** 
+	 * @brief  Outputs all keys stored in the %bs_tree in order.
+	 * @param[in] os: output stream to write to.
+	 *
+	 * Iterate left-root-right through the tree gives the elements in order.
+	 */
 	void print_sorted_keys(std::ostream& os) const;
 };
 
 template<typename T>
-bs_tree<T>::bs_tree() : root(nullptr) {
+bs_tree<T>::bs_tree(): root(nullptr) {
 	//...
 }
 
@@ -138,7 +234,7 @@ void bs_tree<T>::copy_tree_rec(typename bs_tree<T>::node*& dest_root,
 
 template<typename T>
 void bs_tree<T>::insert_rec(typename bs_tree<T>::node*& root, const T& key) {
-	// we have found a leaf
+	// we have found a leaf, create the new element
 	if (root == nullptr) {
 		root = new node(key);
 		return;
@@ -159,7 +255,7 @@ void bs_tree<T>::insert_rec(typename bs_tree<T>::node*& root, const T& key) {
 }
 
 template<typename T>
-const T& bs_tree<T>::search_rec(typename bs_tree<T>::node* root, 
+const T& bs_tree<T>::find_rec(typename bs_tree<T>::node* root, 
 								const T& key) const {
 	// can't find it...
 	if (root == nullptr)
@@ -169,10 +265,10 @@ const T& bs_tree<T>::search_rec(typename bs_tree<T>::node* root,
 		return key;
 	// search right sub tree
 	if (key > root->key)
-		return search_rec(root->right_ptr, key);
+		return find_rec(root->right_ptr, key);
 	// search left sub tree
 	if (key < root->key)
-		return search_rec(root->left_ptr, key);
+		return find_rec(root->left_ptr, key);
 	// won't get here, but stops compiler's warnings/errors(*errors on clang)
 	//* possibly get here when using double/float
 	throw std::logic_error("no element with such key!");
@@ -181,8 +277,7 @@ const T& bs_tree<T>::search_rec(typename bs_tree<T>::node* root,
 // node*& because we have pointer redirections
 template<typename T>
 void bs_tree<T>::remove_rec(typename bs_tree<T>::node*& root, const T& key) {
-	// search phase :
-	
+	// search phase:
 	// there isn't elem with key "key"
 	if (root == nullptr)
 		throw std::logic_error("no element with such key!");
@@ -192,22 +287,20 @@ void bs_tree<T>::remove_rec(typename bs_tree<T>::node*& root, const T& key) {
 		remove_rec(root->right_ptr, key);
 		return;
 	}
-
 	// search left sub-tree
 	if (key < root->key) {
 		remove_rec(root->left_ptr, key);
 		return;
 	}
-
+	//
+	
 	// remove phase :
-
 	// simple leaf
 	if (!root->left_ptr && !root->right_ptr) {
 		delete root;
 		root = nullptr;
 		return;
 	}
-	
 	// have two children
 	if (root->left_ptr != nullptr && root->right_ptr != nullptr) {
 		// finding the max elem in the left sub-tree
@@ -228,19 +321,19 @@ void bs_tree<T>::remove_rec(typename bs_tree<T>::node*& root, const T& key) {
 		// have only left child
 		if (root->left_ptr)
 			root = root->left_ptr;
-		else //have only right child
+		else // have only right child
 			root = root->right_ptr;
 		
-		delete destroyer; //release wanted node
+		delete destroyer; // release wanted node
 	}
+	//
 }
 
-// using left - root - right tree iteration
 template<typename T>
 void bs_tree<T>::print_sorted_keys_rec(typename bs_tree<T>::node* root,
 									   std::ostream& os) const {
-	// root != nullptr
-	if (root) {
+
+	if (root) { // root != nullptr
 		print_sorted_keys_rec(root->left_ptr, os);
 		os << root->key;
 		print_sorted_keys_rec(root->right_ptr, os);
@@ -259,21 +352,16 @@ unsigned int bs_tree<T>::get_height_rec(typename bs_tree<T>::node* root) const {
 	return 1 + ((left_height > right_height) ? left_height : right_height);
 }
 
-// the interface realizations are just callers to the recursive helpers 
-
 template<typename T> 
 void bs_tree<T>::insert(const T& key) {
 
 	insert_rec(root, key);
 }
 
-// searches for a specific key, if there is
-// such key, returns a copy of its data
-// else throws logic_error exception
 template<typename T>
-const T& bs_tree<T>::search(const T& key) const {
+const T& bs_tree<T>::find(const T& key) const {
 
-	return search_rec(root, key);
+	return find_rec(root, key);
 }
 
 template<typename T>

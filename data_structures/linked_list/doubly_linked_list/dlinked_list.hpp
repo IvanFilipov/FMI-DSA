@@ -1,62 +1,91 @@
-/*
- * A basic linear data structure - doubly linked list. With bidirectional iterator. STL friendly.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   doubly_linked_list.hpp
+ * @author Ivan Filipov
+ * @date   10.2018
+ * @brief  A basic linear data structure - doubly linked list.
+ *         With bidirectional iterator. STL friendly.
+ * @see https://en.wikipedia.org/wiki/Doubly_linked_list
  */
 
 #pragma once
  
 #include <stdexcept>        // exception types
-#include <iosfwd>           // forward declarations of ostreams
-#include <initializer_list> // initializer_list
+#include <ostream>          // std::ostream
+#include <initializer_list> // std::initializer_list
 #include <iterator>         // declaration of bidirectional_iterator_tag
 
+#include <list>
+
 namespace dsa {
+/**
+ * @class dlinked_list
+ * @brief Basic container for elements. 
+ *        Supports fast insertion/removal at random position.
+ *        Fast random access is not supported.
+ *        Less space efficient than singly linked list, but supports bidirectional iterations.
+ * @tparam T: type of elements stored
+ */
 template<typename T>
 class dlinked_list {
-
-private :
-	// an inner representation of each "box" 
+private:
+	/**
+	 *  @struct node
+	 *  @brief  An inner representation of each "box".
+	 */ 
 	struct node {
-
-		T data;         // the actual stored data
-		node* prev_ptr; // a pointer to the previous box
-		node* next_ptr; // a pointer to the next box
-		// a simple constructor
-		node(const T& ndata, node* pprev = nullptr, node* pnext = nullptr) :
+		T data;         //!< the actual stored data
+		node* prev_ptr; //!< a pointer to the previous box
+		node* next_ptr; //!< a pointer to the next box
+		/** Creates an node by given data. */
+		node(const T& ndata, node* pprev = nullptr, node* pnext = nullptr):
 			data(ndata), prev_ptr(pprev), next_ptr(pnext) { /**/ }
 	};
 
-private :
+private:
 	/* private data members */
-	node* front_ptr; // pointer to the first box
-	node* back_ptr;  // pointer to the last box 
-	size_t cur_size; // current amount of objects stored
-	// ---- a dummy element --- used as "the element after the last one"
+	node* front_ptr; //!< pointer to the first box
+	node* back_ptr;  //!< pointer to the last box 
+	size_t cur_size; //!< current amount of objects stored
+	/// ---- a dummy element --- used as "the element after the last one"
 	node* dummy; // a bit of overhead in order to make our bidirectional iterator work 
-
-public :
-	/* object life cycle */
-	dlinked_list();
-	dlinked_list(std::initializer_list<T> il);
-	dlinked_list(const dlinked_list& rhs);
-	dlinked_list& operator=(const dlinked_list& rhs);
-	~dlinked_list();
-
-public:
 	
-	typedef T value_type; // for std::back_inserter to work
-
+public:
+	/* object life cycle */
+	/** Creates %dlinked_list with no elements */
+	dlinked_list();
+	
+	/** Creates %dlinked_list from initializer list */
+	dlinked_list(std::initializer_list<T> il);
+	
+	/**
+	  *  @brief     %dlinked_list copy constructor.
+	  *  @param[in] rhs: A %dlinked_list of identical element type, from which to copy.
+	  */
+	dlinked_list(const dlinked_list& rhs);
+	
+	/**
+	  *  @brief     %dlinked_list assignment operator.
+	  *  @param[in] rhs: A %dlinked_list of identical element type, from which to copy.
+	  */
+	dlinked_list& operator=(const dlinked_list& rhs);
+	
+	/** Frees all memory allocated. */
+	~dlinked_list();
+	
+public:
 	/* iterator */
-	// very basic bidirectional iterator
+	typedef T value_type; //!< type of stored elements
+
+	/// very basic bidirectional iterator
 	class iterator {
 		// only the container will have access to the private data of iterators
 		friend class dlinked_list<T>;
-		
 	private:
-
-		node* node_ptr;
+		node* node_ptr; //!< pointer to a box from %dlinked_list
 
 	public:
 		// lets make our iterator more STL friendly 
@@ -68,22 +97,26 @@ public:
 		typedef std::bidirectional_iterator_tag 
 										  iterator_category;
 		typedef ptrdiff_t                 difference_type;
-		// basic constructor
-		iterator(node* n) : node_ptr(n) { }
+		/** Basic iterator constructor - points to a box from the list */
+		iterator(node* n): node_ptr(n) {}
 		
 	public:
-		
-		// access operators
+		//@{
+		/** access operators */
 		reference operator*() { return node_ptr->data; }
 		const reference operator*() const { return node_ptr->data; } // for const iterators
 		pointer operator->() { return &node_ptr->data; }
+		//@}
 		
-		// compare operators
+		//@{
+		/** compare operators */
 		bool operator==(const self_type& rhs) const { return node_ptr == rhs.node_ptr; }
 		bool operator!=(const self_type& rhs) const { return !(rhs == *this); }
 		explicit operator bool() const { return node_ptr != nullptr; }
+		//@}
 		
-		// modifier operators
+		//@{
+		/** modifier operators */
 		self_type& operator++() {
 			
 			node_ptr = node_ptr->next_ptr;
@@ -109,56 +142,105 @@ public:
 			--(*this);
 			return res;
 		}
+		//@}
 	};
 	
 private:
 	/* helpers */
-	// copy all objects from another list
+	/** 
+	  *  @brief     copies all elements for another list
+	  *  @param[in] rhs: list from which to copy.
+	  */
 	void copy_from(const dlinked_list& rhs);
-	// makes sure that dummy is the element after the last one
+	
+	/** makes sure that dummy is the element after the last one */
 	void fix_dummy();
 	
 public:
 	/* interface */
-	// frees the memory allocated for all list boxes
-	void clear();
-	
-	// modifiers :
-	// adds element at the end O(1)
-	void push_back(const T& el);
-	// adds element at the beginning O(1)
-	void push_front(const T& el); 
-	// lookup for the last element O(1)
-	const T& back() const;
-	T& back();
-	// lookup for the first element O(1)
-	const T& front() const;
+	/**
+	 * @brief  get the first element from the list
+	 * @retval Reference to the front element.
+	 * @throw  std::logic_error if the list is empty
+	 * Time complexity O(1).
+	 */
 	T& front();
-	// remove the last element O(1)
-	void pop_back();
-	// remove the first element O(1)
+	
+	/**
+	 * @brief  get the first element from the list
+	 * @retval Read-only reference to the front element.
+	 * @throw  std::logic_error if the list is empty
+	 * Time complexity O(1).
+	 */
+	const T& front() const;
+	
+	/**
+	 * @brief  get the last element from the list
+	 * @retval Reference to the back element.
+	 * @throw  std::logic_error if the list is empty
+	 * Time complexity O(1).
+	 */
+	T& back();
+	
+	/**
+	 * @brief  get the last element from the list
+	 * @retval Read-only reference to the back element.
+	 * @throw  std::logic_error if the list is empty
+	 * Time complexity O(1).
+	 */
+	const T& back() const;
+
+	/**
+	 * @brief         Push a new element in the beginning of the list.
+	 * @param[in] el: Value to be inserted
+	 * Time complexity O(1).
+	 */
+	void push_front(const T& el); 
+	
+	/**
+	 * @brief         Push a new element at the end of the list.
+	 * @param[in] el: Value to be inserted
+	 * Time complexity O(1).
+	 */
+	void push_back(const T& el);
+	
+	/** Remove the first element. Time complexity O(1). */
 	void pop_front();
-	// inserts a new element, at the position pointed by iterator O(1)
+	
+	/** Remove the last element. Time complexity O(1). */
+	void pop_back();
+	
+	/**
+	 * @brief         Insert a new element at random position of the list.
+	 * @param[in] it: Iterator to the position on which the new element to be inserted.
+	 * @param[in] el: Value to be inserted
+	 * Time complexity O(1).
+	 */
 	iterator insert(const iterator& it, const T& el);
-	// removes the element at the position pointed by iterator O(1)
+	
+	/**
+	 * @brief         Remove an element at random position of the list.
+	 * @param[in] it: Iterator to the position on which the element to be removed.
+	 * Time complexity O(1).
+	 */
 	iterator remove(const iterator& it);
 	
-	// getters :
-	bool empty() const;
-	size_t size() const;
-
-	//simply outputs the contain of the list
-	void print_elems(std::ostream& os) const;
-	//searches the list for a given element, if found
-	//returns an iterator to it, else iterator : end(), O(n)
+	/**
+	 * @brief         Searches the list for a specific element.
+	 * @param[in] el: Element to be searched for.
+	 * @retval    iterator to the element if found
+	 * @retval    %end iterator, if there is no such element
+	 * Time complexity O(n) - linear in elements count.
+	 */
 	iterator find(const T& el) const;
 	
-	// iterators creation interface
+	/** Get iterator to the beginning of the list */
 	iterator begin() {
 
 		return (front_ptr) ? iterator(front_ptr) : iterator(dummy);
 	}
-
+	
+	/** Get iterator to the end of the list */
 	iterator end() {
 
 		return iterator(dummy);
@@ -166,46 +248,73 @@ public:
 	
 	// constant iterator objects. they have limited usage
 	// in our implementation, much better is to create
-	// another class : const_iterator
+	// another class - const_iterator
+	/** Get constant iterator to the beginning of the list */
 	const iterator cbegin() const {
 
 		return iterator(front_ptr);
 	}
-
+	
+	/** Get constant iterator to the end of the list */
 	const iterator cend() const {
 
 		return iterator(dummy);
 	}
-	// a kind of reversed iterators, better implementation,
+	// a kind of reversed iterators - a better implementation
 	// could use another class with op--, op++ overloads
+	/** Get reverse iterator from the beginning of the list */
 	iterator rbegin() {
 
 		return --end();
 	}
-
+	
+	/** Get reverse iterator from the end of the list */
 	iterator rend() {
 
 		return --begin();
 	}
+	
+	/**
+	 * @brief  Checks if the %dlinked_list is empty.
+	 * @retval boolean: whether the dlinked_list is empty.
+	 * Time complexity O(1).
+	 */
+	bool empty() const;
+	
+	/**
+	 * @brief Get the current size of the list.
+ 	 * @retval Current size.
+ 	 * Time complexity O(1).
+	 */
+	size_t size() const;
+	
+	/** Frees the resources for the list. Time complexity liner in the count of the elements. */
+	void clear();
+	
+	/**
+	 *  @brief Debug print of the list.
+	 *  @param[in,out] os: a stream to write to.
+	 */
+	void print(std::ostream& os) const;
 };
 
-/* object life cycle */
-
 template<typename T>
-dlinked_list<T>::dlinked_list() : 
-	front_ptr(nullptr), back_ptr(nullptr), cur_size(0), dummy(new node({} , back_ptr)) {
+dlinked_list<T>::dlinked_list(): 
+	front_ptr(nullptr), back_ptr(nullptr),
+	cur_size(0), dummy(new node({} , back_ptr)) {
 	//...
 }
+
 template<typename T>
-dlinked_list<T>::dlinked_list(std::initializer_list<T> il) : dlinked_list() {
+dlinked_list<T>::dlinked_list(std::initializer_list<T> il): dlinked_list() {
 	
-	for (const T& el : il)
+	for (const T& el: il)
 		push_back(el);
 	fix_dummy();
 }
 
 template<typename T>
-dlinked_list<T>::dlinked_list(const dlinked_list<T>& rhs) : dlinked_list() {
+dlinked_list<T>::dlinked_list(const dlinked_list<T>& rhs): dlinked_list() {
 
 	copy_from(rhs);
 }
@@ -227,13 +336,10 @@ dlinked_list<T>::~dlinked_list() {
 	clear();
 }
 
-/* helpers */
-
 template<typename T>
 void dlinked_list<T>::copy_from(const dlinked_list<T>& rhs) {
 
-	if (rhs.empty())
-		return;
+	if (rhs.empty()) return;
 
 	try {
 		//copy head, prev and next are both nullptrs
@@ -253,7 +359,6 @@ void dlinked_list<T>::copy_from(const dlinked_list<T>& rhs) {
 		back_ptr = copier_it;
 
 	} catch (std::bad_alloc&) {
-
 		clear();
 		throw;
 	}
@@ -270,33 +375,10 @@ void dlinked_list<T>::fix_dummy() {
 	if (back_ptr) back_ptr->next_ptr = dummy;
 }
 
-/* interface */
-
-template<typename T>
-void dlinked_list<T>::clear() {
-
-	node* destroyer;
-	// iterating through the elements
-	while (front_ptr != nullptr && front_ptr != dummy) {
-		// remember where the current 'head' is
-		destroyer = front_ptr;
-		// move one step forward
-		front_ptr = front_ptr->next_ptr;
-		// remove the 'old head'
-		delete destroyer;
-	}
-	// zeros all members
-	front_ptr = nullptr;
-	back_ptr = nullptr;
-	cur_size = 0;
-	fix_dummy();
-}
-
 template<typename T>
 void dlinked_list<T>::push_front(const T& el) {
 
 	if (empty()) {
-
 		front_ptr = new node(el);
 		back_ptr = front_ptr;
 		fix_dummy();
@@ -339,7 +421,7 @@ template<typename T>
 const T& dlinked_list<T>::front() const {
 
 	if (empty())
-		throw std::logic_error("the list is empty!");
+		throw std::logic_error("the list is empty");
 
 	return front_ptr->data;
 }
@@ -356,7 +438,7 @@ template<typename T>
 const T& dlinked_list<T>::back() const {
 
 	if (empty())
-		throw std::logic_error("the list is empty!");
+		throw std::logic_error("the list is empty");
 		
 	return back_ptr->data;
 }
@@ -365,7 +447,7 @@ template<typename T>
 void dlinked_list<T>::pop_front() {
 
 	if (empty())
-		throw std::logic_error("the list is empty!");
+		throw std::logic_error("the list is empty");
 	
 	if(cur_size == 1) {
 		clear();
@@ -381,12 +463,11 @@ void dlinked_list<T>::pop_front() {
 	cur_size--;
 }
 
-
 template<typename T>
 void dlinked_list<T>::pop_back() {
 
 	if (empty())
-		throw std::logic_error("the list is empty!");
+		throw std::logic_error("the list is empty");
 	
 	if (cur_size == 1) {
 		clear();
@@ -403,7 +484,6 @@ void dlinked_list<T>::pop_back() {
 	cur_size--;
 	fix_dummy();
 }
-
 
 template<typename T>
 typename dlinked_list<T>::iterator dlinked_list<T>::find(const T& elem) const {
@@ -438,25 +518,30 @@ typename dlinked_list<T>::iterator dlinked_list<T>::
 	++cur_size; 
 	return new_node;
 }
+
 template<typename T>
 typename dlinked_list<T>::iterator dlinked_list<T>::
 	remove(const typename dlinked_list<T>::iterator& it) {
 	
 	if (empty())
-		throw std::logic_error("empty queue!");
+		throw std::logic_error("the list is empty");
 	// there is no element after this iterator
 	if (it == end())
 		return end();
+	//
 	// first element case
 	if (it.node_ptr == front_ptr) {
 		pop_front();
 		return iterator(back_ptr);	
 	}
+	//
 	// last element case
 	if (it.node_ptr == back_ptr) {
 		pop_back();
 		return iterator(back_ptr);
 	}
+	//
+	// general case
 	// link the previous with the next
 	it.node_ptr->prev_ptr->next_ptr = it.node_ptr->next_ptr;
 	// link next with the previous
@@ -465,13 +550,46 @@ typename dlinked_list<T>::iterator dlinked_list<T>::
 	node* res = it.node_ptr->next_ptr;
 	delete it.node_ptr;
 	--cur_size;
+	//
 	return iterator(res);
 }
 
 template<typename T>
-void dlinked_list<T>::print_elems(std::ostream& os) const {
+inline
+bool dlinked_list<T>::empty() const {
 
-	os << "content : ";
+	return cur_size == 0;
+}
+
+template<typename T>
+inline
+size_t dlinked_list<T>::size() const {
+
+	return cur_size;
+}
+
+template<typename T>
+void dlinked_list<T>::clear() {
+
+	node* destroyer;
+	// iterating through the elements
+	while (front_ptr != nullptr && front_ptr != dummy) {
+		// remember where the current 'head' is
+		destroyer = front_ptr;
+		// move one step forward
+		front_ptr = front_ptr->next_ptr;
+		// remove the 'old head'
+		delete destroyer;
+	}
+	// zeros all members
+	front_ptr = nullptr;
+	back_ptr = nullptr;
+	cur_size = 0;
+	fix_dummy();
+}
+
+template<typename T>
+void dlinked_list<T>::print(std::ostream& os) const {
 	
 	if(cur_size == 0) {
 		os << "{}" << std::endl;	
@@ -490,20 +608,5 @@ void dlinked_list<T>::print_elems(std::ostream& os) const {
 		it = it->next_ptr;
 	}
 	os << it->data << " }" << std::endl;
-}
-
-template<typename T>
-inline
-bool dlinked_list<T>::empty() const {
-
-	return cur_size == 0;
-}
-
-
-template<typename T>
-inline
-size_t dlinked_list<T>::size() const {
-
-	return cur_size;
 }
 } // namespace dsa

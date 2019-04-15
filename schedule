@@ -1,0 +1,178 @@
+1. Introduction to the idea of the course,
+   connections with other courses,
+   review of the themes.
+ 
+2. Introduction to algorithms.
+
+- GCD (Euclidean division algorithm )
+- prime number
+- primes less than N (Sieve of Eratosthenes)
+- prime numbers in [a,b]
+- combinatorics : generation of permutations/variations
+-- calculate     
+    (n)
+	( ) = ?
+    (k)	   
+    using Pascal's triangle
+- generation of all possible sums for a natural number
+
+3. Introduction to data structures. Dynamic array.
+
+- time/space complexity
+- big O notation.
+- some familiar functions' growth
+- template container classes
+- vector's realization
+- iterator
+- search in unsorted/sorted
+- time complexity of all operations over vector
+
+4. Linked list.
+
+- all kinds - with one/two links, cyclic
+- realization + iterator
+- comparison with dynamic array
+-stack + static realization
+
+5. Stack / Queue.
+
+- adaptors to vector or linked list
+- applications
+- stack - static/dynamic (on vector/list) realization
+- queue - dynamic/static realization
+- deque, priority queue - general idea
+
+6. Sort / search algorithms.
+
+- properties
+	(stable or not, # of comparisons, # of swaps, adaptive or not)
+	
+- implementation of some basic sorting algorithms:
+	Bubble sort, Selection sort, Insertion sort
+
+- searching algorithms:
+	Linear search, Jump search, Binary search
+
+7. Sorting /part two/.
+
+- advanced sorting algorithms and their implementations:
+	Quick sort, Merge sort, Heap sort 
+- algorithms for sorting a linked list
+	
+- sorting algorithms without comparisons:
+	Counting sort, Bucket sort, Radix sort
+
+- partial sorting 
+* after learning heap sort, we can implement 
+  binary heap and priority queue
+
+8. Trees.
+
+- conception, recursive definitions, applications
+
+- binary search tree + implementation:
+	insert, remove, search, traverse,
+	height, leafs counting
+
+- trees with random count of subtrees
+
+*9. Trees /part two/.
+
+- prefix tree (trie)
+
+- *balanced / ideal balanced trees:
+-- definition, examples : 
+	
+	- Fibonacci's tree, Binary heap
+	
+	- 2-3-4 Tree - idea
+	
+	- Red Black tree - applications +
+	  implementation of Left-Leaning Red Black tree 
+		
+	- AVL tree - idea
+	
+	- B-tree idea, applications
+
+10. Hash functions, hash tables.
+
+- associative data structures + operations complexity
+
+- Hash function, examples:
+	mod(array size),
+	sum of ASCII codes + string's length
+	
+- collision resolution strategies :
+	closed - linear step (Linear probing),
+			square step,
+			multiple hash functions
+				
+	opened - lists for each index (Separate chaining)
+
+- examples, applications
+
+- some notable hash functions :
+   CRC, MD, SHA
+
+11. Graphs.
+
+- representation:
+   list of edges, adjacency matrix(weight),
+   adjacency lists
+   
+- differences, applications
+
+- path searching/traversal:
+	BFS/DFS 
+
+12. Graphs /part two/.
+	
+- Minimal spanning tree algorithms:
+	Prim, Kruskal
+
+13. Graphs /part three/.
+
+- Shortest path problem:
+	-- unweighted graph: BFS
+	-- weighted graph:
+	
+		Dijkstra -> shortest path from "s" to all others
+				/without negative weights/
+				
+		Floyd - Warshall -> shortest path between each pair of vertices     
+		
+		Bellman - Ford -> shortest path from "s" to all others
+						/slower than Dijkstra, but supports negative weights/  
+
+*14. Algorithm classes, examples.
+
+- "Backtracking":
+  -- knight tour
+  -- 8 queens problem
+  -- "branch and bound" method
+
+- "Divide and Conquer": 
+  -- done: ("Quick", "Merge" sort)
+  -- fast pow
+  -- Hanoi towers
+
+- "Dynamic programming":
+  -- done: Prim, Kruskal, Dijkstra
+  -- alan and bob's task
+  -- linear optimization tasks
+
+  
+- "Greedy and heuristic":
+  -- done: Prim and Kruskal (greedy)
+  -- random search
+  -- lectures scheduler  
+  -- modified BFS & DSF:
+     Depth bound search, Iterative deepening
+     Best first search, Beam search, Hill climbing search, A*
+				   
+- "Cryptographic algorithms"
+			   
+- "Compression algorithms": 
+  -- Huffman coding
+
+15. Summary/Recap. Questions. Projects discussion. Best practice guides.

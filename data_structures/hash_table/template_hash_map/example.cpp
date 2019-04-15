@@ -1,16 +1,23 @@
-/*
- * Example usage of our custom dsa::hash_map.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   example.cpp
+ * @author Ivan Filipov
+ * @date   01.2019
+ * @brief  Example usage and test of our custom hash map. 
  */
+
 
 #include <iostream> // std::cout
 #include <string>   // std::string
 #include <cstdlib>  // std::srand(), rand()
 #include <ctime>    // std::time()
+
 #include "hash_map.hpp" // dsa::hash_map
 
+/// test basic interface
 void run_basic_tests() {
 	
 	std::cout << "#### running basic tests ####\n";
@@ -77,12 +84,13 @@ void run_basic_tests() {
 		
 	std::cout << "\ncurrent contain:\n\n";
 	std::vector<student_info> vec_new = s_map.to_vector();
-	for (const student_info& s : vec_new) {
+	for (const student_info& s: vec_new) {
 		std::cout << "{ key: " << s.first << ", value: "
 				  << s.second << " }" << std::endl;
 	}
 }
 
+/// test rehashing
 void run_advanced_tests() {
 	
 	std::cout << "\n\n#### running advanced tests ####\n";
@@ -131,6 +139,7 @@ int main() {
 	
 	/* test basic functionality */
 	run_basic_tests();
+	
 	/* test advanced functionality (rehashing) */
 	run_advanced_tests();
 	

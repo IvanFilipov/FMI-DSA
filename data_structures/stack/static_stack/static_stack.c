@@ -1,11 +1,19 @@
-/*
- * A simple linear data structure - stack. Implementation in plain C, an array adapter.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   static_stack.c
+ * @author Ivan Filipov
+ * @date   10.2018
+ * @brief  A simple linear data structure - stack. 
+ *         Implemented in plain C as an array adapter.
+ * @see https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
  */
-#include <stdio.h>
-#include "static_stack.h"
+ 
+#include <stdio.h> // fprintf()
+
+#include "static_stack.h" // our stack declarations
 
 void stack_init(stack* const context) {
 	
@@ -19,7 +27,6 @@ int stack_is_empty(const stack* const context) {
 	return context->top == 0;
 }
 	
-/* Add new element on the top of the stack */
 void stack_push(stack* const context, data_type el) {
 	
 	if (context->top == MAX_SSIZE)
@@ -28,7 +35,6 @@ void stack_push(stack* const context, data_type el) {
 		context->data[context->top++] = el;
 }
 
-/* Remove the top element, return its value */
 data_type stack_pop(stack* const context) {
 	
 	if (stack_is_empty(context)) {

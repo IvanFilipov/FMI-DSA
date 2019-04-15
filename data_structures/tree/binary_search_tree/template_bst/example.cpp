@@ -1,17 +1,22 @@
-/*
- * Some tests for our custom BST.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   main.cpp
+ * @author Ivan Filipov
+ * @date   02.2019
+ * @brief  Main for example usage
+ *         and running some tests 
+ *         for our custom binary search tree.
  */
 
-#include <iostream>
- 
-#include "tests.h"
+#include <iostream> // std::cout
+
 #include "../../../../utils/student.h"
 #include "bs_tree.hpp"
 
-
+/** Run a fixed tree tests */
 void run_basic_tests() {
 	// create empty tree
 	dsa::bs_tree<dsa::student> tree;
@@ -30,7 +35,7 @@ void run_basic_tests() {
 	
 	std::cout << "\n\nsearching for Ivancho :" << std::endl;
 	try {
-		const dsa::student& s = tree.search({ "Ivancho", 40000 });
+		const dsa::student& s = tree.find({ "Ivancho", 40000 });
 		std::cout << "found! His fn is : " << s.fn << std::endl;
 	} catch (...) {
 		std::cout << "not found!" << std::endl;
@@ -38,7 +43,7 @@ void run_basic_tests() {
 	
 	std::cout << "\n\nsearching for Ivan :" << std::endl;
 	try {
-		const dsa::student& s = tree.search({ "Ivan", 200 });
+		const dsa::student& s = tree.find({ "Ivan", 200 });
 		std::cout << "found! His fn is : " << s.fn << std::endl;
 	} catch (...) {
 		std::cout << "not found!" << std::endl;
@@ -51,4 +56,13 @@ void run_basic_tests() {
 	} catch(...) {}
 	tree.print_sorted_keys(std::cout);
 	std::cout << std::endl;
+}
+
+
+int main() {
+	
+	std::cout << "running basic tests on given binary search tree" << std::endl;
+	run_basic_tests();
+
+	return 0;
 }

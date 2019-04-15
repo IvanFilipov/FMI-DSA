@@ -1,28 +1,39 @@
-/*
- * Some advanced sorting algorithms implemented in plain C. Theory in advanced_sorting.h, implementation details in advanced_sorting.c 
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   advanced_sorting.c
+ * @author Ivan Filipov
+ * @date   12.2019
+ * @brief  The most basic sorting algorithms implemented in plain C.
  *
- * Author : Ivan Filipov	
+ * @see https://en.wikipedia.org/wiki/Sorting_algorithm
+ * @note Theory in advanced_sorting.h, implementation details in advanced_sorting.c 
  */
+ 
 #include <stdlib.h> // malloc(), free()
 #include <string.h> // memcpy()
+
 #include "advanced_sorting.h"
 
 // min max functions
 int max(int x, int y) { return (x > y) ? x : y; }
 int min(int x, int y) { return (x < y) ? x : y; }
 
-// a simple swap function,
-// in C there are no references, so using pointers
-// is the only approach
 void swap(int* f, int* s) {
 	int t = *f;
 	*f = *s;
 	*s = t;
 }
 
-// a "merge" step from the merge sort algorithm
-static void merge(int* arr, size_t left, size_t right) {
+/**
+ * @brief the "merge" step from the merge sort algorithm
+ * @param[in,out] arr: array containing the left and right parts
+ * @param[in] left: number of elements in the left part
+ * @param[in] right: number of elements in the right part
+ */ 
+static void merge(int arr[], size_t left, size_t right) {
 	// additional memory for merging, notice that
 	// only one allocation can be made for a faster running. See at 
 	// https://github.com/semerdzhiev/sdp-samples/blob/master/Sorting/Sorting/Sorting.cpp 
@@ -38,7 +49,7 @@ static void merge(int* arr, size_t left, size_t right) {
 		copy[copy_ind++] = (arr[left_ind] < arr[right_ind]) 
 						    ? arr[left_ind++] 
 						    : arr[right_ind++];
-
+	//
 	// we have elements left in the first half
 	// just copy them in the sorted array 'copy'
 	while (left_ind < left)
@@ -52,17 +63,18 @@ static void merge(int* arr, size_t left, size_t right) {
 	free(copy);
 };
 
-void merge_sort(int* arr, size_t size) {
-	// bottom cases
+void merge_sort(int arr[], size_t size) {
+	// no elements bottom case
 	if (size <= 1 )
 		return;
-
+	// two elements only bottom case
 	if (size == 2) {
 		if (arr[0] > arr[1]) {
 			swap(&arr[0], &arr[1]);
 		}
 		return;
 	}
+	//
 	// determinate middle
 	size_t mid = size / 2;
 	// dividing in two parts
@@ -73,7 +85,7 @@ void merge_sort(int* arr, size_t size) {
 	merge(arr, mid, size - mid);
 }
 
-void quick_sort(int* arr, size_t size) {
+void quick_sort(int arr[], size_t size) {
 	// basic cases
 	if (size <= 1)
 		return;
@@ -90,7 +102,6 @@ void quick_sort(int* arr, size_t size) {
 	// but the easiest to implement and to debug with
 	// int pivot = arr[size / 2];
 	// int pivot = arr[0]; // even easier, but even more lame
-	
 	// better : median-of- three
 	int pivot = max(min(arr[size / 2], arr[size - 1]),
 					min(max(arr[size / 2], arr[size - 1]),
@@ -110,19 +121,24 @@ void quick_sort(int* arr, size_t size) {
 			right--;
 		}
 	}
+	//
 	// recursive calls
 	// sorting left half
 	if (left < size)
 		quick_sort(arr + left, size - left);
-
+	//
 	// sorting right half
 	if (right > 0)
 		quick_sort(arr, right + 1);
 }
 
-// sifts down an element on position 'pos' into 
-// a valid heap (arr)
-static void sift(int* arr, size_t pos, size_t size) {
+/**
+ * @brief sifts down an element in a valid heap
+ * @param[in,out] arr: valid heap, in which to sift
+ * @param[in] pos: possition in the array of the element to be sifted
+ * @param[in] size: total amount of element in the heap
+ */
+static void sift(int arr[], size_t pos, size_t size) {
 	// which is the element we should sift
 	int moved_elem = arr[pos];
 	size_t moved_ind = pos;
@@ -149,7 +165,7 @@ static void sift(int* arr, size_t pos, size_t size) {
 	arr[moved_ind] = moved_elem;
 }
 
-void heap_sort(int* arr, size_t size) {
+void heap_sort(int arr[], size_t size) {
 	// creating a dummy element, for easier implementation h -> h(2*i), h(2*i + 1) 
 	--arr;  // go back one address, now it is dangerous to access arr[0], but we wouldn't 
 	++size; // mark end
@@ -166,5 +182,3 @@ void heap_sort(int* arr, size_t size) {
 		sift(arr, 1, i);
 	}
 }
-
-

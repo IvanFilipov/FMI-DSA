@@ -1,8 +1,12 @@
-/*
- * Example usage of our abstract sorting algorithms.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   example.cpp
+ * @author Ivan Filipov
+ * @date   12.2019
+ * @brief  Example usage of our abstract sorting algorithms.
  */
 
 #include <iostream>   // std::cout
@@ -10,12 +14,13 @@
 
 #include "abstract_sorting.hpp"     // abstract sorting algorithms with STL
 #include "../../../utils/student.h" // class for students
-#include "../../../data_structures/dynamic_array/dynamic_array.hpp" // custom vector
+#include "../../../data_structures/dynamic_array/dynamic_array.hpp" // our custom vector
 
 using namespace dsa; // include name
 // typedef like modern syntax
 using student_vec = dynamic_array<student>;
 
+/// test all abstract sorting implementations on dsa::dynamic_array
 void test_abstract_sorts() {
 	
 	std::cout << "abstract sorting algorithms testing" << std::endl

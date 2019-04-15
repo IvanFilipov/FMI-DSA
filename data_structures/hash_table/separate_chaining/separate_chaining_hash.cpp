@@ -1,11 +1,18 @@
-/*
- * Basic implementation of hash table, using opened hashing strategy -
- * separate chaining. Depends only on our custom dynamic array and custom doubly linked list.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
- */
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
 
+/**
+ * @file   separate_chaining_hash.cpp
+ * @author Ivan Filipov
+ * @date   01.2019
+ * @brief  Basic implementation of hash table, using
+ *         opened hashing (closed address) strategy -
+ *         separate chaining. 
+ *         Depends only on our custom dynamic array and doubly linked list.
+ * @see https://en.wikipedia.org/wiki/Hash_table
+ */
+ 
 #include "separate_chaining_hash.h"
 // include only if debugging is ON
 #if DEBUG_HASH == 1
@@ -37,9 +44,9 @@ void sp_ch_hash_table::rehash() {
 	sp_ch_hash_table new_table(table.size() * 2);
 	
 	// for each chain ...
-	for (dsa::dlinked_list<table_elem>& list : table)
+	for (dsa::dlinked_list<table_elem>& list: table)
 		if (!list.empty())
-			for(table_elem& el : list) // for each of its elements
+			for(table_elem& el: list) // for each of its elements
 				new_table.insert(el.key, el.data); // put it in the new table
 	// which will lead to re-calculating the hash values
 	
@@ -123,4 +130,3 @@ void sp_ch_hash_table::print() {
 	}
 #endif // DEBUG_HASH
 }
-

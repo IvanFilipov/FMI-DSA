@@ -1,18 +1,23 @@
-/*
- * An example usage of our non-comparison sorting implementations. 
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   example.cpp
+ * @author Ivan Filipov
+ * @author Nikolay Babulkov	
+ * @date   12.2019
+ * @brief  An example usage of our non-comparison sorting implementations. 
  */
 
-#include <cstdio>
+#include <cstdio> // std::printf(), std::putchar()
+
 #include "non_comparison_sorting.h"
 
 using std::printf;
 using std::putchar;
 
-// printing array with contain which can be casted to integer
-// usage in std::vector<int>, std::vector<unsigned char>
+/// printing array with contain which can be casted to integer
 template <typename T>
 void print_array(const std::vector<T>& arr) {
 	
@@ -21,6 +26,7 @@ void print_array(const std::vector<T>& arr) {
 	putchar('\n');
 }
 
+/// test counting sort on fixed array
 void test_counting_sort() {
 	
 	std::vector<unsigned char> arr = { 124 ,5 , 11, 2, 6, 7 , 42 , 13 , 88 , 21 ,9 , 8 };
@@ -34,6 +40,7 @@ void test_counting_sort() {
 	print_array(arr);	
 }
 
+/// test MSD radix sort on fixed array of strings
 void test_msd_radix() {
 	
 	std::vector<std::string> given_names = { "pesho", "gosho", "katrin", "jean",
@@ -51,6 +58,7 @@ void test_msd_radix() {
 	putchar('\n');
 }
 
+/// test LSD radix sort on fixed array 
 void test_lsd_radix() {
 	
 	std::vector<int> vec = { 22211, 555, 444, 1223, 1000, 322, 245, 231, 3, 23 };

@@ -1,49 +1,53 @@
-/*
- * Some sorting algorithms, than use NO compare operations.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   non_comparison_sorting.cpp
+ * @author Ivan Filipov
+ * @author Nikolay Babulkov	
+ * @date   12.2019
+ * @brief  Some sorting algorithms, than use NO comparison operations.
  *
- * Authors : Ivan Filipov, Nikolay Babulkov	
+ * @see https://en.wikipedia.org/wiki/Sorting_algorithm#Non-comparison_sorts
+ * @note Theory in non_comparison_sorting.h, implementation details in non_comparison_sorting.cpp 
  */
 
-#include <queue> // std::queue
-#include <array> // std::array
-#include <algorithm> // std::swap(), 
+#include <queue>      // std::queue
+#include <array>      // std::array
+#include <algorithm>  // std::swap(), std::max_element()
+
 #include "non_comparison_sorting.h"
 
 // unsigned chars have values in [0 , 255]  
 const size_t MAX_VAL = 256;
 void counting_sort(std::vector<unsigned char>& arr) {
-
-	//here we will count each number's frequency
-	//int freq[MAX_VAL + 1] = { 0 , };
+	// here we will count each number's frequency
+	// int freq[MAX_VAL + 1] = { 0 , };
 	std::array<unsigned char, MAX_VAL> freq;
 	freq.fill(0);
 	// counting step
 	for (size_t i = 0; i < arr.size(); i++)
 		freq[arr[i]]++;
-
+	//
 	// pushing numbers back into the input array
 	size_t j = 0;
 	for (size_t i = 0; i < MAX_VAL; i++)
 		while (freq[i]--)
 			arr[j++] = i;
+	//
 }
-
-
 
 // English alphabet + '\0' 
 int const ALPHA_COUNT = 27;
-// building kind of radix tree...
-// to sort the strings
+// building kind of radix tree to sort the strings
 // going from the most significant 'digit'/char in our case/ (MSD)
 // because we have a lexicographic sort
-// args : the vector of strings, 
-// low - high cuts a slice in the vector, pos - current position in the strings 
-void msd_strings_radix_sort(std::vector<std::string>& strings, int low, int high, int pos){
+void msd_strings_radix_sort(std::vector<std::string>& strings, int low, int high, int pos) {
 
 	if (high <= low)
 		return;
-	//a queue for each letter and '\0' symbol
+	// a queue for each letter and '\0' symbol
 	std::queue <std::string> buckets[ALPHA_COUNT];
 	// placement index
 	int bucket_ind;
@@ -59,7 +63,6 @@ void msd_strings_radix_sort(std::vector<std::string>& strings, int low, int high
 	for (int j = 0; j < ALPHA_COUNT; ++j) {
 		// put back all strings sorted by first letter
 		while (!buckets[j].empty()) {
-
 			strings[finish_ind++] = buckets[j].front();
 			buckets[j].pop();
 		}

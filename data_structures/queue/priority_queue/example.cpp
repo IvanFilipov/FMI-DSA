@@ -1,18 +1,23 @@
-/*
- * Example usage of custom priority queue.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author    : Gratsiela Gancheva
- * Co-author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   example.cpp
+ * @author Gratsiela Gancheva 
+ * @author Ivan Filipov
+ * @date   10.2018
+ * @brief  Tests and example usage of our custom priority_queue.
  */
 
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include <iostream> // std::cout, std::endl
+#include <cstdlib>  // std::rand, std::srand
+#include <ctime>    // std::time
 
-#include "priority_queue.hpp"
-#include "../../../utils/student.h"
+#include "priority_queue.hpp"       // dsa::priority_queue
+#include "../../../utils/student.h" // dsa::student
 
+/// run test on randomly filled queue
 void run_basic_tests() {
 	// Create queue
 	dsa::priority_queue<int> pqueue;
@@ -30,9 +35,9 @@ void run_basic_tests() {
 	}
 	std::cout << std::endl;
 	 // Insert elements
-	srand(time(NULL));
+	std::srand(std::time(NULL));
 	for (size_t i = 0; i < 10; i++) {
-		int el = rand() % 10;
+		int el = std::rand() % 10;
 		pqueue.push(el);
 		std::cout << "Successful added element: " << el << std::endl;
 	}
@@ -53,6 +58,8 @@ void run_basic_tests() {
 	std::cout << "------------------------" << std::endl;
 }
 
+/// fills a queue with students
+/// @tparam Pqueue: type of priority_queue (elements and compare function)
 template<typename PQueue>
 void feed_with_some_students(PQueue& q) {
 	
@@ -66,6 +73,7 @@ void feed_with_some_students(PQueue& q) {
 	q.push({ "Kalinka", 25000 });
 }
 
+/// run tests with custom comparator
 void run_advanced_tests() {
 	
 	// Create queue with students and custom comparator

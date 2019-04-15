@@ -1,13 +1,18 @@
-/*
- * Example usage of separate chaining hash table.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   example.cpp
+ * @author Ivan Filipov
+ * @date   01.2019
+ * @brief  Example usage and test of our custom separate chaining hash table. 
  */
 
-#include <iostream>
-#include "separate_chaining_hash.h"
-#include "../hash_table_tests.hpp"
+#include <iostream> // std::cout
+
+#include "separate_chaining_hash.h" // sp_ch_hash_table
+#include "../hash_table_tests.hpp"  // run_tests() 
 
 int main() {
 
@@ -19,5 +24,3 @@ int main() {
 
 	return 0;
 }
-
-

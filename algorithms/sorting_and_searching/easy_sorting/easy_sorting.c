@@ -1,17 +1,24 @@
-/*
- * The most basic sorting algorithms implemented in plain C. Theory in easy_sorting.h, implementation details in easy_sorting.c 
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   easy_sorting.c
+ * @author Ivan Filipov
+ * @date   12.2019
+ * @brief  The most basic sorting algorithms implemented in plain C.
  *
- * Author : Ivan Filipov	
+ * @see https://en.wikipedia.org/wiki/Sorting_algorithm
+ * @note Theory in easy_sorting.h, implementation details in easy_sorting.c 
  */
 
 #include <stdbool.h> // C declaration of boolean type
+
 #include "easy_sorting.h"
  
-// a simple swap function,
-// in C there are no references, so using pointers
-// is the only approach
+
 void swap(int* f, int* s) {
+	
 	int t = *f;
 	*f = *s;
 	*s = t;
@@ -22,7 +29,6 @@ void bubble_sort(int arr[], size_t size) {
 	bool change_made = true;
 	// iterating over the whole array, until there weren't any changes
 	for (size_t i = 0; i < size - 1 && change_made; i++) {
-
 		change_made = false; // flip the flag
 		// iterating in the opposite direction, making the lightest element
 		// "bubble" up to the top of sorted part
@@ -41,9 +47,7 @@ void selection_sort(int arr[], size_t size) {
 	size_t index;
 	// iterate through the whole array 
 	for (size_t i = 0; i < size - 1; i++) {
-
 		index = i; // mark the current element as smallest
-
 		for (size_t j = i + 1; j < size; j++) // for the elements in the non-sorted part
 			if (arr[index] > arr[j]) // check if a smaller element than the current smallest is present
 				index = j; // update the smallest element index

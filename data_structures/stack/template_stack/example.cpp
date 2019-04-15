@@ -1,20 +1,27 @@
-/*
- * Example usage of the template stack idea. Some benchmarking, a competition between our data structures vs. STL.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   example.cpp
+ * @author Ivan Filipov
+ * @date   11.2018
+ * @brief  Example usage of the template stack idea.
+ *         Some benchmarking - a competition between our data structures vs. STL.
  */
 
 #include <iostream> // std::cout
 #include <vector>   // std::vector
 #include <list>     // std::list
 #include <stack>    // std::stack
+#include <deque>    // std::deque
 
 #include "../../../utils/benchmark.hpp"                          // our test benchmark lib
 #include "../../dynamic_array/dynamic_array.hpp"                 // our custom vector
 #include "../../linked_list/singly_linked_list/slinked_list.hpp" // our custom singly linked list
 #include "../../linked_list/doubly_linked_list/dlinked_list.hpp" // our custom doubly linked list
 #include "../dynamic_stack/dynamic_stack.hpp"                    // our custom dynamic stack
+#include "../../deque/deque.hpp"                                 // our custom deque
 
 #include "template_stack.hpp" // the template for stack interface with variadic down-laying container 
 
@@ -26,65 +33,63 @@ using std::vector;
 using std::list;
 using std::stack;
 
-const size_t ECOUNT = 10000;
+const size_t ECOUNT = 10000; //!< number of test elements
 
+/** Run a fixed test on a stack with different container */
 template<typename Container>
 void test_stack_adaptor() {
-	
+	// creating a stack on a container
 	t_stack<int, Container> st;
-	
 	// adding elements
 	for (size_t i = 0; i < ECOUNT; i++)
 		st.push(static_cast<int>(i));
-
+	//
 	// make a copy
 	t_stack<int, Container> st2 = st;
 	st2.push(11); // just to be sure that stack2 is used, 
 		             // because the compiler could optimize the code
-	
+	//
 	// check is empty?
 	std::cout << "\nempty " << (st.empty() ? "yes" : "no");
 	std::cout << " | size " << st.size();
-	
+	//
 	unsigned long long sum = 0;
 	// remove elements
 	for (size_t i = ECOUNT; i > 0; i--) {
 		sum += st.peek();
 		st.pop();
 	}
-	
+	//
 	std::cout << " | sum = " << sum << std::endl;
-	
 	//destructor for st and st2
 }
 
+/** Test a plain stack implementation */
 template<typename Stack>
 void test_stack_plain() {
 	
 	Stack st;
-	
 	// adding elements
 	for (size_t i = 0; i < ECOUNT; i++)
 		st.push(static_cast<int>(i));
-
+	//
 	// make a copy
 	Stack st2 = st;
 	st2.push(11); // just to be sure that stack2 is used, 
-		             // because the compiler could optimize the code
-	
+				  // because the compiler could optimize the code
+	//
 	// check is empty?
 	std::cout << "\nempty " << (st.empty() ? "yes" : "no");
 	std::cout << " | size " << st.size();
-	
+	//
 	unsigned long long sum = 0;
 	// remove elements
 	for (size_t i = ECOUNT; i > 0; i--) {
 		sum += st.top();
 		st.pop();
 	}
-	
+	//
 	std::cout << " | sum = " << sum << std::endl;
-	
 	//destructor for st and st2
 }
 
@@ -105,6 +110,12 @@ int main() {
 	
 	/* test operations with our custom doubly linked list */
 	benchmark_test_fnc(test_stack_adaptor<dlinked_list<int>>, T_FORMAT::F_MILLI, "implementation on dsa::dlinked_list");
+	
+	/* test operations with std::deque */
+	benchmark_test_fnc(test_stack_adaptor<std::deque<int>>, T_FORMAT::F_MILLI, "implementation on std::deque");
+	
+	/* test operations with our custom deque */
+	benchmark_test_fnc(test_stack_adaptor<dsa::deque<int>>, T_FORMAT::F_MILLI, "implementation on dsa::deque");
 	
 	/* test operations with std::stack */
 	benchmark_test_fnc(test_stack_plain<stack<int>>, T_FORMAT::F_MILLI, "implementation on std::stack");

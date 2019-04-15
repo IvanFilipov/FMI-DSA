@@ -1,8 +1,15 @@
-/*
- * Creating minimal spanning tree from a graph, using Prim's algorithm.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   prim_mst.cpp
+ * @author Nikolay Babulkov
+ * @author Ivan Filipov
+ * @date   01.2019
+ * @brief  Creating minimal spanning tree from a graph, using Prim's algorithm.
  *
- * Author : Nikolay Babulkov, Ivan Filipov	
+ * @see https://en.wikipedia.org/wiki/Prim%27s_algorithm
  */
 
 #include <cstdio> // std::printf()
@@ -15,18 +22,21 @@
 
 using std::printf;
 
-// vertices are characters
+/// vertices are characters
 typedef char vertex;
-// weights are numbers
+/// weights are numbers
 typedef int weight;
-// each edge is a tuple s_vertex : e_vertex : weight
+/// each edge is a tuple s_vertex : e_vertex : weight
 using edge = std::tuple<vertex, vertex, weight>; 
-// for each vertex we will have a list of it's edges to children
+/// for each vertex we will have a list of it's edges to children
 using children_list = std::vector<edge>;
-// the graph is represented as a lists of adjacent for each vertex
+/// the graph is represented as a lists of adjacent for each vertex
 using graph = std::unordered_map<vertex, children_list>;
 
-// creates a graph
+/**
+ * @brief Creates a graph with some edges.
+ * @retval the created graph
+ */
 graph init_graph() {
 	
 	edge a2b('a', 'b' ,9),
@@ -48,12 +58,15 @@ graph init_graph() {
 	return g; 
 }
 
-// simply output a graphs contain
+/**
+ * @brief simply output a graphs contain
+ * @param[in] G: graph to be outputted
+ */
 void print_graph(const graph& G) {
 	
 	for (const std::pair<vertex, children_list>& v_child : G) {
 		printf("from '%c' to : { ", v_child.first);
-		for (const edge& e : v_child.second)
+		for (const edge& e: v_child.second)
 			printf("(%c, %d) ", std::get<1>(e), std::get<2>(e));
 		printf("}\n");
 	}
@@ -61,14 +74,25 @@ void print_graph(const graph& G) {
 	printf("\n\n");
 }
 
-// is a given vertex already in the MST
+/**
+ * @brief Checks if a given vertex is already in the MST.
+ * @param[in] v: vertex to be checked 
+ * @param[in] m: current MST
+ * @retval true if the vertex is in the MST.
+ */
 bool is_in_mst(const vertex& v, const std::unordered_set<vertex>& m) {
 	
 	return m.find(v) != m.end(); 
 }
 
-// gets current smallest weight to vertex.
-// if the vertex is not visited, returns INT_MAX (c++ equivalent of +infinity).
+/**
+ * @brief Gets current smallest weight cost to vertex.
+ * @param[in] v: vertex to be checked 
+ * @param[in] cost: current known costs
+ * @retval current best known weight
+ *
+ * @note if the vertex is not visited, returns INT_MAX (c++ equivalent of +infinity).
+ */
 weight get_weight(const vertex& v, const std::unordered_map<vertex, weight>& cost) {
 	
 	if (cost.find(v) == cost.end()) 
@@ -77,14 +101,25 @@ weight get_weight(const vertex& v, const std::unordered_map<vertex, weight>& cos
 		return cost.find(v)->second;
 }
 
-// compares two edges by their weight
+/**
+ * @brief compares two edges by their weight
+ * @param[in] e1: lhs edge
+ * @param[in] e2: rhs edge
+ * @retval true if e1 is heavier than e2
+ */
 auto edge_cmp = [](const edge& e1, const edge& e2) {
 
 	return (std::get<2>(e1) > std::get<2>(e2));
 };
 
+/**
+ * @brief Creates an minimal spanning tree for a graph.
+ * @param[in] G: input graph
+ * @param[in] v_begin: starting vertex
+ * @retval the MST for that graph
+ */ 
 // uses v_begin as starting vertex
-graph build_prim_mst(graph& G, vertex v_begin) {
+graph build_prim_mst(const graph& G, vertex v_begin) {
 	// the result
 	graph mst;
 	// a set containing all vertices already added into the MST
@@ -113,7 +148,8 @@ graph build_prim_mst(graph& G, vertex v_begin) {
 				mst[parent_v].push_back(cur_edge);
 		}
 		// iterating over the children_list of the current vertex
-		for (const edge& e : G[cur_v]) {
+		const children_list& adj = G.find(cur_v)->second;
+		for (const edge& e: adj) {
 			// get the vertex and edge's cost
 			vertex child = std::get<1>(e);
 			weight w     = std::get<2>(e);

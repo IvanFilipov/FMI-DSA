@@ -1,8 +1,14 @@
-/*
- * Finding the shortest path from starting vertex to all others, using Dijkstra's algorithm.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   dijkstra_spp.cpp
+ * @author Ivan Filipov
+ * @date   01.2019
+ * @brief  Finding the shortest path from starting vertex to all others, using Dijkstra's algorithm.
  *
- * Author : Ivan Filipov	
+ * @see https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
  */
 
 #include <cstdio> // std::printf()
@@ -12,26 +18,29 @@
 #include <limits> // std::numeric_limits
 #include <unordered_map> // std::unordered_map
 
-// all possible values for vertices
+/// maximum possible value for a vertex
 const unsigned int MAX_VER_VAL = 26;
-// mark for unknown vertex's parent
+/// marker for unknown vertex's parent
 const char NO_PARENT = '?';
-// mark for unreachable vertex
+/// marker for unreachable vertex
 const unsigned int MAX_DISTANCE = std::numeric_limits<unsigned int>::max();
-// vertices are characters
+/// vertices are characters
 typedef char vertex;
 //!< weights are natural numbers
 typedef unsigned int weight;
-// each edge is a pair - vertex (to) : weight
+/// each edge is a pair - vertex (to) : weight
 using edge  = std::pair<vertex, weight>;
-// the graph is represented as a lists of adjacent for each vertex
+/// the graph is represented as a lists of adjacent for each vertex
 using graph = std::unordered_map<vertex, std::vector<edge>>;
-// parent list contains at index i, which is the parent of vertex i
+/// parent list contains at index i, which is the parent of vertex i
 using parent_list     = std::array<vertex, MAX_VER_VAL + 1>;
-// distance vector contains at index i, what is the distance to it
+/// distance vector contains at index i, what is the distance to it
 using distance_vector = std::array<weight, MAX_VER_VAL + 1>;
 
-// creates a graph with some edges
+/**
+ * @brief Creates a graph with some edges.
+ * @retval the created graph
+ */
 graph init_graph() {
 	
 	graph G;
@@ -49,8 +58,12 @@ graph init_graph() {
 	return G;
 }
 
-// recursively prints the path from @v_start, to @v_end, using the
-// parent list @pl
+/**
+ * @brief Recursively prints the path between two vertices.
+ * @param[in] v_start: vertex "from"
+ * @param[in] v_end: vertex "to"
+ * @param[in] pl: list of parents for each vertex
+ */
 void print_path_rec(vertex v_start, vertex v_end, const parent_list& pl) {
 	// until we reach the starting vertex
 	if (pl[v_end - 'A'] != v_start) {
@@ -61,11 +74,12 @@ void print_path_rec(vertex v_start, vertex v_end, const parent_list& pl) {
 	std::printf("->%c", v_end);
 }
 
-// prints the info about all paths in a graph
-// from starting vertex @v_begin, after
-// running Dijkstra's algorithm with output in
-// parent list @pl and distance_vector @dv
-//!< Time complexity : O((m + n)logn) -> (with many edges) O(mlogn)
+/**
+ * @brief Prints the info about all paths in a graph.
+ * @param[in] v_begin: starting vertex
+ * @param[in] pl: parent list (outputted from Dijkstra's algorithm)
+ * @param[in] distance_vector: distances between vertices (outputted from Dijkstra's algorithm)
+ */
 void print_paths_info(vertex v_begin, const parent_list& pl, const distance_vector& dv) {
 	// for each vertex
 	for (size_t i = 0; i < dv.size() - 1; i++) {
@@ -85,16 +99,26 @@ void print_paths_info(vertex v_begin, const parent_list& pl, const distance_vect
 	}	
 }
 
-// compares two edges @e1 and @e2 by their weight
+/**
+ * @brief compares two edges by their weight
+ * @param[in] e1: lhs edge
+ * @param[in] e2: rhs edge
+ * @retval true if e1 is heavier than e2
+ */
 auto edge_cmp = [](const edge& e1, const edge& e2) -> bool {
 
 	return e1.second > e2.second;
 };
 
-// runs Dijkstra's algorithm in graph @G,
-// starting from vertex               @v_begin
-// writes parent for each vertex in   @pl
-// writes distance to each vertex in  @dv
+/**
+ * @brief Runs Dijkstra's algorithm in graph.
+ * @param[in] G: input graph
+ * @param[in] v_begin: starting from that vertex 
+ * @param[out] pl: a list in which a parent for each vertex will be written
+ * @param[out] dv: where distance to each vertex will be outputted
+ *
+ * @note Time complexity : O((m + n)logn) -> (with many edges) O(mlogn)
+ */
 void dijkstra_shortest_paths(graph& G, vertex v_begin, parent_list& pl, distance_vector& dv) {
 	// mark each vertex's parent as unknown
 	pl.fill(NO_PARENT);
@@ -127,7 +151,7 @@ void dijkstra_shortest_paths(graph& G, vertex v_begin, parent_list& pl, distance
 		if (it == G.end())
 			continue;
 		// for each edge starting from the current vertex
-		for (const edge & adj : it->second) {
+		for (const edge& adj: it->second) {
 			// if we are not done with this child
 			if (!done[adj.first - 'A']) {
 				// trying to optimize

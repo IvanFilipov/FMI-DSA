@@ -1,43 +1,61 @@
-/*
- * Simply traversing a maze using depth first search strategy.
- * Searching a path between two cells - from (0, 0) to (ROWS - 1, COLS - 1). Written in plain C.
- * Nicely animated in the console.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
- */
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
 
+/**
+ * @file   dfs_maze.c
+ * @author Ivan Filipov
+ * @date   01.2019
+ * @brief  Simply traversing a maze using depth first search strategy.
+ *
+ * @see https://en.wikipedia.org/wiki/Depth-first_search
+ *
+ * Searching a path between two cells - from (0, 0) to (ROWS - 1, COLS - 1). 
+ * Nicely animated in the console.
+ *
+ * @note Written in plain C.
+ */
+ 
 #include <stdio.h>   // printf()
 #include <stdlib.h>  // rand(), srand()
 #include <time.h>    // time()
 #include <stdbool.h> // bool 
 
-// some constants for easier cell recognition
-#define LAVA   -2 // lava
-#define UNVGND -1 // unvisited ground
-#define VGND    4 // visited by not in the path
-#define REACHED_TARGET 5
-// some characters for beautiful output
+//@{ 
+/// some constants for easier cell recognition
+#define LAVA   -2 //!< lava
+#define UNVGND -1 //!< unvisited ground
+#define VGND    4 //!< visited by not in the path
+#define REACHED_TARGET 5 //!< marker for reached target
+//@}
+
+//@{ 
+/// some characters for beautiful output
 #define LAVA_SYM '#'
 #define FINISH_SYM '$'
 #define UNVGND_SYM ' '
 #define VGND_SYM   '-'
+//@}
 
-// the maze itself
-#define ROWS 4
+/// maze rows count
+#define ROWS 4 
+/// maze columns count
 #define COLS 4
+/// the maze itself
 int maze[ROWS][COLS];
 
-// directions
-#define N_DIR 4 // number of directions
-// difference by x and y
+/// number of directions
+#define N_DIR 4 
+//@{
+/// difference by x and y for each direction
 int diff_x[] = { 0, 1,  0, -1 };
 int diff_y[] = { 1, 0, -1,  0 };
 char dir_sym[] = { '>', 'v', '<', '^' };
+//@}
 
-// initialize maze's cells
-// with 66% change -> available cell (UNVGND)
-// with 33% change -> unavailable cell (LAVA)
+/// initialize maze's cells
+/// with 66% change -> available cell (UNVGND)
+/// with 33% change -> unavailable cell (LAVA)
 void init_maze() {
 
 	for (size_t i = 0; i < ROWS; i++)
@@ -47,8 +65,8 @@ void init_maze() {
 	maze[ROWS - 1][COLS - 1] = UNVGND;
 }
 
-// simple delay function in C - style
-// used to set delay between printing each step
+/// simple delay function in C - style
+/// used to set delay between printing each step
 void delay(unsigned secs) {
 
 	time_t ret_time = time(NULL) + secs;   
@@ -57,6 +75,7 @@ void delay(unsigned secs) {
 		;               
 }
 
+/// simply outputs the maze content
 void print_maze() {
 
 	for (size_t i = 0; i < ROWS; i++) {
@@ -79,7 +98,7 @@ void print_maze() {
 	delay(1);
 }
 
-// checks if a point is in the maze or outside
+/// checks if a point is in the maze or outside
 bool is_valid(int x, int y){
 
 	if (x < 0 || y < 0)
@@ -91,6 +110,12 @@ bool is_valid(int x, int y){
 	return true;
 }
 
+/**
+ * @brief Runs recursively DFS into the generated maze.
+ * @param[in] x: current x coordinate
+ * @param[in] y: current y coordinate
+ * @param[in] dir: from which direction we are coming
+ */
 bool dfs_find(size_t x , size_t y, int dir) {
 
 	// checks if we have reached the target

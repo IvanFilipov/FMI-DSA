@@ -1,9 +1,17 @@
-/*
- * Basic implementation of hash table, using closed hashing (opened address) strategy -
- * linear probing. Depends only on our custom dynamic array.
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   linear_probing_hash.cpp
+ * @author Ivan Filipov
+ * @date   01.2019
+ * @brief  Basic implementation of hash table, using
+ *         closed hashing (opened address) strategy -
+ *         linear probing. 
+ *         Depends only on our custom dynamic array.
+ * @see https://en.wikipedia.org/wiki/Hash_table
+ * @see https://en.wikipedia.org/wiki/Open_addressing
  */
 
 #include "linear_probing_hash.h"
@@ -20,11 +28,10 @@ size_t lin_pr_hash_table::hash_func(const key_type& key, const size_t size) {
 	// get the size of the string
 	size_t result = key.size();
 	// add the ASCII code for each character
-	for (unsigned char c : key)
+	for (unsigned char c: key)
 		result += c;
 
 	// return result % size;
-	
 	// but better in case the SIZE is a power of 2
 	return result & (size - 1);
 }
@@ -39,14 +46,14 @@ void lin_pr_hash_table::rehash() {
 	lin_pr_hash_table new_table(table.size() * 2);
 	
 	// for each element form the old table ...
-	for (const table_elem& el : table) {
+	for (const table_elem& el: table) {
 		if (el.key != "")
 			new_table.insert(el.key, el.data); // put it in the new table
 		// which will lead to re-calculating the hash values
 	} 
 	// for O(1) swaps the tables
 	new_table.table.swap_with(table); 
-	// now our table has the new elements, the old contain,
+	// now our table has the new elements, the old content,
 	// will be freed in the destructor of new_table
 #if DEBUG_HASH == 1
 	std::cout << ".............\n";
@@ -67,7 +74,7 @@ void lin_pr_hash_table::insert(const key_type& key, const data_type& data) {
 	// skip all taken cells
 	while (table[index].key != "" && --trys) {
 		if (table[index].key == key)  // handling same keys
-			throw std::logic_error("this key is taken!");
+			throw std::logic_error("this key is taken");
 		index = (index + STEP) % table.size(); // taking by mod(size) means, make cycles
 	}
 	//successfully found a free position
@@ -94,7 +101,7 @@ data_type lin_pr_hash_table::get(const key_type& key) const {
 	if (table[index].key == key)
 		return table[index].data;
 	// not found
-	throw std::logic_error("there isn't element with such key\n");
+	throw std::logic_error("there isn't element with such key");
 }
 
 void lin_pr_hash_table::erase(const key_type& key) {
@@ -108,7 +115,7 @@ void lin_pr_hash_table::erase(const key_type& key) {
 		index = (index + STEP) % table.size();
 	// not found
 	if (table[index].key != key)
-		throw std::logic_error("there isn't element with such key\n");
+		throw std::logic_error("there isn't element with such key");
 
 	// at "index" there is the wanted element, we need to make him
 	// the last element in the "clustered" elements

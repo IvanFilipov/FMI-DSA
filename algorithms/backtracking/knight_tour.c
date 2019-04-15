@@ -24,9 +24,11 @@
 /// the chess board represented as matrix
 unsigned int board[BOARD_MAX_SIZE][BOARD_MAX_SIZE];
 
-/// x + diff_x[i], y + diff_y[i] defines the all reachable positions from x, y
+//@{
+/** x + diff_x[i], y + diff_y[i] defines the all reachable positions from x, y */
 int const diff_x[N_MOVERULES] = { 1, 1, -1, -1, 2, -2, 2, -2 };
 int const diff_y[N_MOVERULES] = { 2, -2, 2, -2, 1, 1, -1, -1 };
+//@}
 
 /* function definitions */
 /**

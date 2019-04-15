@@ -1,24 +1,35 @@
-/*
- * An example usage of our searching implementations. 
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
+
+/**
+ * @file   example.c
+ * @author Ivan Filipov
+ * @date   12.2019
+ * @brief  Some tests and usage examples for our
+ *         searching algorithms implementations.
  *
- * Author : Ivan Filipov	
+ * @see https://en.wikipedia.org/wiki/Search_algorithm
+ * @note Theory in searching_algorithms.h, implementation details in searching_algorithms.c 
  */
  
 #include <stdio.h>  // printf()
 #include <stdlib.h> // qsort()
 #include <math.h>   // sqrt()
+
 #include "search_algorithms.h"
 
-#define ARR_SIZE 12
+#define ARR_SIZE 12 //!< how many elements are there
 
-void print_arr(int* arr, size_t size) {
+/// simply output an array's content
+void print_arr(int arr[], size_t size) {
 
 	for (size_t i = 0; i < size; i++)
 		printf("%d ", arr[i]);
 
 	printf("\n\n");
 }
+
 // ugly syntax function for qsort
 int cmp(const void* x, const void* y) {
 	

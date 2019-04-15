@@ -1,10 +1,14 @@
-/*
- * An example about usage of comparator function with sorting algorithms. C++ style. 
- * This file is part of the "Data structures and algorithms" course. FMI 2018/19
- *
- * Author : Ivan Filipov	
- */
+/*******************************************************************************
+ * This file is part of the "Data structures and algorithms" course. FMI 2018/19 
+ *******************************************************************************/
 
+/**
+ * @file   c++_style_comparator.cpp
+ * @author Ivan Filipov
+ * @date   12.2019
+ * @brief  An example about usage of comparator function with sorting algorithms. C++ style. 
+ */
+ 
 #include <iostream>   // std::cout
 #include <algorithm>  // std::swap
 #include <functional> // std::grater, std::less
@@ -17,19 +21,32 @@ using dsa::student; // include name
 // typedef like modern syntax
 using student_vec = dsa::dynamic_array<student>;
 
-// how a sorting algorithm for sorting dynamic_array could look like :
+/**
+ * @brief insertion sort
+ * @param[in] arr: array to be sorted
+ * @param[in] cmp: comparator to be used
+ * @tparam Comparator: type of comparator
+ */ 
 template <typename Comparator>
 void insertion_sort(student_vec& arr, Comparator cmp) {
 	
 	int size = arr.size();
 	for (int i = 1; i < size; i++)
 		for (int j = i; j > 0; j--)
-			if (cmp(arr[j], arr[j - 1])) // slight difference is here
+			if (cmp(arr[j], arr[j - 1])) // the slight difference is here
 				std::swap(arr[j] , arr[j - 1]);
 }
 
-// STL like sorting function, random - access iterator is needed
-// even better abstraction above the data
+/**
+ * @brief STL like insertion sort
+ * @param[in] being: iterator to the beginning of the set
+ * @param[in] iterator to the end of the set
+ * @param[in] cmp: comparator to be used
+ * @tparam Iterator: type of iterator - should provide random access 
+ * @tparam Comparator: type of comparator
+ *
+ * @note using iterators a even better abstraction above the raw data is achieved.
+ */
 template <typename Iterator, typename Comparator>
 void insertion_sort_iter(Iterator begin, Iterator end, Comparator cmp) {
 	
@@ -39,11 +56,13 @@ void insertion_sort_iter(Iterator begin, Iterator end, Comparator cmp) {
 				std::swap(*j , *(j - 1));
 }
 
+/// simple compare function for two students
 bool old_style_cmp(const student& lhs, const student& rhs) {
 	
 	return lhs.fn < rhs.fn;
 }
 
+/// test function for @see insertion_sort()
 void test_template_comparator() {
 	
 	std::cout << "template comparator testing" << std::endl
@@ -82,6 +101,7 @@ void test_template_comparator() {
 		      << std::endl;
 }
 
+/// test function for @see insertion_sort_iter()
 void test_template_cmp_iter() {
 	
 	std::cout << "template comparator and iterator testing" << std::endl
