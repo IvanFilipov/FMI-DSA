@@ -47,8 +47,7 @@ void solve() {
 	// the closest sum to sum_total / 2 is the searched one
 	for (size_t i = sum_total / 2; i + 1 > 0; i--)
 		if (is_sum_possible[i]) {
-			printf("sum for Alan %u, sum for Bob %llu", i, sum_total - i);
-			printf("\n");
+			printf("sum for Alan %u, sum for Bob %llu\n", i, sum_total - i);
 			return;
 		}
 }
