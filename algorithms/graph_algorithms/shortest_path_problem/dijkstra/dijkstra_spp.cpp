@@ -83,7 +83,7 @@ void print_path_rec(vertex v_start, vertex v_end, const parent_list& pl) {
 void print_paths_info(vertex v_begin, const parent_list& pl, const distance_vector& dv) {
 	// for each vertex
 	for (size_t i = 0; i < dv.size() - 1; i++) {
-		std::printf("path between %c and %c :", v_begin, 'A' + i);
+		std::printf("path between %c and %c: ", v_begin, (char)('A' + i));
 		// check if there is a path
 		if (dv[i] == MAX_DISTANCE)
 			std::printf("no such path!\n");
