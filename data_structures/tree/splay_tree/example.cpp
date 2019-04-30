@@ -14,7 +14,7 @@
 #include <iostream> // std::cout
 
 #include "../../../utils/student.h"
-#include "splay_tree.h"
+#include "splay_tree.hpp"
 
 /** Run a fixed tree tests */
 void run_basic_tests() {
