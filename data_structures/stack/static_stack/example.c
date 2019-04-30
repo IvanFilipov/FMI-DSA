@@ -19,10 +19,10 @@
 
 int main() {
 	// create the stack
-	stack s = {};
-	/* alternative :
 	stack s;
 	stack_init(&s);
+	/* alternative :
+	stack s = {};
 	*/
 	// push some elements
 	data_type el;
