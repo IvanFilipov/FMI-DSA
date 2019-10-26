@@ -36,8 +36,8 @@ Some examples and source code during the DSA (data structures and algorithms)
          "Combinatorics", "Backtracking", "Divide and conquer", "Dynamic programming"  
          and more detailed of "Sorting", "Searching" и "Graph algorithms"
 
-   * `/data_structures/` - implementations for all basic data structures : 
-         "Dynamic array", "Linked list", "Stack",  
+   * `/data_structures/` - implementations for all basic data structures -  
+         "Dynamic array", "Linked list", "Stack",<br>
          "Queue", "Trees", "Hash tables"
 
    * `/recap/` - some materials to review the learned during IP and OOP
