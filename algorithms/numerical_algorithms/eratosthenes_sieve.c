@@ -40,9 +40,9 @@ void print_primes() {
 /// mark with COMPOSITE all numbers which have this number as a multiplier  
 void eratosthenes_sieve() {
 
-	for (ull_int i = 2; i <= N; i++)
+	for (ull_int i = 2; i < N; i++)
 		if (sieve[i] == PRIME)
-			for (ull_int j = i * i; j <= N; j += i) // the start value and the step are important
+			for (ull_int j = i * i; j < N; j += i) // the start value and the step are important
 				sieve[j] = COMPOSITE;
 
 	print_primes();
