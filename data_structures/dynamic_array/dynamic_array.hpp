@@ -446,16 +446,16 @@ typename dynamic_array<T>::iterator dynamic_array<T>::
 	if (left > right)
 		return cend();
 
-	int med = (left + right) / 2;
+	int mid = left + (right - left) / 2;
 
-	if (data_ptr[med] == el)
-		return iterator(data_ptr + med);
+	if (data_ptr[mid] == el)
+		return iterator(data_ptr + mid);
 
-	if (data_ptr[med] > el)
-		return binary_search(el, left, med - 1);
+	if (data_ptr[mid] > el)
+		return binary_search(el, left, mid - 1);
 
-	if (data_ptr[med] < el)
-		return binary_search(el, med + 1, right);
+	if (data_ptr[mid] < el)
+		return binary_search(el, mid + 1, right);
 		
 	// won't reach this line, but added just to stop compiler's complaining
 	return cend();
@@ -633,7 +633,7 @@ template<typename T>
 typename dynamic_array<T>::iterator dynamic_array<T>::find(const T& el, bool is_sorted) const {
 
 	if (is_sorted)
-		return binary_search(el, 0, cur_size); // O(logN)
+		return binary_search(el, 0, (int)cur_size - 1); // O(logN)
 	
 	return linear_search(el); // O(N)
 }
