@@ -33,28 +33,28 @@ int linear_search(int arr[], size_t size, int elem) {
  * @param[in] elem: element to be searched
  * @note in each call only [L; R] interval of the array is used.
  */
-static int binary_search_rec(int arr[], int L, int R, int elem) {
+static int binary_search_rec(int arr[], int left, int right, int elem) {
 	//there is no such element
-	if (L > R)
+	if (left > right)
 		return -1;
 	//
 	// calculate the middle index
 	// int med = (L + R) / 2; // <- a bug source, because L + R can easily overflow
 	// solution is
-	int med = L + (R - L) / 2;
+	int mid = left + (right - left) / 2;
 	// or even better int med = L + (((unsigned int)R - (unsigned int)L) >> 1);
 	//
 	// is the search element on that index?
-	if (arr[med] == elem)
-		return med;
+	if (arr[mid] == elem)
+		return mid;
 	//
 	// grater than the middle element -> search in right
-	if (arr[med] > elem)
-		return binary_search_rec(arr, L, med - 1, elem);
+	if (arr[mid] > elem)
+		return binary_search_rec(arr, left, mid - 1, elem);
 	//
 	// less than the middle element -> search in the left
-	if (arr[med] < elem)
-		return binary_search_rec(arr, med + 1, R, elem);
+	if (arr[mid] < elem)
+		return binary_search_rec(arr, mid + 1, right, elem);
 	//
 	// won't reach here
 	return -1;
@@ -62,7 +62,7 @@ static int binary_search_rec(int arr[], int L, int R, int elem) {
 
 int binary_search(int arr[], size_t size, int elem) {
 	// binary search wrapper
-	return binary_search_rec(arr, 0, size, elem);
+	return binary_search_rec(arr, 0, (int)size - 1, elem);
 }
 
 /**
