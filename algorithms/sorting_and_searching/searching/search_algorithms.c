@@ -28,8 +28,8 @@ int linear_search(int arr[], size_t size, int elem) {
 /**
  * @brief binary search recursive helper
  * @param[in] arr: array in which to search
- * @param[in] L: index of the left border
- * @param[in] R: index of the right border
+ * @param[in] left: index of the left border
+ * @param[in] right: index of the right border
  * @param[in] elem: element to be searched
  * @note in each call only [L; R] interval of the array is used.
  */
