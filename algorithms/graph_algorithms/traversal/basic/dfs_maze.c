@@ -54,8 +54,8 @@ char dir_sym[] = { '>', 'v', '<', '^' };
 //@}
 
 /// initialize maze's cells
-/// with 66% change -> available cell (UNVGND)
-/// with 33% change -> unavailable cell (LAVA)
+/// with 66% chance -> available cell (UNVGND)
+/// with 33% chance -> unavailable cell (LAVA)
 void init_maze() {
 
 	for (size_t i = 0; i < ROWS; i++)
@@ -99,7 +99,7 @@ void print_maze() {
 }
 
 /// checks if a point is in the maze or outside
-bool is_valid(int x, int y){
+bool is_valid(int x, int y) {
 
 	if (x < 0 || y < 0)
 		return false;
